@@ -2,7 +2,7 @@ import React from 'react'
 
 const SecurityDashboard = () => {
   return (
-    <div>Security Dashboard</div>
+    <div className=''>Security Dashboard</div>
   )
 }
 

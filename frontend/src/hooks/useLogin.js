@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { loginUser } from "../services/api";
-import API from "../services/api";
 import { useAuthContext } from "./useAuthContext";
 
-export const useLogin = async () => {
+export const useLogin = () => {
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState(null);
    const { dispatch } = useAuthContext()
@@ -13,15 +12,17 @@ export const useLogin = async () => {
       setError(null)
 
       try {
-         const result = await API.loginUser(email, password);
+         const result = await loginUser({email, password});
          if(result.success) {
             localStorage.setItem('user', JSON.stringify(result));
 
             dispatch({type: 'LOGIN', payload: result})
          }
-         setLoading(false);
+         
       } catch (error) {
-         setError(error.response?.data?.message || 'INternal server error !!');
+         setError(error.response?.data?.message || 'Internal server error !!');
+      }finally{
+         setLoading(false)
       }
    }
    return {login, loading, error};

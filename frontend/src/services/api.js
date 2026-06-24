@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({baseURL: import.meta.env.BASE_URL})
+const API = axios.create({baseURL: import.meta.env.VITE_SERVER_URL})
 
 API.interceptors.request.use((config) => {
    const user = JSON.parse(localStorage.getItem('user'));

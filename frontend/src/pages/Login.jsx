@@ -11,7 +11,6 @@ const Login = () => {
 
    const { login, loading, error } = useLogin();
    const { user } = useAuthContext()
-
    const navigate = useNavigate();
 
    const handleSubmit = async (e) => {
@@ -22,13 +21,16 @@ const Login = () => {
 
    useEffect(() => {
       if (user?.role === 'admin') {
-         navigate('/admin')
-      } else if (user?.role === 'employee') {
-         navigate('/employee')
+         navigate('/admin');
       }
-      else if (user?.role === 'security') {
-         navigate('/security')
+      else if(user?.role === 'employee') {
+         navigate('/employee');
       }
+      else if(user?.role === 'security') {
+         navigate('/security');
+      }// else{
+      //    navigate('/');
+      // }
    }, [user, navigate])
 
    return (
@@ -41,14 +43,15 @@ const Login = () => {
                type="text"
                value={email}
                onChange={(e) => setEmail(e.target.value)}
-               className=''
-            />
+               className='border rounded-md'
+            /><br />
+            <label>Password <sup>*</sup></label>
             <input
                type={show ? "text" : 'password'}
                value={password}
                onChange={(e) => setPassword(e.target.value)}
-               className=''
-            />
+               className='border rounded-md'
+            /><br />
             <button
                type='submit'
                disabled={loading}

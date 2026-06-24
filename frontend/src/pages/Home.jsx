@@ -1,8 +1,17 @@
 import React from 'react'
+import { Link, Navigate } from 'react-router-dom'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const Home = () => {
+  const {user} = useAuthContext();
+
+  if(user?.role === 'admin') return <Navigate to='/admin'/>
+  if(user?.role === 'security') return <Navigate to='/security'/>
+  if(user?.role === 'employee') return <Navigate to='/employee'/>
   return (
-    <div>This is Home Page</div>
+    <div>
+      <h2>This is Home Page</h2>
+    </div>
   )
 }
 
