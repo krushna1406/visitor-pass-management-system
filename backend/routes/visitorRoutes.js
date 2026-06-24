@@ -1,13 +1,14 @@
 const router = require('express').Router();
-const {getVisitors, getVisitor, createVisitor, updateVisitor, deleteVisitor, updateVisitorStatus, checkInVisitor, checkOutVisitor} = require('../controllers/visitorController')
+const { getVisitors, getVisitor, createVisitor, updateVisitor, deleteVisitor, updateVisitorStatus, checkInVisitor, checkOutVisitor } = require('../controllers/visitorController')
 const requireAuth = require('../middleware/requireAuth');
-const {requireAdmin, requireEmployee, requireSecurity} = require('../middleware/requireRole');
+const { requireAdmin, requireEmployee, requireSecurity } = require('../middleware/requireRole');
+
+router.post('/', createVisitor); // Does not require to be logged in to system
 
 router.use(requireAuth);
 
 router.get('/', getVisitors);
 router.get('/:id', getVisitor);
-router.post('/', requireSecurity, createVisitor);
 router.put('/:id', requireAdmin, updateVisitor);
 router.delete('/:id', requireAdmin, deleteVisitor);
 
