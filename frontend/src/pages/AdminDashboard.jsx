@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Sidebar from '../components/admin/Sidebar'
 import CreateUser from '../components/admin/CreateUser'
 import UserList from '../components/admin/UserList'
-import Visitors from '../components/admin/Visitors'
+import VisitorList from '../components/admin/VisitorList'
 import DashboardCard from '../components/DashboardCard'
 import useLogout from '../hooks/useLogout'
 import { useNavigate } from 'react-router-dom'
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
             }
             {activeTab === 'create-user' && <CreateUser className='bg-white rounded-xl shadow-sm p-6' />}
             {activeTab === 'users' && <UserList className='bg-white rounded-xl shadow-sm p-6' />}
-            {activeTab === 'visitors' && <Visitors className='bg-white rounded-xl shadow-sm p-6' />}
+            {activeTab === 'visitors' && <VisitorList className='bg-white rounded-xl shadow-sm p-6' />}
          </div>
       </div>
    )
