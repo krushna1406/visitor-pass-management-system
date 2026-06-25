@@ -4,9 +4,22 @@ import CreateUser from '../components/admin/CreateUser'
 import UserList from '../components/admin/UserList'
 import Visitors from '../components/admin/Visitors'
 import DashboardCard from '../components/DashboardCard'
+import useLogout from '../hooks/useLogout'
+import { useNavigate } from 'react-router-dom'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const AdminDashboard = () => {
    const [activeTab, setActiveTab] = useState('dashboard')
+   const [showProfile, setShowProfile] = useState(false);
+
+   const {user} = useAuthContext()
+   const {logout} = useLogout()
+   const navigate = useNavigate();
+
+   const handleLogout = () => {
+      logout()
+      navigate('/')
+   }
 
    return (
       <div className='min-h-screen grid grid-cols-[1fr_4fr] bg-gray-100'>
@@ -15,9 +28,37 @@ const AdminDashboard = () => {
          </div>
 
          <div>
-            <header className='h-15 bg-white border-b border-gray-200 flex items-center justify-between px-8'>
-               <h1 className='text-2xl font-semibold text-gray-800'>Admin Dashboard</h1>
-               <p className='w-10 h-10 rounded-full bg-teal-500 text-white flex items-center justify-center font-semibold'>A</p>
+            <header className='h-15 bg-white border-b border-gray-200 flex items-center justify-between px-8 shadow'>
+               <h1 className='text-2xl font-semibold text-gray-600'>Admin Dashboard</h1>
+
+               {/* Profile Dropdown */}
+               <div
+                  onClick={() => setShowProfile(prev => !prev)}
+                  className='relative'
+               >
+                  <p className='w-10 h-10 rounded-full bg-purple-500 text-white flex items-center justify-center font-semibold cursor-pointer'>A</p>
+
+                  {showProfile &&
+                     <div
+                        className='absolute right-0 top-12 w-64 bg-white rounded-xl shadow-lg border border-gray-200 p-4 z-50'
+                     >
+                        <p className="font-semibold text-gray-700">{user.email}</p>
+
+                        <p className="text-sm text-gray-500 capitalize">
+                           {user.role}
+                        </p>
+
+                        <hr className="my-3 text-gray-300" />
+
+                        <button
+                           onClick={handleLogout}
+                           className="w-full bg-red-400 hover:bg-red-500 text-white rounded-lg py-2"
+                        >
+                           Logout
+                        </button>
+                     </div>
+                  }
+               </div>
             </header>
             {activeTab === 'dashboard' &&
                <div>

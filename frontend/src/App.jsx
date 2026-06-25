@@ -4,7 +4,6 @@ import Login from './pages/Login'
 import AdminDashboard from "./pages/AdminDashboard"
 import EmployeeDashboard from "./pages/EmployeeDashboard"
 import SecurityDashboard from "./pages/SecurityDashboard"
-import Navbar from "./components/Navbar"
 import { useAuthContext } from "./hooks/useAuthContext"
 import ProtectedRoute from "./route/protectedRoute"
 
@@ -15,7 +14,6 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path='/' element={<Home />} />

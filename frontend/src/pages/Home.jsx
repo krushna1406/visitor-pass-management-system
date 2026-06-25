@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
+import Navbar from "../components/Navbar"
 
 const Home = () => {
   const {user} = useAuthContext();
@@ -10,6 +11,7 @@ const Home = () => {
   if(user?.role === 'employee') return <Navigate to='/employee'/>
   return (
     <div>
+      <Navbar />
       <h2>This is Home Page</h2>
     </div>
   )
