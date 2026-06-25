@@ -3,6 +3,10 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
+   empId:{
+      type: Number,
+      unique: true
+   },
    name:{
       type: String,
       required: true
@@ -23,7 +27,7 @@ const userSchema = new mongoose.Schema({
    }
 }, {timestamps: true})
 
-userSchema.statics.signup = async function (name, email, password, role) {
+userSchema.statics.signup = async function (empId, name, email, password, role) {
    if(!name || !email || !password || !role) {
       throw Error('All fields are required')
    }
@@ -43,7 +47,7 @@ userSchema.statics.signup = async function (name, email, password, role) {
    const salt = await bcrypt.genSalt(10);
    const hashed = await bcrypt.hash(password, salt);
 
-   return await this.create({name, email, password: hashed, role})
+   return await this.create({empId, name, email, password: hashed, role})
 }
 
 userSchema.statics.login = async function (email, password) {

@@ -42,14 +42,14 @@ const VisitorList = () => {
   }
 
   return (
-    <div className=''>
-      <div className='grid grid-cols-[0.3fr_1.3fr_1.7fr_1fr_1fr_1fr] gap-2 px-5 py-3 bg-purple-500 text-white'>
-        <p>Sr.no</p>
-        <p className=''>Name</p>
+    <div className='bg-[#f9f9f9] py-1 shadow-sm m-3 rounded-md'>
+      <div className='grid grid-cols-[0.3fr_1.3fr_1.7fr_1fr_1fr_1fr] gap-2 px-5 py-3 bg-purple-500 text-white rounded-t-md'>
+        <p>Sr.</p>
+        <p>Name</p>
         <p>Email</p>
-        <p>Check-in</p>
-        <p>Check-out</p>
-        <p>Status</p>
+        <p className='text-center'>Phone</p>
+        <p className='text-center'>Host</p>
+        <p className='text-center'>Status</p>
       </div>
       {visitors.map((visitor, index) =>
 

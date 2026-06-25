@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { signupUser } from '../services/api';
 import { useAuthContext } from './useAuthContext';
+import toast from 'react-hot-toast';
 
 const useSignup = () => {
    const [loading, setLoading] = useState(false);
@@ -15,16 +16,17 @@ const useSignup = () => {
       try {
          const result = await signupUser(userData);
          if (result.success) {
-            setMsg('User created successfully');
+            toast.success('User account created successfully !')
          }
       } catch (error) {
-         setError(error.response?.data?.message || 'Internal server error !!');
+         toast.error(error.response?.data?.message || 'Internal server error !!')
+         setError(error.response?.data?.message || 'Internal server error !!')
       } finally {
          setLoading(false)
       }
    }
 
-   return {signup, loading, error, msg};
+   return {signup, loading, error};
 }
 
 export default useSignup

@@ -18,7 +18,7 @@ exports.createVisitor= async (req, res) => {
 
 exports.getVisitors = async (req, res) => {
    try{
-      const visitors = await Visitor.find({}).populate('employee', 'name email')
+      const visitors = await Visitor.find({}).populate('employee', 'empId name email')
 
       res.status(200).json({
          success: true,

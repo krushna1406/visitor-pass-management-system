@@ -19,7 +19,7 @@ const CreateUser = () => {
     const userData = { name, email, password, role };
 
     await signup(userData);
-    if (!loading && !error && msg) {
+    if (!error) {
       setName('');
       setEmail('')
       setPassword('')
@@ -96,12 +96,6 @@ const CreateUser = () => {
           </button>
         </form>
       </div>
-      {error &&
-        <div className='text-center text-red-500 font-medium'>{error}</div>
-      }
-      {msg && !error &&
-        <div className='text-center text-purple-600 font-medium'>{msg}</div>
-      }
     </>
   )
 }
