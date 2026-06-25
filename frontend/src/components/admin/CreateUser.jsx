@@ -92,7 +92,7 @@ const CreateUser = () => {
             disabled={loading}
             className='w-full bg-purple-400 p-2 rounded-md text-white'
           >
-            {loading ? <ImSpinner8 size={22} className='animate-spin'/> :'Create User'}
+            {loading ? <ImSpinner8 size={22} className='animate-spin mx-auto'/> :'Create User'}
           </button>
         </form>
       </div>
