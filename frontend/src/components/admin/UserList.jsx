@@ -10,7 +10,7 @@ const UserList = () => {
 
   useEffect(() => {
     const getUsers = async () => {
-      setLoading(false)
+      setLoading(true)
       setError(null)
       try {
         const result = await getAllUsers();
