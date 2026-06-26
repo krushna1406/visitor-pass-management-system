@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../components/admin/Sidebar'
 import CreateUser from '../components/admin/CreateUser'
 import UserList from '../components/admin/UserList'
@@ -7,10 +7,12 @@ import DashboardCard from '../components/DashboardCard'
 import useLogout from '../hooks/useLogout'
 import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
+import {getDashboardStats} from '../services/api'
 
 const AdminDashboard = () => {
    const [activeTab, setActiveTab] = useState('dashboard')
    const [showProfile, setShowProfile] = useState(false);
+   const [stats, setStats] = useState({});
 
    const {user} = useAuthContext()
    const {logout} = useLogout()
@@ -20,6 +22,20 @@ const AdminDashboard = () => {
       logout()
       navigate('/')
    }
+
+   useEffect(() => {
+      const getStats = async () => {
+         try{
+            const result = await getDashboardStats();
+            if(result.success) {
+               setStats(result.stats);
+            }
+         }catch(error) {
+            console.log(error.message);
+         }
+      }
+      getStats();
+   }, [])
 
    return (
       <div className='min-h-screen grid grid-cols-[1fr_4fr] bg-gray-100'>
@@ -62,10 +78,10 @@ const AdminDashboard = () => {
             </header>
             {activeTab === 'dashboard' &&
                <div>
-                  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ml-8 mt-10'>
-                     <DashboardCard name={'Total Employees'} value={0} />
-                     <DashboardCard name={'Total Visitors'} value={4} />
-                     <DashboardCard name={'Pending Visitors'} value={2} />
+                  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-8 mt-10'>
+                     <DashboardCard name={'Total Employees'} value={stats.totalEmployee} />
+                     <DashboardCard name={'Total Visitors'} value={stats.totalVisitors}  />
+                     <DashboardCard name={'Pending Visitors'} value={stats.pending}  />
                   </div>
                </div>
             }

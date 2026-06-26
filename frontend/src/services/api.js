@@ -63,4 +63,14 @@ export const signupUser = async (userData) => {
    return response.data;
 }
 
+export const getAllUsers = async () => {
+   const response = await API.get('/api/users');
+   return response.data;
+}
+
+export const getDashboardStats = async () => {
+   const response = await API.get('/api/users/dashboard/stats');
+   return response.data;
+}
+
 export default API;
