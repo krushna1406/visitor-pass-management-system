@@ -93,19 +93,12 @@ exports.updateVisitorStatus = async (req, res) => {
          })
       }
 
-      if(visitor.employee.toString() === req.user._id.toString() === false) {
+      if(visitor.employee.toString() !== req.user._id.toString()) {
          return res.status(403).json({
             success: false,
             message: 'Forbidden'
          })
       }
-
-      // if(!['approved', 'rejected'].includes(status)) {
-      //    return res.status(400).json({
-      //       success: false,
-      //       messgage: 'Invalid status'
-      //    })
-      // }
 
       if(visitor.checkOut) {
          return res.status(400).json({
