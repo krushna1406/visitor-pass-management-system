@@ -1,4 +1,5 @@
 import React from 'react'
+import { MdDashboard, MdScheduleSend, MdPeople } from 'react-icons/md'
 
 const Sidebar = ({setActiveTab}) => {
    return (
@@ -11,22 +12,16 @@ const Sidebar = ({setActiveTab}) => {
             Dashboard
          </button>
          <button
-            onClick={() => setActiveTab('create-user')}
+            onClick={() => setActiveTab('schedule-visitor')}
             className='rounded-lg py-1 hover:bg-purple-100 hover:text-purple-600 transition-all duration-100 focus:bg-purple-500 focus:text-white'
          >
-            Create User
+            Schedule Visitor
          </button>
          <button
-            onClick={() => setActiveTab('users')}
+            onClick={() => setActiveTab('my-visitors')}
             className='rounded-lg py-1 hover:bg-purple-100 hover:text-purple-600 transition-all duration-100 focus:bg-purple-500 focus:text-white'
          >
-            All Employees
-         </button>
-         <button
-            onClick={() => setActiveTab('visitors')}
-            className='rounded-lg py-1 hover:bg-purple-100 focus:bg-purple-500 focus:text-white'
-         >
-            All Visitors
+            My Visitors
          </button>
       </div>
    )

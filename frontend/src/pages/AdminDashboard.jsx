@@ -31,7 +31,7 @@ const AdminDashboard = () => {
                setStats(result.stats);
             }
          }catch(error) {
-            console.log(error.message);
+            // console.log(error.message);
          }
       }
       getStats();

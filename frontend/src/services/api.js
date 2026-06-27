@@ -69,7 +69,22 @@ export const getAllUsers = async () => {
 }
 
 export const getDashboardStats = async () => {
-   const response = await API.get('/api/users/dashboard/stats');
+   const response = await API.get('/api/users/admin/dashboard/stats');
+   return response.data;
+}
+
+export const deleteUser = async (id) => {
+   const response = await API.delete(`/api/users/${id}`);
+   return response.data;
+}
+
+export const getEmployeeDashboardStats = async () => {
+   const response = await API.get('/api/users/employee/dashboard/stats');
+   return response.data;
+}
+
+export const getEmployeeVisitors = async () => {
+   const response = await API.get('/api/users/employee/visitors');
    return response.data;
 }
 

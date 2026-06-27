@@ -16,16 +16,16 @@ const Navbar = () => {
    const { user } = useAuthContext()
    return (
       <>
-         <div className='bg-violet-200 flex justify-between px-20 py-4'>
+         <div className='bg-purple-200 flex justify-between px-20 py-4'>
             <Link to='/'
-               className='text-2xl font-semibold text-violet-900'
+               className='text-2xl font-semibold text-purple-900'
             >
                Visitor Pass Management System
             </Link>
             <nav className='flex'>
                {!user &&
                   <Link to='/login'
-                     className='bg-white px-3 py-2 rounded-md font-semibold text-violet-500'
+                     className='bg-white px-3 py-2 rounded-md font-semibold text-purple-500'
                   >
                      Login
                   </Link>
@@ -33,7 +33,7 @@ const Navbar = () => {
                {user &&
                   <div onClick={handleLogout}>
                      <Link
-                        className='bg-violet-200 border-violet-800 text-violet-800 rounded-md'
+                        className='bg-purple-200 border-purple-800 text-purple-800 rounded-md'
                      >
                         Logout
                      </Link>
