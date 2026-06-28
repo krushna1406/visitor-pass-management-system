@@ -11,17 +11,17 @@ const Sidebar = ({setActiveTab}) => {
             Dashboard
          </button>
          <button
-            onClick={() => setActiveTab('approved-visitor')}
+            onClick={() => setActiveTab('check-in')}
             className='rounded-lg py-1 hover:bg-purple-100 hover:text-purple-600 transition-all duration-100 focus:bg-purple-500 focus:text-white'
          >
-            Approved Visitors
+            Check-In
          </button>
-         {/* <button
-            onClick={() => setActiveTab('my-visitors')}
+         <button
+            onClick={() => setActiveTab('check-out')}
             className='rounded-lg py-1 hover:bg-purple-100 hover:text-purple-600 transition-all duration-100 focus:bg-purple-500 focus:text-white'
          >
-            My Visitors
-         </button> */}
+            Check-Out
+         </button>
       </div>
    )
 }

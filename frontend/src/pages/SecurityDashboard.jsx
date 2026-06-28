@@ -4,6 +4,8 @@ import {useAuthContext} from '../hooks/useAuthContext'
 import useLogout from '../hooks/useLogout'
 import { useNavigate } from 'react-router-dom'
 import Dashboard from '../components/security/Dashboard'
+import CheckIn from '../components/security/CheckIn'
+import CheckOut from '../components/security/CheckOut'
 
 const SecurityDashboard = () => {
 
@@ -62,6 +64,12 @@ const SecurityDashboard = () => {
         <div>
           {activeTab === 'dashboard' && 
             <Dashboard/>
+          }
+          {activeTab === 'check-in' && 
+            <CheckIn/>
+          }
+          {activeTab === 'check-out' &&
+            <CheckOut/>  
           }
         </div>
         
