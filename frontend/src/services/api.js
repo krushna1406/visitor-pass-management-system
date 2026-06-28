@@ -88,4 +88,9 @@ export const getEmployeeVisitors = async () => {
    return response.data;
 }
 
+export const getSecurityStats = async () => {
+   const response = await API.get('/api/users/security/dashboard/stats');
+   return response.data;
+}
+
 export default API;

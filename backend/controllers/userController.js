@@ -105,3 +105,21 @@ exports.getEmployeeVisitors = async (req, res) => {
       })
    }
 }
+
+exports.securityDashboardStats = async (req, res) => {
+   try{
+      const approved = await Visitor.countDocuments({status:'approved'});
+      const checkedIn = await Visitor.countDocuments({checkIn: {$ne: null}});
+      const checkedOut = await Visitor.countDocuments({checkOut: {$ne: null}});
+      
+      res.status(200).json({
+         success: true,
+         stats: {approved, checkedIn, checkedOut}
+      })
+   }catch(error) {
+      res.status(400).json({
+         success: false,
+         message: error.message
+      })
+   }
+}

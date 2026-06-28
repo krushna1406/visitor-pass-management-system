@@ -1,6 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Sidebar from '../components/security/Sidebar'
+import {useAuthContext} from '../hooks/useAuthContext'
+import useLogout from '../hooks/useLogout'
+import { useNavigate } from 'react-router-dom'
+import Dashboard from '../components/security/Dashboard'
 
 const SecurityDashboard = () => {
+
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [showProfile, setShowProfile] = useState(false);
+
+  const {user} = useAuthContext();
+  const {logout} = useLogout();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    logout();
+    navigate('/')
+  }
+
   return (
     <div className='min-h-screen grid grid-cols-[1fr_4fr] bg-gray-100'>
       <div className='bg-white border-r border-gray-200'>
@@ -40,6 +58,12 @@ const SecurityDashboard = () => {
             }
           </div>
         </header>
+
+        <div>
+          {activeTab === 'dashboard' && 
+            <Dashboard/>
+          }
+        </div>
         
       </div>
     </div>
