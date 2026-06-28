@@ -37,8 +37,8 @@ export const deleteVisitor = async (id) => {
    return response.data;
 }
 
-export const updateVisitStatus = async (id, status) => {
-   const response = await API.patch(`/api/visitors/${id}/status`, status);
+export const updateVisitStatus = async (id, data) => {
+   const response = await API.patch(`/api/visitors/${id}/status`, data);
    return response.data;
 }
 
@@ -78,8 +78,8 @@ export const deleteUser = async (id) => {
    return response.data;
 }
 
-export const getEmployeeDashboardStats = async () => {
-   const response = await API.get('/api/users/employee/dashboard/stats');
+export const getEmployeeDashboardStats = async (id) => {
+   const response = await API.get(`/api/users/employee/${id}/dashboard/stats`);
    return response.data;
 }
 

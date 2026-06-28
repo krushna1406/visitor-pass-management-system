@@ -82,7 +82,7 @@ exports.updateVisitor = async (req, res) => {
 
 exports.updateVisitorStatus = async (req, res) => {
    const {id} = req.params;
-   const {status, checkOut} = req.body;
+   const {status} = req.body;
    
    try{
       const visitor = await Visitor.findById(id);
@@ -100,12 +100,12 @@ exports.updateVisitorStatus = async (req, res) => {
          })
       }
 
-      if(visitor.checkOut) {
-         return res.status(400).json({
-            success: false,
-            message:"Visitor already checked out"
-         })
-      }
+      // if(visitor.checkOut) {
+      //    return res.status(400).json({
+      //       success: false,
+      //       message:"Visitor already checked out"
+      //    })
+      // }
       visitor.status = status;
       await visitor.save();
 

@@ -64,10 +64,17 @@ exports.deleteUser = async (req, res) => {
 }
 
 exports.employeeDashboardStats = async (req, res) => {
+   const {id} = req.params;
    try{
-      const totalVisits = await Visitor.countDocuments();
-      const upcomingVisitors = await Visitor.countDocuments({status: 'approved'});
-      const pending = await Visitor.countDocuments({status: 'pending'});
+      const totalVisits = await Visitor.countDocuments({employee: id});
+      const upcomingVisitors = await Visitor.countDocuments({
+         employee: id, 
+         status: 'approved'
+      });
+      const pending = await Visitor.countDocuments({
+         employee: id,
+         status: 'pending'
+      });
 
       res.status(200).json({
          success: true,

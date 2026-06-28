@@ -9,7 +9,7 @@ router.get('/admin/dashboard/stats', adminDashboardStats);
 router.delete('/:id', requireAuth, requireAdmin, deleteUser)
 
 // Employee-specific routes
-router.get('/employee/dashboard/stats', requireAuth, requireEmployee, employeeDashboardStats);
+router.get('/employee/:id/dashboard/stats', requireAuth, requireEmployee, employeeDashboardStats);
 router.get('/employee/visitors', requireAuth, requireEmployee, getEmployeeVisitors);
 
 module.exports = router;
