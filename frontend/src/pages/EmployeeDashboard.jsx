@@ -74,7 +74,7 @@ const EmployeeDashboard = () => {
                   onClick={() => setShowProfile(prev => !prev)}
                   className='relative'
                >
-                  <p className='w-10 h-10 rounded-full bg-purple-500 text-white flex items-center justify-center font-semibold cursor-pointer'>E</p>
+                  <p className='w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-semibold cursor-pointer'>E</p>
 
                   {showProfile &&
                      <div

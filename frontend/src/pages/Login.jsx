@@ -3,6 +3,7 @@ import { useLogin } from '../hooks/useLogin'
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom'
 import { ImSpinner8 } from 'react-icons/im'
+import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5'
 
 const Login = () => {
    const [email, setEmail] = useState('');
@@ -23,10 +24,10 @@ const Login = () => {
       if (user?.role === 'admin') {
          navigate('/admin');
       }
-      else if(user?.role === 'employee') {
+      else if (user?.role === 'employee') {
          navigate('/employee');
       }
-      else if(user?.role === 'security') {
+      else if (user?.role === 'security') {
          navigate('/security');
       }// else{
       //    navigate('/');
@@ -34,39 +35,51 @@ const Login = () => {
    }, [user, navigate])
 
    return (
-      <>
-         <form onSubmit={handleSubmit}>
-            <h2>Login</h2>
+      <div className='min-h-screen flex flex-col gap-4 items-center bg-linear-to-br from-sky-300 via-indigo-500 to-indigo-900'>
+         <form
+            onSubmit={handleSubmit}
+            className='w-[30%] bg-white p-10 rounded-lg mt-40'
+         >
+            <h2 className='text-center mb-5 text-2xl text-indigo-600 font-semibold'>Login</h2>
 
-            <label >Email<sup>*</sup></label>
+            <label className='text-lg font-bold text-gray-600 block mb-1'>Email<sup className='p-1 text-xs font-light text-rose-500'>*</sup></label>
             <input
                type="text"
                value={email}
                onChange={(e) => setEmail(e.target.value)}
-               className='border rounded-md'
+               className='border border-gray-400 outline-indigo-700 rounded-md px-2 py-1 w-full mb-3'
             /><br />
-            <label>Password <sup>*</sup></label>
-            <input
-               type={show ? "text" : 'password'}
-               value={password}
-               onChange={(e) => setPassword(e.target.value)}
-               className='border rounded-md'
-            /><br />
+            <label className='text-lg font-bold text-gray-600 block mb-1'>Password <sup className='text-xs font-light text-rose-500'>*</sup></label>
+            <div className='relative'>
+               <input
+                  type={show ? "text" : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className='border border-gray-400 outline-indigo-700 rounded-md px-2 py-1 w-full mb-3'
+               />
+               <button
+                  type='button'
+                  onClick={() => setShow(!show)}
+                  className='absolute top-2 right-3 text-gray-500'
+               >
+                  {!show ? <IoEyeOffOutline size={18} /> : <IoEyeOutline size={18} />}
+               </button>
+            </div>
             <button
                type='submit'
                disabled={loading}
-               className='bg-amber-400 px-4 py-2'
+               className='text-md w-full h-10 mt-6 bg-amber-400 px-4 py-2 rounded-lg'
             >
-               {loading ? <ImSpinner8 className='animate-spin' /> : 'Login'}
+               {loading ? <ImSpinner8 className='animate-spin mx-auto text-md' /> : 'Login'}
             </button>
          </form>
 
          {error &&
-            <div className='text-red-500 text-lg'>
+            <div className='text-red-500 font-semibold text-md rounded-md p-2'>
                {error}
             </div>
          }
-      </>
+      </div>
    )
 }
 

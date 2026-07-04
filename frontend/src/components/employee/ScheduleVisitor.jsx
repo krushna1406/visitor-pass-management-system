@@ -49,7 +49,7 @@ const ScheduleVisitor = () => {
                onSubmit={handleSubmit}
                className='w-full max-w-md bg-white rounded-2xl shadow-md p-8 space-y-5'
             >
-               <h2 className='text-purple-500 font-semibold text-2xl text-center'>Schedule Visitor</h2>
+               <h2 className='text-indigo-500 font-semibold text-2xl text-center'>Schedule Visitor</h2>
 
                <div>
                   <label className='block mb-1 text-md font-medium text-gray-600'>
@@ -61,7 +61,7 @@ const ScheduleVisitor = () => {
                      onChange={(e) => setName(e.target.value)}
                      placeholder='Enter visitor name'
                      required={true}
-                     className='w-full border rounded border-gray-400 text-gray-700 px-3 py-2 focus:outline-2 focus:outline-purple-400'
+                     className='w-full border rounded border-gray-400 text-gray-700 px-3 py-2 focus:outline-2 focus:outline-indigo-400'
                   />
                </div>
 
@@ -75,7 +75,7 @@ const ScheduleVisitor = () => {
                      onChange={(e) => setEmail(e.target.value)}
                      placeholder='Enter visitor email'
                      required={true}
-                     className='w-full border rounded border-gray-400 text-gray-700 px-3 py-2 focus:outline-2 focus:outline-purple-400'
+                     className='w-full border rounded border-gray-400 text-gray-700 px-3 py-2 focus:outline-2 focus:outline-indigo-400'
                   />
                </div>
 
@@ -89,7 +89,7 @@ const ScheduleVisitor = () => {
                      onChange={(e) => setPhone(e.target.value)}
                      placeholder='Enter phone number'
                      required={true}
-                     className='w-full border rounded border-gray-400 text-gray-700 px-3 py-2 focus:outline-2 focus:outline-purple-400'
+                     className='w-full border rounded border-gray-400 text-gray-700 px-3 py-2 focus:outline-2 focus:outline-indigo-400'
                   />
                </div>
 
@@ -101,7 +101,7 @@ const ScheduleVisitor = () => {
                      value={purpose}
                      onChange={(e) => setPurpose(e.target.value)}
                      required={true}
-                     className='w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition text-gray-700'
+                     className='w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition text-gray-700'
                   >
                      <option value=''>~Select Purpose~</option>
                      <option value='meeting'>Meeting</option>
@@ -115,7 +115,7 @@ const ScheduleVisitor = () => {
                <button
                   type='submit'
                   disabled={loading}
-                  className='w-full bg-purple-400 hover:bg-purple-500 p-2 rounded-md text-white transition-colors duration-200'
+                  className='w-full bg-indigo-400 hover:bg-indigo-500 p-2 rounded-md text-white transition-colors duration-200'
                >
                   {loading ? <ImSpinner8 size={22} className='animate-spin mx-auto' /> : 'Schedule Visit'}
                </button>

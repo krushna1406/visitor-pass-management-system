@@ -8,7 +8,7 @@ const Visitor = ({visitor, index}) => {
       <p>{visitor.name}</p>
       <p>{visitor.email}</p>
       <p>{visitor.phone}</p>
-      <p className='bg-purple-600 text-white w-22 px-2 rounded-xl'>{visitor.status}</p>
+      <p className='bg-indigo-600 text-white w-22 px-2 rounded-xl'>{visitor.status}</p>
     </div>
   )
 }

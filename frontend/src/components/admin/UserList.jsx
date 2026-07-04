@@ -41,7 +41,7 @@ const UserList = () => {
 
   return (
     <div className='bg-[#f9f9f9] py-1 shadow-sm m-3 rounded-md'>
-      <div className='grid grid-cols-[0.5fr_1.5fr_2fr_1fr] gap-2 px-5 py-3 bg-purple-500 text-white rounded-t-md'>
+      <div className='grid grid-cols-[0.5fr_1.5fr_2fr_1fr] gap-2 px-5 py-3 bg-indigo-500 text-white rounded-t-md'>
         <p className=''>EmpId</p>
         <p className='ml-5'>Name</p>
         <p className='ml-5'>Email</p>

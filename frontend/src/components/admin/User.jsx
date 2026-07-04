@@ -26,7 +26,7 @@ const User = ({ user }) => {
          {user.empId ? <p>{user.empId}</p> : <p>-</p>}
          <p>{user.name}</p>
          <p>{user.email}</p>
-         <p className='bg-purple-600 w-22 text-white text-center rounded-xl my-1'>{user.role}</p>
+         <p className='bg-indigo-600 w-22 text-white text-center rounded-xl my-1'>{user.role}</p>
          <p>
             <IoTrashOutline
                size={20} color='red'

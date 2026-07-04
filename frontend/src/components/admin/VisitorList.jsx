@@ -43,7 +43,7 @@ const VisitorList = () => {
 
   return (
     <div className='bg-[#f9f9f9] py-1 shadow-sm m-3 rounded-md'>
-      <div className='grid grid-cols-[0.3fr_1.3fr_1.7fr_1fr_1fr_1fr] gap-2 px-5 py-3 bg-purple-500 text-white rounded-t-md'>
+      <div className='grid grid-cols-[0.3fr_1.3fr_1.7fr_1fr_1fr_1fr] gap-2 px-5 py-3 bg-indigo-500 text-white rounded-t-md'>
         <p>Sr.</p>
         <p>Name</p>
         <p>Email</p>
