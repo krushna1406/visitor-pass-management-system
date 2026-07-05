@@ -37,8 +37,8 @@ export const deleteVisitor = async (id) => {
    return response.data;
 }
 
-export const updateVisitStatus = async (id, data) => {
-   const response = await API.patch(`/api/visitors/${id}/status`, data);
+export const updateVisitStatus = async (id, status) => {
+   const response = await API.patch(`/api/visitors/${id}/status`, {status});
    return response.data;
 }
 

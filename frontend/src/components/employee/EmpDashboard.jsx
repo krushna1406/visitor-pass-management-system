@@ -3,6 +3,7 @@ import DashboardCard from '../DashboardCard'
 import PendingVisitCard from './PendingVisitCard';
 import { getEmployeeDashboardStats, getEmployeeVisitors } from '../../services/api';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { useVisitorContext } from '../../hooks/useVisitorContext';
 
 const EmpDashboard = () => {
    const [stats, setStats] = useState({});
@@ -10,7 +11,8 @@ const EmpDashboard = () => {
    const [error, setError] = useState(null);
    const [pendings, setPendings] = useState([]);
 
-   const {user} = useAuthContext();
+   const { user } = useAuthContext();
+   const { visitors, dispatch } = useVisitorContext();
 
    useEffect(() => {
       const getStats = async () => {
@@ -34,7 +36,7 @@ const EmpDashboard = () => {
                const pendingVisitors = result.visitors.filter(visitor =>
                   visitor.status === 'pending'
                )
-               setPendings(pendingVisitors);
+               dispatch({ type: 'SET_VISITORS', payload: pendingVisitors })
             }
          } catch (error) {
             setError(error.message)
@@ -58,15 +60,13 @@ const EmpDashboard = () => {
                <div className='text-gray-400 mt-5 ml-10 text-md'>Loading.....</div>
             ) : error ? (
                <div className='text-red-500 mt-5 ml-10 text-md'>{error}</div>
-            ) : !pendings.length ? (
+            ) : !visitors.length ? (
                <div className='text-lg text-gray-400 ml-25 mt-10'>
                   No pending visitors
                </div>
-            )
-            
-              : (
+            ) : (
                <div className='flex'>
-                  {pendings.map(visitor =>
+                  {visitors.map(visitor =>
                      <PendingVisitCard key={visitor._id} visitor={visitor} loading={loading} error={error} />
                   )}
                </div>

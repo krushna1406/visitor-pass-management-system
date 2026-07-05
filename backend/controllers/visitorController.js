@@ -18,7 +18,7 @@ exports.createVisitor= async (req, res) => {
 
 exports.getVisitors = async (req, res) => {
    try{
-      const visitors = await Visitor.find({}).populate('employee', 'empId name email')
+      const visitors = await Visitor.find({}).populate('employee', 'empId name email').sort()
 
       res.status(200).json({
          success: true,
@@ -100,15 +100,7 @@ exports.updateVisitorStatus = async (req, res) => {
          })
       }
 
-      // if(visitor.checkOut) {
-      //    return res.status(400).json({
-      //       success: false,
-      //       message:"Visitor already checked out"
-      //    })
-      // }
-      visitor.status = status;
-      await visitor.save();
-
+      await Visitor.findByIdAndUpdate(id, {status} , {new: true});
       res.status(200).json({
          success: true,
          message: `Visit ${status}`    // Dynamically show the approved or rejected status
