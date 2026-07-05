@@ -3,13 +3,10 @@ import Sidebar from '../components/security/Sidebar'
 import {useAuthContext} from '../hooks/useAuthContext'
 import useLogout from '../hooks/useLogout'
 import { useNavigate } from 'react-router-dom'
-import Dashboard from '../components/security/Dashboard'
-import CheckIn from '../components/security/CheckIn'
-import CheckOut from '../components/security/CheckOut'
+import { Outlet } from 'react-router-dom'
 
 const SecurityDashboard = () => {
 
-  const [activeTab, setActiveTab] = useState('dashboard');
   const [showProfile, setShowProfile] = useState(false);
 
   const {user} = useAuthContext();
@@ -24,7 +21,7 @@ const SecurityDashboard = () => {
   return (
     <div className='min-h-screen grid grid-cols-[1fr_4fr] bg-gray-100'>
       <div className='bg-white border-r border-gray-200'>
-        <Sidebar setActiveTab={setActiveTab} />
+        <Sidebar />
       </div>
 
       <div>
@@ -60,19 +57,8 @@ const SecurityDashboard = () => {
             }
           </div>
         </header>
-
-        <div>
-          {activeTab === 'dashboard' && 
-            <Dashboard/>
-          }
-          {activeTab === 'check-in' && 
-            <CheckIn/>
-          }
-          {activeTab === 'check-out' &&
-            <CheckOut/>  
-          }
-        </div>
         
+        <Outlet/>
       </div>
     </div>
   )

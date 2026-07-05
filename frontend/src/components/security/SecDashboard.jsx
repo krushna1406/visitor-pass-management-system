@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DashboardCard from '../DashboardCard'
 import { getSecurityStats } from '../../services/api'
 
-const Dashboard = () => {
+const SecDashboard = () => {
 
    const [stats, setStats] = useState({});
 
@@ -29,4 +29,4 @@ const Dashboard = () => {
    )
 }
 
-export default Dashboard
+export default SecDashboard

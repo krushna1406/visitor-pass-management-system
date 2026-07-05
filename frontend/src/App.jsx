@@ -8,6 +8,7 @@ import { useAuthContext } from "./hooks/useAuthContext"
 import ProtectedRoute from "./route/protectedRoute"
 import { Dashboard, CreateUser, UserList, VisitorList } from './components/admin/Index'
 import {EmpDashboard, ScheduleVisitor, EmpVisitorList} from './components/employee/Index'
+import {SecDashboard, CheckIn, CheckOut} from './components/security/index'
 
 function App() {
 
@@ -56,7 +57,12 @@ function App() {
                 <SecurityDashboard />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<Navigate to='dashboard'/>}/>
+            <Route path="dashboard" element={<SecDashboard/>}/>
+            <Route path="check-in" element={<CheckIn/>}/>
+            <Route path="check-out" element={<CheckOut/>}/>
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
