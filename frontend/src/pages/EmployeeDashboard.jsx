@@ -1,69 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../components/employee/Sidebar'
-import { useAuthContext } from '../hooks/useAuthContext';
 import useLogout from '../hooks/useLogout';
-import { useNavigate } from 'react-router-dom';
-import DashboardCard from '../components/DashboardCard';
-import { getEmployeeDashboardStats, getEmployeeVisitors } from '../services/api';
+import { Outlet, useNavigate } from 'react-router-dom';
 import ScheduleVisitor from '../components/employee/ScheduleVisitor';
-import VisitorList from '../components/employee/VisitorList';
-import PendingVisitCard from '../components/employee/PendingVisitCard';
-import toast from 'react-hot-toast';
+import VisitorList from '../components/employee/EmpVisitorList';
+import Dashboard from '../components/employee/EmpDashboard';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const EmployeeDashboard = () => {
-   const [activeTab, setActiveTab] = useState('dashboard');
    const [showProfile, setShowProfile] = useState(false);
-   const [stats, setStats] = useState({});
-   const [pendings, setPendings] = useState([]);
-   const [loading, setLoading] = useState(false);
-   const [error, setError] = useState(null);
 
-   const { user } = useAuthContext();
+   const {user} = useAuthContext();
    const { logout } = useLogout();
    const navigate = useNavigate();
 
    const handleLogout = () => {
       logout();
-      navigate('/')
+      navigate('/');
    }
-
-   useEffect(() => {
-      const getStats = async () => {
-         try {
-            const result = await getEmployeeDashboardStats(user._id);
-            if (result.success) {
-               setStats(result.stats)
-            }
-         } catch (error) {
-            console.log(error.message);
-         }
-      }
-      getStats();
-
-      const getPending = async () => {
-         setLoading(true)
-         setError(null)
-         try {
-            const result = await getEmployeeVisitors();
-            if (result.success) {
-               const pendingVisitors = result.visitors.filter(visitor =>
-                  visitor.status === 'pending'
-               )
-               setPendings(pendingVisitors);
-            }
-         } catch (error) {
-            setError(error.message)
-         } finally {
-            setLoading(false)
-         }
-      }
-      getPending();
-   }, [])
 
    return (
       <div className='min-h-screen grid grid-cols-[1fr_4fr] bg-gray-100'>
          <div className='bg-white border-r border-gray-200'>
-            <Sidebar setActiveTab={setActiveTab} />
+            <Sidebar />
          </div>
          <div>
             <header className='h-15 bg-white border-b border-gray-200 flex items-center justify-between px-8 shadow'>
@@ -98,33 +57,8 @@ const EmployeeDashboard = () => {
                   }
                </div>
             </header>
-            {activeTab === 'dashboard' &&
-               <div>
-                  <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-8 mt-10'>
-                     <DashboardCard name={'Total Visits'} value={stats.totalVisits} />
-                     <DashboardCard name={'Upcoming Visitors'} value={stats.upcomingVisitors} />
-                     <DashboardCard name={'Pending visitors'} value={stats.pending} />
-                  </div>
-                  <section className='m-6 mt-8'>
-                     <h2 className='text-xl text-gray-600'>Pending Visitors</h2>
-
-                     {loading ? (
-                        <div className='text-gray-400 mt-5 ml-10 text-md'>Loading.....</div>
-                     ) : error ? (
-                        <div className='text-red-500 mt-5 ml-10 text-md'>{error}</div>
-                     ) : (
-                        <div className='flex'>
-                           {pendings.map(visitor =>
-                              <PendingVisitCard key={visitor._id} visitor={visitor} loading={loading} error={error} />
-                           )}
-                        </div>
-                     )}
-                  </section>
-               </div>
-
-            }
-            {activeTab === 'schedule-visitor' && <ScheduleVisitor className='bg-white rounded-xl shadow-sm p-6' />}
-            {activeTab === 'my-visitors' && <VisitorList className='bg-white rounded-xl shadow-sm p-6' />}
+            
+            <Outlet/>
          </div>
       </div>
    )

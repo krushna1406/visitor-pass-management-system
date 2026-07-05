@@ -6,7 +6,8 @@ import EmployeeDashboard from "./pages/EmployeeDashboard"
 import SecurityDashboard from "./pages/SecurityDashboard"
 import { useAuthContext } from "./hooks/useAuthContext"
 import ProtectedRoute from "./route/protectedRoute"
-import { Dashboard, CreateUser, Sidebar, User, UserList, Visitor, VisitorList } from './components/admin/Index'
+import { Dashboard, CreateUser, UserList, VisitorList } from './components/admin/Index'
+import {EmpDashboard, ScheduleVisitor, EmpVisitorList} from './components/employee/Index'
 
 function App() {
 
@@ -23,25 +24,32 @@ function App() {
           <Route
             path="/admin"
             element={
-              <ProtectedRoute role="admin">
+              <ProtectedRoute role={'admin'}>
                 <AdminDashboard />
               </ProtectedRoute>
             }
           >
             <Route index element={<Navigate to='dashboard' />} />
-            <Route path='dashboard' element={<Dashboard/>}/>
+            <Route path="dashboard" element={<Dashboard/>}/>
             <Route path="create-user" element={<CreateUser />} />
             <Route path="users" element={<UserList />} />
             <Route path="visitors" element={<VisitorList />} />
           </Route>
 
-          <Route path='/employee'
+          <Route 
+            path='/employee'
             element={
               <ProtectedRoute role={'employee'}>
                 <EmployeeDashboard />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<Navigate to='dashboard'/>}/>
+            <Route path="dashboard" element={<EmpDashboard/>}/>
+            <Route path="invite-visitor" element={<ScheduleVisitor/>}/>
+            <Route path="my-visitors" element={<EmpVisitorList/>}/>
+          </Route>
+
           <Route path='/security'
             element={
               <ProtectedRoute role={'security'}>

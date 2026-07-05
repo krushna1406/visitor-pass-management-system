@@ -3,7 +3,7 @@ import { getEmployeeVisitors } from '../../services/api';
 import Visitor from './Visitor';
 import toast from 'react-hot-toast';
 
-const VisitorList = () => {
+const EmpVisitorList = () => {
 
   const [visitors, setVisitors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -55,4 +55,4 @@ const VisitorList = () => {
   )
 }
 
-export default VisitorList
+export default EmpVisitorList
