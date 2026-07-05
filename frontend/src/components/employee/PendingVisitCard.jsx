@@ -15,9 +15,9 @@ const PendingVisitCard = ({visitor}) => {
 
   return (
     <div className='m-5 bg-white w-fit px-6 py-5 rounded-lg shadow-md shadow-gray-200'>
-      <h4 className='text-indigo-700 font-semibold'>{visitor.name}</h4>
-      <p className='text-gray-500 text-sm'>{visitor.email}</p>
-      <p className='text-gray-500 text-sm'>{visitor.phone}</p>
+      <h4 className='text-indigo-700 font-semibold text-lg mb-1'>{visitor.name}</h4>
+      <p className='text-gray-600 text-sm ml-2 mb-1'>{visitor.email}</p>
+      <p className='text-gray-600 text-sm ml-2'>{visitor.phone}</p>
       <div className='flex gap-2 mt-3'>
         <button
           onClick={() => handleApproveReject({status:'approved'})}

@@ -25,6 +25,10 @@ const visitorSchema = new mongoose.Schema({
       ref: 'User',
       required: true
    },
+   visitDate: {
+      type: Date,
+      required: true
+   },
    checkIn:{
       type: Date,
    },
