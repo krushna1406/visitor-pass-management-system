@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Visitor from './Visitor'
 import { getAllVisitor } from '../../services/api';
+import { useVisitorContext } from '../../hooks/useVisitorContext';
 
 const VisitorList = () => {
 
-  const [visitors, setVisitors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const {visitors, dispatch} = useVisitorContext()
 
   useEffect(() => {
     const getVisitors = async () => {
@@ -16,7 +18,10 @@ const VisitorList = () => {
       try {
         const result = await getAllVisitor()
         if (result.success) {
-          setVisitors(result.visitors)
+          dispatch({
+            type:'SET_VISITORS',
+            payload: result.visitors
+          })
           setLoading(false)
         }
       }catch(error) {
@@ -27,7 +32,6 @@ const VisitorList = () => {
     getVisitors()
   }, [])
 
-  // console.log('In VisitorList: ', visitors)
   if(loading) {
     return (
       <div className='text-center mt-10 text-gray-400 text-xl'>Loading....</div>
@@ -42,14 +46,14 @@ const VisitorList = () => {
   }
 
   return (
-    <div className='bg-[#f9f9f9] py-1 shadow-sm m-3 rounded-md'>
-      <div className='grid grid-cols-[0.3fr_1.3fr_1.7fr_1fr_1fr_1fr] gap-2 px-5 py-3 bg-indigo-500 text-white rounded-t-md'>
+    <div className='bg-[#f9f9f9] py-1 mx-8 shadow-sm m-3 rounded-md'>
+      <div className='grid grid-cols-[0.2fr_1.3fr_1.5fr_0.8fr_0.4fr_1fr] gap-2 px-5 py-3 bg-indigo-500 text-white rounded-t-md'>
         <p>Sr.</p>
         <p>Name</p>
         <p>Email</p>
-        <p className='text-center'>Phone</p>
-        <p className='text-center'>Host</p>
-        <p className='text-center'>Status</p>
+        <p className='text-start'>Phone</p>
+        <p className='text-start'>Host</p>
+        <p className='text-start ml-6'>Status</p>
       </div>
       {visitors.map((visitor, index) =>
 
