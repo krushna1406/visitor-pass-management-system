@@ -31,7 +31,7 @@ const AdminDashboard = () => {
                   onClick={() => setShowProfile(prev => !prev)}
                   className='relative'
                >
-                  <p className='w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-semibold cursor-pointer'>A</p>
+                  <p className='w-10 h-10 rounded-full bg-indigo-500 text-white flex items-center justify-center font-semibold cursor-pointer'>{user.email.charAt(0).toUpperCase()}</p>
 
                   {showProfile &&
                      <div
