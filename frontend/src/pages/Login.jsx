@@ -46,21 +46,25 @@ const Login = () => {
             <input
                type="text"
                value={email}
+               placeholder='example@xyz.com'
+               required
                onChange={(e) => setEmail(e.target.value)}
-               className='border border-gray-400 outline-indigo-700 rounded-md px-2 py-1 w-full mb-3'
+               className='border border-gray-300 text-gray-600 outline-indigo-700 rounded-md px-2 py-2 w-full mb-3'
             /><br />
             <label className='text-lg font-bold text-gray-600 block mb-1'>Password <sup className='text-xs font-light text-rose-500'>*</sup></label>
             <div className='relative'>
                <input
                   type={show ? "text" : 'password'}
                   value={password}
+                  placeholder='************'
+                  required
                   onChange={(e) => setPassword(e.target.value)}
-                  className='border border-gray-400 outline-indigo-700 rounded-md px-2 py-1 w-full mb-3'
+                  className='border border-gray-300 text-gray-600 outline-indigo-700 rounded-md px-2 py-2 w-full mb-3'
                />
                <button
                   type='button'
                   onClick={() => setShow(!show)}
-                  className='absolute top-2 right-3 text-gray-500'
+                  className='absolute top-3 right-3 text-gray-500'
                >
                   {!show ? <IoEyeOffOutline size={18} /> : <IoEyeOutline size={18} />}
                </button>
@@ -68,7 +72,7 @@ const Login = () => {
             <button
                type='submit'
                disabled={loading}
-               className='text-md w-full h-10 mt-6 bg-amber-400 px-4 py-2 rounded-lg'
+               className='text-md font-semibold w-full h-10 mt-6 bg-amber-400 px-4 py-2 rounded-lg'
             >
                {loading ? <ImSpinner8 className='animate-spin mx-auto text-md' /> : 'Login'}
             </button>
