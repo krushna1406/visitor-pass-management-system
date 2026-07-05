@@ -3,7 +3,7 @@ import {format} from 'date-fns'
 
 const Visitor = ({visitor, index}) => {
   return (
-    <div className='grid grid-cols-[0.2fr_1fr_1fr_0.6fr_0.5fr_0.5fr] m-2 p-2 bg-white rounded-md shadow-sm text-gray-600'>
+    <div className='grid grid-cols-[0.2fr_1fr_1fr_0.6fr_0.5fr_0.5fr] m-2 px-2 py-4 bg-white rounded-md shadow-sm text-gray-600'>
       <p>{index+1}</p>
       <p>{visitor.name}</p>
       <p>{visitor.email}</p>
