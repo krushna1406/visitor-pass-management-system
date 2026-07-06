@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { getAllUsers } from '../../services/api'
 import User from './User';
+import { useUserContext } from '../../hooks/useUserContext';
 
-const UserList = () => {
+const AllUsers = () => {
 
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const {users, dispatch} = useUserContext()
 
   useEffect(() => {
     const getUsers = async () => {
@@ -15,7 +17,10 @@ const UserList = () => {
       try {
         const result = await getAllUsers();
         if (result.success) {
-          setUsers(result.users);
+          dispatch({
+            type: 'GET_USERS',
+            payload: result.users
+          })
         }
       }catch(error) {
         setError(error.response?.data?.message || 'Internal server error')
@@ -56,4 +61,4 @@ const UserList = () => {
   )
 }
 
-export default UserList
+export default AllUsers

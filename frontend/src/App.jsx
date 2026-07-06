@@ -6,7 +6,7 @@ import EmployeeDashboard from "./pages/EmployeeDashboard"
 import SecurityDashboard from "./pages/SecurityDashboard"
 import { useAuthContext } from "./hooks/useAuthContext"
 import ProtectedRoute from "./route/protectedRoute"
-import { Dashboard, CreateUser, UserList, VisitorList } from './components/admin/Index'
+import { Dashboard, CreateUser, AllEmployees, VisitorList, AllUsers } from './components/admin/Index'
 import {EmpDashboard, ScheduleVisitor, EmpVisitorList} from './components/employee/Index'
 import {SecDashboard, CheckIn, CheckOut} from './components/security/index'
 
@@ -33,8 +33,9 @@ function App() {
             <Route index element={<Navigate to='dashboard' />} />
             <Route path="dashboard" element={<Dashboard/>}/>
             <Route path="create-user" element={<CreateUser />} />
-            <Route path="users" element={<UserList />} />
+            <Route path="employees" element={<AllEmployees />} />
             <Route path="visitors" element={<VisitorList />} />
+            <Route path="users" element={<AllUsers />} />
           </Route>
 
           <Route 

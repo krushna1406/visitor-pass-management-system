@@ -3,7 +3,7 @@ const Visitor = require('../models/visitorModel')
 
 exports.getAllUsers = async (req, res) => {
    try{
-      const users = await User.find({role:'employee'}).select('empId name email role');
+      const users = await User.find({}).select('empId name email role');
       if(!users.length) {
          return res.status(404).json({
             success: false,

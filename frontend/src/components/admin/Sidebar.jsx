@@ -29,7 +29,7 @@ const Sidebar = () => {
             Create User
          </NavLink>
 
-         <NavLink to='/admin/users'
+         <NavLink to='/admin/employees'
             className={({isActive}) => `rounded-lg text-center py-1 transition-all duration-100
                ${isActive
                   ? 'bg-indigo-500 text-white'
@@ -49,6 +49,17 @@ const Sidebar = () => {
             `}
          >
             All Visitors
+         </NavLink>
+
+         <NavLink to='/admin/users'
+            className={({isActive}) => `rounded-lg text-center py-1 transition-all duration-100
+               ${isActive
+                  ? 'bg-indigo-500 text-white'
+                  : 'hover:bg-indigo-100 hover:text-indigo-600'
+               }
+            `}
+         >
+            All Users
          </NavLink>
       </div>
    )

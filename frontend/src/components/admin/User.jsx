@@ -2,18 +2,25 @@ import React from 'react'
 import { deleteUser } from '../../services/api'
 import { IoTrashOutline } from 'react-icons/io5'
 import toast from 'react-hot-toast'
+import { useUserContext } from '../../hooks/useUserContext'
 
 const User = ({ user }) => {
 
+   const {dispatch} = useUserContext();
+
    const handleDelete = async () => {
       if(user.role === 'admin') {
-         toast.error('Admin cannot be deleted')
+         window.alert('Admin cannot be deleted');
          return;
       }
       try{
          const result = await deleteUser(user._id);
          if(result.success) {
             toast.success('User records deleted successfully')
+            dispatch({
+               type: 'DELETE_USER',
+               payload: user._id
+            })
             return;
          }
       }catch(error) {
@@ -29,8 +36,13 @@ const User = ({ user }) => {
          <p className='bg-indigo-600 w-22 text-white text-center rounded-xl my-1'>{user.role}</p>
          <p>
             <IoTrashOutline
-               size={20} color='red'
-               onClick={handleDelete}
+                color='red'
+               onClick={() => {
+                  const confirm = window.confirm('Are you sure you want to delete this employee records ?')
+                  if(confirm) {
+                     handleDelete();
+                  }
+               }}
             />
          </p>
       </div>
