@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
 import useSignup from '../hooks/useSignup'
 import { ImSpinner8 } from 'react-icons/im'
@@ -15,7 +16,7 @@ const VisitorSignup = () => {
    const navigate = useNavigate()
 
    const { dispatch } = useAuthContext()
-   const {signup, loading, error} = useVisitorSignup()
+   const { signup, loading, error } = useVisitorSignup()
 
    const handleSubmit = async (e) => {
       e.preventDefault();
@@ -29,7 +30,7 @@ const VisitorSignup = () => {
          setEmail('')
          setPhone('');
          setPassword('')
-         navigate('/login')
+         navigate('/visitor')
       }
    }
 
@@ -88,7 +89,7 @@ const VisitorSignup = () => {
                   required={true}
                   className='w-full border rounded border-gray-300 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-indigo-600'
                /><br />
-               
+
                <button
                   type='submit'
                   disabled={loading}
@@ -96,7 +97,20 @@ const VisitorSignup = () => {
                >
                   {loading ? <ImSpinner8 size={22} className='animate-spin mx-auto' /> : 'Sign Up'}
                </button>
+
+               <p>
+                  Already have an Account ?
+                  <Link to='/login'
+                     className='text-sky-500 p-2'
+                  >Login</Link>
+               </p>
             </form>
+
+            {error &&
+               <div className='text-red-500 font-semibold text-md rounded-md p-2'>
+                  {error}
+               </div>
+            }
          </div>
       </>
    )

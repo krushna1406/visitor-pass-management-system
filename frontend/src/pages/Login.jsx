@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import { useLogin } from '../hooks/useLogin'
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNavigate } from 'react-router-dom'
@@ -29,9 +30,9 @@ const Login = () => {
       }
       else if (user?.role === 'security') {
          navigate('/security');
-      }// else{
-      //    navigate('/');
-      // }
+      }else if(user?.role === 'visitor') {
+         navigate('/visitor');
+      }
    }, [user, navigate])
 
    return (
@@ -76,6 +77,13 @@ const Login = () => {
             >
                {loading ? <ImSpinner8 className='animate-spin mx-auto text-md' /> : 'Login'}
             </button>
+
+            <p className='mt-4'>
+               Don't have an Account ?
+               <Link to='/signup'
+                  className='text-sky-500 p-2'
+               >Signup</Link>
+            </p>
          </form>
 
          {error &&

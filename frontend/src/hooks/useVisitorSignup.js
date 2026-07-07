@@ -18,12 +18,17 @@ const useVisitorSignup = () => {
          if(result.success) {
             toast.success('Signup Successful !')
 
-            localStorage.setItem('visitor', JSON.stringify({
+            localStorage.setItem('user', JSON.stringify({
                id: result._id,
                email: result.email,
                role: result.role,
                token: result.token
             }))
+
+            dispatch({
+               type: 'LOGIN',
+               payload: result
+            })
          }
       }catch(error) {
          toast.error(error.message)

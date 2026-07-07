@@ -24,14 +24,16 @@ const Navbar = () => {
             </Link>
             <nav className='flex'>
                {!user &&
-                  <div>
+                  <div className='flex gap-4'>
                      <Link to='/login'
-                        className='bg-white px-3 py-2 rounded-md font-semibold text-indigo-700'
+                        className='bg-white px-5 py-3 rounded-lg font-semibold text-indigo-700'
                      >
                         Login
                      </Link>
 
-                     <Link to='/signup'>
+                     <Link to='/signup'
+                        className='bg-white rounded-lg px-2 py-3 text-indigo-700 font-semibold'
+                     >
                         Visitor Signup
                      </Link>
                   </div>

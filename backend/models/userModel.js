@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
    empId:{
       type: Number,
       unique: true,
+      sparse: true,
       required: function() {
          return this.role === 'employee'
       }
@@ -54,7 +55,11 @@ userSchema.statics.signup = async function (empId, name, email, phone, password,
    const salt = await bcrypt.genSalt(10);
    const hashed = await bcrypt.hash(password, salt);
 
-   return await this.create({empId, name, email, phone, password: hashed, role})
+   const user = await this.create({name, email, phone, password: hashed, role})
+   if(empId) {
+      user.empId = empId;
+   }
+   return user;
 }
 
 userSchema.statics.login = async function (email, password) {
