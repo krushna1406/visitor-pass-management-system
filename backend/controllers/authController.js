@@ -7,14 +7,14 @@ const createToken = (_id) => {
 
 exports.userSignup = async (req, res) => {
 
-   const { name, email, password, role } = req.body;
+   const { name, email, phone, password, role } = req.body;
    try {
       const lastUser = await User.findOne({
          role: {$in: ['employee', 'security']}
       }).sort({ createdAt: -1 })
 
       const empId = lastUser ? lastUser.empId + 1 : 1000;
-      const user = await User.signup(empId, name, email, password, role);
+      const user = await User.signup(empId, name, email, phone, password, role);
 
       const token = createToken(user._id);
 

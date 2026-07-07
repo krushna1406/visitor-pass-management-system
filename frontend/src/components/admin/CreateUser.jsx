@@ -7,6 +7,7 @@ const CreateUser = () => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
 
@@ -16,12 +17,13 @@ const CreateUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userData = { name, email, password, role };
+    const userData = { name, email, phone, password, role };
 
     await signup(userData);
     if (!error) {
       setName('');
       setEmail('')
+      setPhone('');
       setPassword('')
       setRole('')
     }
@@ -56,6 +58,17 @@ const CreateUser = () => {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required={true}
+            className='w-full border rounded border-gray-400 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-indigo-600'
+          /><br />
+
+          <label className='block mb-1 text-md font-medium text-gray-600'>
+            Phone<sup className='text-red-500'>*</sup>
+          </label>
+          <input
+            type="text"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             required={true}
             className='w-full border rounded border-gray-400 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-indigo-600'
           /><br />
