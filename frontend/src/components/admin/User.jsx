@@ -38,7 +38,7 @@ const User = ({ user }) => {
             <IoTrashOutline
                 color='red'
                onClick={() => {
-                  const confirm = window.confirm('Are you sure you want to delete this employee records ?')
+                  const confirm = window.confirm('Are you sure you want to delete this records ?')
                   if(confirm) {
                      handleDelete();
                   }
