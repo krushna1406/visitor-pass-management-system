@@ -1,4 +1,5 @@
 const Visitor = require('../models/visitorModel')
+const User = require('../models/userModel')
 
 const QRCode = require('qrcode');
 
@@ -230,6 +231,31 @@ exports.checkOutVisitor = async (req, res) => {
          visitor
       })
 
+   }catch(error) {
+      res.status(500).json({
+         success: false,
+         message: error.message
+      })
+   }
+}
+
+exports.getVisitorPass = async (req, res) => {
+   try{
+      const visitor = await User.findOne({
+         email: req.user.email
+      }).populate('employee', 'name email');
+
+      if(!visitor) {
+         return res.status(404).json({
+            success: false,
+            message: 'Pass not found'
+         })
+      }
+
+      res.status(200).json({
+         success: true,
+         visitor
+      })
    }catch(error) {
       res.status(500).json({
          success: false,

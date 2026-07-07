@@ -72,7 +72,7 @@ const Login = () => {
             <button
                type='submit'
                disabled={loading}
-               className='text-md font-semibold w-full h-10 mt-6 bg-amber-400 px-4 py-2 rounded-lg'
+               className='text-md font-semibold w-full h-10 mt-6 bg-amber-500 text-white px-4 py-2 rounded-lg'
             >
                {loading ? <ImSpinner8 className='animate-spin mx-auto text-md' /> : 'Login'}
             </button>

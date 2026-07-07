@@ -29,4 +29,14 @@ exports.requireSecurity = (req, res, next) => {
    next();
 }
 
+exports.requireVisitor = (req, res, next) => {
+   if(req.user.role !== 'visitor') {
+      return res.status(403).json({
+         success: false,
+         message: 'Access Forbidden'
+      })
+   }
+   next();
+}
+
 // This is fine if roles are limited (say 5-6)

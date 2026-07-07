@@ -9,11 +9,14 @@ exports.userSignup = async (req, res) => {
 
    const { name, email, phone, password, role } = req.body;
    try {
-      const lastUser = await User.findOne({
-         role: {$in: ['employee', 'security']}
-      }).sort({ createdAt: -1 })
+      let empId = null;
+      if (role !== 'visitor') {
+         const lastUser = await User.findOne({
+            role: { $in: ['employee', 'security'] }
+         }).sort({ createdAt: -1 })
 
-      const empId = lastUser ? lastUser.empId + 1 : 1000;
+         empId = lastUser ? lastUser.empId + 1 : 1000;
+      }
       const user = await User.signup(empId, name, email, phone, password, role);
 
       const token = createToken(user._id);
@@ -23,6 +26,7 @@ exports.userSignup = async (req, res) => {
          _id: user._id, email, role: user.role, token
       })
    } catch (error) {
+      console.log(error)
       res.status(400).json({
          success: false,
          message: error.message

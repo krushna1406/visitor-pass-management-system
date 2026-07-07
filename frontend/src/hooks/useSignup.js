@@ -6,7 +6,6 @@ import toast from 'react-hot-toast';
 const useSignup = () => {
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState(null);
-   const [msg, setMsg] = useState('');
    const { dispatch } = useAuthContext()
 
    const signup = async (userData) => {

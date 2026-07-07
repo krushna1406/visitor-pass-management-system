@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
-   const {logout} = useLogout();
+   const { logout } = useLogout();
    const navigate = useNavigate();
 
    const handleLogout = () => {
@@ -24,11 +24,17 @@ const Navbar = () => {
             </Link>
             <nav className='flex'>
                {!user &&
-                  <Link to='/login'
-                     className='bg-white px-3 py-2 rounded-md font-semibold text-indigo-700'
-                  >
-                     Login
-                  </Link>
+                  <div>
+                     <Link to='/login'
+                        className='bg-white px-3 py-2 rounded-md font-semibold text-indigo-700'
+                     >
+                        Login
+                     </Link>
+
+                     <Link to='/signup'>
+                        Visitor Signup
+                     </Link>
+                  </div>
                }
                {user &&
                   <div onClick={handleLogout}>

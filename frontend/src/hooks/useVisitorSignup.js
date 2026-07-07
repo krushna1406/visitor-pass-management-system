@@ -1,0 +1,37 @@
+import React, { useState } from 'react'
+import { useAuthContext } from './useAuthContext';
+import { signupUser } from '../services/api';
+import toast from 'react-hot-toast';
+
+const useVisitorSignup = () => {
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(null);
+
+   const {dispatch} = useAuthContext()
+
+   const signup = async (visitorData) => {
+      setLoading(false);
+      setError(null)
+      try{
+         const result = await signupUser(visitorData);
+         console.log(result)
+         if(result.success) {
+            toast.success('Signup Successful !')
+
+            localStorage.setItem('visitor', JSON.stringify({
+               id: result._id,
+               email: result.email,
+               role: result.role,
+               token: result.token
+            }))
+         }
+      }catch(error) {
+         toast.error(error.message)
+      }finally{
+         setLoading(false);
+      }
+   }
+   return {signup, loading, error};
+}
+
+export default useVisitorSignup

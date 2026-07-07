@@ -12,7 +12,7 @@ const CreateUser = () => {
   const [role, setRole] = useState('');
 
   const { dispatch } = useAuthContext()
-  const { signup, loading, error, msg} = useSignup()
+  const { signup, loading, error} = useSignup()
 
   const handleSubmit = async (e) => {
     e.preventDefault();

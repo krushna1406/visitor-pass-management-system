@@ -1,9 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import Home from "./pages/Home"
-import Login from './pages/Login'
-import AdminDashboard from "./pages/AdminDashboard"
-import EmployeeDashboard from "./pages/EmployeeDashboard"
-import SecurityDashboard from "./pages/SecurityDashboard"
+import {AdminDashboard, EmployeeDashboard, SecurityDashboard, VisitorDashboard, Home, Login, VisitorSignup} from './pages/index'
 import { useAuthContext } from "./hooks/useAuthContext"
 import ProtectedRoute from "./route/protectedRoute"
 import { Dashboard, CreateUser, AllEmployees, VisitorList, AllUsers } from './components/admin/Index'
@@ -19,6 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<VisitorSignup/>}/>
           <Route path='/' element={<Home />} />
 
           {/* Admin Routes */}
@@ -38,6 +35,7 @@ function App() {
             <Route path="users" element={<AllUsers />} />
           </Route>
 
+          {/* Employee Routes  */}
           <Route 
             path='/employee'
             element={
@@ -52,6 +50,7 @@ function App() {
             <Route path="my-visitors" element={<EmpVisitorList/>}/>
           </Route>
 
+          {/* Security Routes */}
           <Route path='/security'
             element={
               <ProtectedRoute role={'security'}>
@@ -63,6 +62,16 @@ function App() {
             <Route path="dashboard" element={<SecDashboard/>}/>
             <Route path="check-in" element={<CheckIn/>}/>
             <Route path="check-out" element={<CheckOut/>}/>
+          </Route>
+
+          {/* Visitor Routes */}
+          <Route path='/visitor'
+            element={
+              <ProtectedRoute role={'visitor'}>
+                <VisitorDashboard/>
+              </ProtectedRoute>
+            }
+          >
           </Route>
         </Routes>
       </BrowserRouter>
