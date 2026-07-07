@@ -1,5 +1,7 @@
 const Visitor = require('../models/visitorModel')
 
+const QRCode = require('qrcode');
+
 exports.createVisitor= async (req, res) => {
    try{
       const visitor = await Visitor.create(req.body);
@@ -83,6 +85,8 @@ exports.updateVisitor = async (req, res) => {
 exports.updateVisitorStatus = async (req, res) => {
    const {id} = req.params;
    const {status} = req.body;
+
+   let qrCode = null;
    
    try{
       const visitor = await Visitor.findById(id);
@@ -100,7 +104,26 @@ exports.updateVisitorStatus = async (req, res) => {
          })
       }
 
-      await Visitor.findByIdAndUpdate(id, {status} , {new: true});
+      if(status === 'approved') {
+         const qrData = {
+            visitorId: visitor._id
+         }
+
+         qrCode = await QRCode.toDataURL(
+            JSON.stringify(qrData)
+         )
+      }
+
+      const updatedVisitor = await Visitor.findByIdAndUpdate(id, {
+            status,
+            qrCode,
+            passGenerated: status === 'approved'
+         },
+         {new: true}
+      );
+
+      console.log(updatedVisitor)
+
       res.status(200).json({
          success: true,
          message: `Visit ${status}`    // Dynamically show the approved or rejected status

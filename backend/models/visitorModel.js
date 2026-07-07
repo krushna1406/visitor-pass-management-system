@@ -29,6 +29,13 @@ const visitorSchema = new mongoose.Schema({
       type: Date,
       required: true
    },
+   qrCode: {
+      type: String
+   },
+   passGenerated: {
+      type: Boolean,
+      default: false
+   },
    checkIn:{
       type: Date,
    },
