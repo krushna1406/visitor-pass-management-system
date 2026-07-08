@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getVisitors, getVisitor, createVisitor, updateVisitor, deleteVisitor, updateVisitorStatus, checkInVisitor, checkOutVisitor, getVisitorPass } = require('../controllers/visitorController')
+const { getVisitors, getVisitor, createVisitor, updateVisitor, deleteVisitor, updateVisitorStatus, checkInVisitor, checkOutVisitor, getVisitorPass, getVisitorStats } = require('../controllers/visitorController')
 const requireAuth = require('../middleware/requireAuth');
 const { requireAdmin, requireEmployee, requireSecurity, requireVisitor } = require('../middleware/requireRole');
 
@@ -18,5 +18,6 @@ router.patch('/:id/checkin', requireSecurity, checkInVisitor);
 router.patch('/:id/checkout', requireSecurity, checkOutVisitor);
 
 router.get('/:id/pass', requireVisitor, getVisitorPass);
+router.get('/visitor/stats', requireVisitor, getVisitorStats);
 
 module.exports = router;

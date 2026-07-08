@@ -263,3 +263,36 @@ exports.getVisitorPass = async (req, res) => {
       })
    }
 }
+
+exports.getVisitorStats = async (req, res) => {
+   try{
+      const totalVisits = await Visitor.countDocuments({
+         email: req.user.email
+      })
+
+      const pending = await Visitor.countDocuments({
+         email: req.user.email,
+         status: 'pending'
+      })
+
+      const approved = await Visitor.countDocuments({
+         email: req.user.email,
+         status: 'approved'
+      })
+
+      const rejected = await Visitor.countDocuments({
+         email: req.user.email,
+         status: 'rejected'
+      })
+
+      res.status(200).json({
+         success: true,
+         stats: {totalVisits, pending, approved, rejected}
+      })
+   }catch(error) {
+      res.status(500).json({
+         success: false,
+         message: error.message
+      })
+   }
+}

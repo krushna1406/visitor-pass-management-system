@@ -93,4 +93,9 @@ export const getSecurityStats = async () => {
    return response.data;
 }
 
+export const getVisitorStats = async () => {
+   const response = await API.get('/api/visitors/visitor/stats');
+   return response.data;
+}
+
 export default API;
