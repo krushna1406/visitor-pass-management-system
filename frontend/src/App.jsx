@@ -5,7 +5,7 @@ import ProtectedRoute from "./route/protectedRoute"
 import { Dashboard, CreateUser, AllEmployees, VisitorList, AllUsers } from './components/admin/Index'
 import {EmpDashboard, ScheduleVisitor, EmpVisitorList} from './components/employee/Index'
 import {SecDashboard, CheckIn, CheckOut} from './components/security/index'
-import {VisDashboard} from './components/visitor/index'
+import {ScheduleVisit, VisDashboard} from './components/visitor/index'
 
 function App() {
 
@@ -75,6 +75,7 @@ function App() {
           >
             <Route index element={<Navigate to='dashboard'/>}/>
             <Route path='dashboard' element={<VisDashboard/>}/>
+            <Route path='schedule-visit' element={<ScheduleVisit/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

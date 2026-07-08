@@ -64,7 +64,8 @@ exports.deleteUser = async (req, res) => {
 }
 
 exports.employeeDashboardStats = async (req, res) => {
-   const {id} = req.params;
+   const id = req.user._id;
+   
    try{
       const totalVisits = await Visitor.countDocuments({employee: id});
       const upcomingVisitors = await Visitor.countDocuments({

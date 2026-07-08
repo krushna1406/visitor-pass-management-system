@@ -3,15 +3,35 @@ const User = require('../models/userModel')
 
 const QRCode = require('qrcode');
 
-exports.createVisitor= async (req, res) => {
-   try{
-      const visitor = await Visitor.create(req.body);
+exports.createVisitor = async (req, res) => {
+   const data = req.body;
+   
+   let employeeId;
+   try {
+      if (req.user.role === 'employee') {
+         employeeId = req.user._id;
+      } 
+      else if(req.user.role === 'visitor') {
+         const employee = await User.findOne({
+            empId: req.body.employee,
+            role: 'employee'
+         })
+
+         if (!employee) {
+            return res.status(404).json({
+               success: false,
+               message: 'Employee not found'
+            })
+         }
+         employeeId = employee._id;
+      }
+      const visitor = await Visitor.create({...data, employee: employeeId});
       res.status(201).json({
          success: true,
          message: 'Visitor created successfully',
          visitor
       })
-   }catch(error) {
+   } catch (error) {
       res.status(400).json({
          success: false,
          message: error.message
@@ -20,7 +40,7 @@ exports.createVisitor= async (req, res) => {
 }
 
 exports.getVisitors = async (req, res) => {
-   try{
+   try {
       const visitors = await Visitor.find({}).populate('employee', 'empId name email').sort()
 
       res.status(200).json({
@@ -28,7 +48,7 @@ exports.getVisitors = async (req, res) => {
          message: 'fetch successful',
          visitors
       })
-   }catch(error) {
+   } catch (error) {
       res.status(500).json({
          success: false,
          message: error.message
@@ -37,10 +57,10 @@ exports.getVisitors = async (req, res) => {
 }
 
 exports.getVisitor = async (req, res) => {
-   const {id} = req.params;
-   try{
+   const { id } = req.params;
+   try {
       const visitor = await Visitor.findById(id);
-      if(!visitor) {
+      if (!visitor) {
          return res.status(404).json({
             success: false,
             message: 'Visitor not found'
@@ -51,7 +71,7 @@ exports.getVisitor = async (req, res) => {
          message: 'Visitor details found',
          visitor
       })
-   }catch(error) {
+   } catch (error) {
       res.status(404).json({
          success: false,
          message: error.message
@@ -60,11 +80,11 @@ exports.getVisitor = async (req, res) => {
 }
 
 exports.updateVisitor = async (req, res) => {
-   const {id} = req.params;
+   const { id } = req.params;
    const data = req.body;
-   try{
-      const updatedVisitor = await Visitor.findByIdAndUpdate(id, data, {new: true})
-      if(!updatedVisitor) {
+   try {
+      const updatedVisitor = await Visitor.findByIdAndUpdate(id, data, { new: true })
+      if (!updatedVisitor) {
          return res.status(404).json({
             success: false,
             message: 'Visitor not found'
@@ -75,7 +95,7 @@ exports.updateVisitor = async (req, res) => {
          message: 'Visitor details updated',
          updatedVisitor
       })
-   }catch(error) {
+   } catch (error) {
       res.status(404).json({
          success: false,
          message: error.message
@@ -84,28 +104,28 @@ exports.updateVisitor = async (req, res) => {
 }
 
 exports.updateVisitorStatus = async (req, res) => {
-   const {id} = req.params;
-   const {status} = req.body;
+   const { id } = req.params;
+   const { status } = req.body;
 
    let qrCode = null;
-   
-   try{
+
+   try {
       const visitor = await Visitor.findById(id);
-      if(!visitor) {
+      if (!visitor) {
          return res.status(404).json({
             success: false,
             message: 'Visitor not found'
          })
       }
 
-      if(visitor.employee.toString() !== req.user._id.toString()) {
+      if (visitor.employee.toString() !== req.user._id.toString()) {
          return res.status(403).json({
             success: false,
             message: 'Forbidden'
          })
       }
 
-      if(status === 'approved') {
+      if (status === 'approved') {
          const qrData = {
             visitorId: visitor._id
          }
@@ -116,11 +136,11 @@ exports.updateVisitorStatus = async (req, res) => {
       }
 
       const updatedVisitor = await Visitor.findByIdAndUpdate(id, {
-            status,
-            qrCode,
-            passGenerated: status === 'approved'
-         },
-         {new: true}
+         status,
+         qrCode,
+         passGenerated: status === 'approved'
+      },
+         { new: true }
       );
 
       console.log(updatedVisitor)
@@ -129,7 +149,7 @@ exports.updateVisitorStatus = async (req, res) => {
          success: true,
          message: `Visit ${status}`    // Dynamically show the approved or rejected status
       })
-   }catch(error) {
+   } catch (error) {
       res.status(500).json({
          success: false,
          message: error.message
@@ -138,11 +158,11 @@ exports.updateVisitorStatus = async (req, res) => {
 }
 
 exports.deleteVisitor = async (req, res) => {
-   const {id} = req.params;
+   const { id } = req.params;
 
-   try{
+   try {
       const visitor = await Visitor.findByIdAndDelete(id);
-      if(!visitor) {
+      if (!visitor) {
          return res.status(404).json({
             success: false,
             message: 'No visitor found'
@@ -152,7 +172,7 @@ exports.deleteVisitor = async (req, res) => {
          success: true,
          message: 'Visitor records deleted'
       })
-   }catch(error) {
+   } catch (error) {
       res.status(400).json({
          success: false,
          message: error.message
@@ -161,23 +181,23 @@ exports.deleteVisitor = async (req, res) => {
 }
 
 exports.checkInVisitor = async (req, res) => {
-   const {id} = req.params;
+   const { id } = req.params;
 
-   try{
+   try {
       const visitor = await Visitor.findById(id);
-      if(!visitor) {
+      if (!visitor) {
          return res.status(404).json({
             success: false,
             message: 'Visitor not found'
          })
       }
-      if(visitor.status !== 'approved'){
+      if (visitor.status !== 'approved') {
          return res.status(400).json({
-            success:false,
-            message:'Visit is not approved'
+            success: false,
+            message: 'Visit is not approved'
          })
       }
-      if(visitor.checkIn) {
+      if (visitor.checkIn) {
          return res.status(400).json({
             success: false,
             message: 'Already checked-in!'
@@ -191,7 +211,7 @@ exports.checkInVisitor = async (req, res) => {
          message: 'Visitor check in successful',
          visitor
       })
-   }catch(error) {
+   } catch (error) {
       res.status(500).json({
          success: false,
          message: error.message
@@ -200,23 +220,23 @@ exports.checkInVisitor = async (req, res) => {
 }
 
 exports.checkOutVisitor = async (req, res) => {
-   const {id} = req.params;
+   const { id } = req.params;
 
-   try{
+   try {
       const visitor = await Visitor.findById(id);
-      if(!visitor) {
+      if (!visitor) {
          return res.status(404).json({
             success: false,
             message: 'Visitor not found'
          })
       }
-      if(!visitor.checkIn) {
+      if (!visitor.checkIn) {
          return res.status(400).json({
             success: false,
             message: 'Cannot check-out without check-in first'
          })
       }
-      if(visitor.checkOut) {
+      if (visitor.checkOut) {
          return res.status(400).json({
             success: false,
             message: 'Already checked out!'
@@ -231,7 +251,7 @@ exports.checkOutVisitor = async (req, res) => {
          visitor
       })
 
-   }catch(error) {
+   } catch (error) {
       res.status(500).json({
          success: false,
          message: error.message
@@ -240,12 +260,12 @@ exports.checkOutVisitor = async (req, res) => {
 }
 
 exports.getVisitorPass = async (req, res) => {
-   try{
+   try {
       const visitor = await User.findOne({
          email: req.user.email
       }).populate('employee', 'name email');
 
-      if(!visitor) {
+      if (!visitor) {
          return res.status(404).json({
             success: false,
             message: 'Pass not found'
@@ -256,7 +276,7 @@ exports.getVisitorPass = async (req, res) => {
          success: true,
          visitor
       })
-   }catch(error) {
+   } catch (error) {
       res.status(500).json({
          success: false,
          message: error.message

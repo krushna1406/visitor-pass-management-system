@@ -9,7 +9,6 @@ const VisDashboard = () => {
       const fetchVisitorStats = async () => {
          try {
             const result = await getVisitorStats()
-
             if (result.success) {
                setStats(result.stats);
             }

@@ -18,7 +18,7 @@ const Sidebar = () => {
             Dashboard
          </NavLink>
 
-         {/* <NavLink to='/admin/create-user'
+         <NavLink to='/visitor/schedule-visit'
             className={({isActive}) => `rounded-lg text-center py-1 transition-all duration-100
                ${isActive
                   ? 'bg-indigo-500 text-white'
@@ -27,7 +27,7 @@ const Sidebar = () => {
             `}
          >
             Schedule Visit
-         </NavLink> */}
+         </NavLink>
       </div>
    )
 }

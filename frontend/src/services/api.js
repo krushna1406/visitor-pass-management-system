@@ -79,7 +79,7 @@ export const deleteUser = async (id) => {
 }
 
 export const getEmployeeDashboardStats = async (id) => {
-   const response = await API.get(`/api/users/employee/${id}/dashboard/stats`);
+   const response = await API.get(`/api/users/employee/dashboard/stats`);
    return response.data;
 }
 
