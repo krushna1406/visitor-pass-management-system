@@ -81,7 +81,7 @@ const Login = () => {
             <p className='mt-4'>
                Don't have an Account ?
                <Link to='/signup'
-                  className='text-sky-500 p-2'
+                  className='text-sky-500 px-2 hover:underline'
                >Signup</Link>
             </p>
          </form>
