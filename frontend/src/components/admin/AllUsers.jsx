@@ -17,9 +17,12 @@ const AllUsers = () => {
       try {
         const result = await getAllUsers();
         if (result.success) {
+          const data = result.users.filter(user => 
+            user.role === 'employee' || user.role === 'security'
+          )
           dispatch({
             type: 'GET_USERS',
-            payload: result.users
+            payload: data
           })
         }
       }catch(error) {
