@@ -143,8 +143,6 @@ exports.updateVisitorStatus = async (req, res) => {
          { new: true }
       );
 
-      console.log(updatedVisitor)
-
       res.status(200).json({
          success: true,
          message: `Visit ${status}`    // Dynamically show the approved or rejected status
