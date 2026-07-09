@@ -32,7 +32,7 @@ const VisDashboard = () => {
                setPasses(result.passes);
             }
          } catch (error) {
-            setError(error.response?.data?.message);
+            setError(error.response?.data?.message || 'Internal Server Error');
          } finally {
             setLoading(false);
          }
@@ -53,11 +53,11 @@ const VisDashboard = () => {
             My Passes
             <div className='flex flex-wrap'>
                {loading &&
-                  <div className='text-lg ml-20 mt-6 text-gray-500 font-semibold'>Loading...</div>
+                  <div className='text-lg ml-20 mt-6 text-gray-400 font-semibold'>Loading...</div>
                }
 
                {error &&
-                  <div className='text-xl text-red-500 font-semibold'>{error}</div>
+                  <div className='text-lg ml-20 mt-6 text-red-500'>{error}</div>
                }
                {passes.map(pass =>
                   <MyPasses key={pass._id} pass={pass} />
