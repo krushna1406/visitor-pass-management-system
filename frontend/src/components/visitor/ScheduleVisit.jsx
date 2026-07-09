@@ -19,6 +19,14 @@ const ScheduleVisit = () => {
       e.preventDefault();
       setLoading(true);
 
+      const selected = new Date(date);
+      const today = new Date();
+
+      if(selected < today) {
+         toast.error('Cannot schedule visit for past dates');
+         setLoading(false);
+         return;
+      }
       try {
          const visitorData = {
             name,
@@ -113,7 +121,7 @@ const ScheduleVisit = () => {
                </div>
                <div>
                   <input 
-                     type="date" 
+                     type="datetime-local" 
                      onChange={(e) => setDate(e.target.value)}
                      className='w-full border border-gray-300 text-gray-500 outline-indigo-600 p-2 mt-3 mb-5 rounded-lg'
                   />
