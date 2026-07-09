@@ -98,4 +98,9 @@ export const getVisitorStats = async () => {
    return response.data;
 }
 
+export const getPasses = async () => {
+   const response = await API.get('/api/visitors/visitor/pass');
+   return response.data;
+}
+
 export default API;

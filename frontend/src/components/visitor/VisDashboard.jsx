@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { getVisitorStats } from '../../services/api';
+import { getVisitorStats, getPasses } from '../../services/api';
 import DashboardCard from '../DashboardCard';
+import MyPasses from './MyPasses';
 
 const VisDashboard = () => {
    const [stats, setStats] = useState({});
+
+   const [passes, setPasses] = useState([]);
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(null);
 
    useEffect(() => {
       const fetchVisitorStats = async () => {
@@ -12,19 +17,53 @@ const VisDashboard = () => {
             if (result.success) {
                setStats(result.stats);
             }
-         }catch(error) {
+         } catch (error) {
             console.log(error.response?.data?.message);
          }
       }
       fetchVisitorStats();
+
+      const fetchPasses = async () => {
+         setLoading(true);
+         setError(null);
+         try {
+            const result = await getPasses();
+            if (result.success) {
+               setPasses(result.passes);
+            }
+         } catch (error) {
+            setError(error.response?.data?.message);
+         } finally {
+            setLoading(false);
+         }
+      }
+      fetchPasses()
    }, [])
 
    return (
-      <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 mx-8 mt-10'>
-         <DashboardCard name={'Approved Visits'} value={stats.approved}/>
-         <DashboardCard name={'Pending Visits'} value={stats.pending}/>
-         <DashboardCard name={'Rejected Visits'} value={stats.rejected}/>
-         <DashboardCard name={'Total Visits'} value={stats.totalVisits}/>
+      <div className=''>
+         <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 mx-8 mt-10'>
+            <DashboardCard name={'Approved Visits'} value={stats.approved} />
+            <DashboardCard name={'Pending Visits'} value={stats.pending} />
+            <DashboardCard name={'Rejected Visits'} value={stats.rejected} />
+            <DashboardCard name={'Total Visits'} value={stats.totalVisits} />
+         </div>
+
+         <div className='mx-6 mt-8'>
+            My Passes
+            <div className='flex flex-wrap'>
+               {loading &&
+                  <div className='text-lg ml-20 mt-6 text-gray-500 font-semibold'>Loading...</div>
+               }
+
+               {error &&
+                  <div className='text-xl text-red-500 font-semibold'>{error}</div>
+               }
+               {passes.map(pass =>
+                  <MyPasses key={pass._id} pass={pass} />
+               )}
+            </div>
+         </div>
       </div>
    )
 }

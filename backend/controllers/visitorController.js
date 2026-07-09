@@ -259,11 +259,12 @@ exports.checkOutVisitor = async (req, res) => {
 
 exports.getVisitorPass = async (req, res) => {
    try {
-      const visitor = await User.findOne({
-         email: req.user.email
+      const passes = await Visitor.find({
+         email: req.user.email,
+         passGenerated: true
       }).populate('employee', 'name email');
 
-      if (!visitor) {
+      if (!passes.length) {
          return res.status(404).json({
             success: false,
             message: 'Pass not found'
@@ -272,7 +273,7 @@ exports.getVisitorPass = async (req, res) => {
 
       res.status(200).json({
          success: true,
-         visitor
+         passes
       })
    } catch (error) {
       res.status(500).json({

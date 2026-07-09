@@ -17,7 +17,7 @@ router.patch('/:id/status', requireEmployee, updateVisitorStatus);
 router.patch('/:id/checkin', requireSecurity, checkInVisitor);
 router.patch('/:id/checkout', requireSecurity, checkOutVisitor);
 
-router.get('/:id/pass', requireVisitor, getVisitorPass);
+router.get('/visitor/pass', requireVisitor, getVisitorPass);
 router.get('/visitor/stats', requireVisitor, getVisitorStats);
 
 module.exports = router;
