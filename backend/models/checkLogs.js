@@ -18,7 +18,8 @@ const CheckLogSchema = new mongoose.Schema({
    },
 
    checkOut:{
-      type: Date
+      type: Date,
+      default: null
    }
 }, {timestamps: true})
 
