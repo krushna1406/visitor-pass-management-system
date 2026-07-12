@@ -28,7 +28,7 @@ const Visitor = ({ visitor, index }) => {
       <p>{visitor.name}</p>
       <p>{visitor.email}</p>
       <p className='text-center'>{visitor.phone}</p>
-      <p className='text-blue-400 text-center'>{visitor.employee.empId}</p>
+      <p className='text-blue-400 text-center'>{visitor.employee?.empId}</p>
       <p
         className={`bg-indigo-600 rounded-xl w-22 text-white ml-8 text-center`}
       >{visitor.status}</p>
