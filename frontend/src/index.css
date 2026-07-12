@@ -2,6 +2,38 @@
 
 @import 'tailwindcss';
 
-body{
+body {
    font-family: 'Inter', sans-serif;
+}
+
+#reader {
+   border: none !important;
+   border-radius: 16px;
+   overflow: hidden;
+}
+
+#reader video {
+   border-radius: 16px;
+}
+
+#reader__dashboard {
+   border: none !important;
+   padding-top: 16px;
+}
+
+#reader__dashboard_section button {
+   background: #4f46e5 !important;
+   color: white !important;
+   border: none !important;
+   padding: 10px 18px !important;
+   border-radius: 8px !important;
+   font-weight: 600;
+}
+
+#reader__dashboard_section_swaplink {
+   display: none !important;
+}
+
+#reader__filescan_input {
+   display: none !important;
 }

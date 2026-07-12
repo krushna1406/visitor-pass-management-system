@@ -42,11 +42,6 @@ export const updateVisitStatus = async (id, status) => {
    return response.data;
 }
 
-export const checkInVisitor = async (id) => {
-   const response = await API.patch(`/api/visitors/${id}/checkin`);
-   return response.data;
-}
-
 export const checkOutVisitor = async (id) => {
    const response = await API.patch(`/api/visitors/${id}/checkout`);
    return response.data;
@@ -98,8 +93,18 @@ export const getVisitorStats = async () => {
    return response.data;
 }
 
+export const verifyPass = async (id) => {
+   const response = await API.get(`/api/visitors/verify/${id}`);
+   return response.data;
+}
+
 export const getPasses = async () => {
    const response = await API.get('/api/visitors/visitor/pass');
+   return response.data;
+}
+
+export const checkInVisitor = async (id) => {
+   const response = await API.post(`/api/checklogs/${id}/checkin`)
    return response.data;
 }
 

@@ -36,12 +36,6 @@ const visitorSchema = new mongoose.Schema({
       type: Boolean,
       default: false
    },
-   checkIn:{
-      type: Date,
-   },
-   checkOut:{
-      type: Date
-   },
    status:{
       type: String,
       enum: ['pending', 'approved', 'rejected'],

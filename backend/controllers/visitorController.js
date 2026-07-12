@@ -126,12 +126,9 @@ exports.updateVisitorStatus = async (req, res) => {
       }
 
       if (status === 'approved') {
-         const qrData = {
-            visitorId: visitor._id
-         }
 
          qrCode = await QRCode.toDataURL(
-            JSON.stringify(qrData)
+            visitor._id.toString()
          )
       }
 
@@ -178,45 +175,6 @@ exports.deleteVisitor = async (req, res) => {
    }
 }
 
-exports.checkInVisitor = async (req, res) => {
-   const { id } = req.params;
-
-   try {
-      const visitor = await Visitor.findById(id);
-      if (!visitor) {
-         return res.status(404).json({
-            success: false,
-            message: 'Visitor not found'
-         })
-      }
-      if (visitor.status !== 'approved') {
-         return res.status(400).json({
-            success: false,
-            message: 'Visit is not approved'
-         })
-      }
-      if (visitor.checkIn) {
-         return res.status(400).json({
-            success: false,
-            message: 'Already checked-in!'
-         })
-      }
-      visitor.checkIn = new Date();
-      await visitor.save();
-
-      res.status(200).json({
-         success: true,
-         message: 'Visitor check in successful',
-         visitor
-      })
-   } catch (error) {
-      res.status(500).json({
-         success: false,
-         message: error.message
-      })
-   }
-}
-
 exports.checkOutVisitor = async (req, res) => {
    const { id } = req.params;
 
@@ -257,6 +215,39 @@ exports.checkOutVisitor = async (req, res) => {
    }
 }
 
+exports.getVisitorStats = async (req, res) => {
+   try{
+      const totalVisits = await Visitor.countDocuments({
+         email: req.user.email
+      })
+
+      const pending = await Visitor.countDocuments({
+         email: req.user.email,
+         status: 'pending'
+      })
+
+      const approved = await Visitor.countDocuments({
+         email: req.user.email,
+         status: 'approved'
+      })
+
+      const rejected = await Visitor.countDocuments({
+         email: req.user.email,
+         status: 'rejected'
+      })
+
+      res.status(200).json({
+         success: true,
+         stats: {totalVisits, pending, approved, rejected}
+      })
+   }catch(error) {
+      res.status(500).json({
+         success: false,
+         message: error.message
+      })
+   }
+}
+
 exports.getVisitorPass = async (req, res) => {
    try {
       const passes = await Visitor.find({
@@ -283,30 +274,20 @@ exports.getVisitorPass = async (req, res) => {
    }
 }
 
-exports.getVisitorStats = async (req, res) => {
+exports.verifyPass = async (req, res) => {
    try{
-      const totalVisits = await Visitor.countDocuments({
-         email: req.user.email
-      })
+      const visitor = await Visitor.findById(req.params.id).populate('employee', 'empId name email');
 
-      const pending = await Visitor.countDocuments({
-         email: req.user.email,
-         status: 'pending'
-      })
-
-      const approved = await Visitor.countDocuments({
-         email: req.user.email,
-         status: 'approved'
-      })
-
-      const rejected = await Visitor.countDocuments({
-         email: req.user.email,
-         status: 'rejected'
-      })
+      if(!visitor) {
+         return res.status(400).json({
+            success: false,
+            message: 'Invalid Pass'
+         })
+      }
 
       res.status(200).json({
          success: true,
-         stats: {totalVisits, pending, approved, rejected}
+         visitor
       })
    }catch(error) {
       res.status(500).json({
