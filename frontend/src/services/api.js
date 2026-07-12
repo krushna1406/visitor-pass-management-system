@@ -42,11 +42,6 @@ export const updateVisitStatus = async (id, status) => {
    return response.data;
 }
 
-export const checkOutVisitor = async (id) => {
-   const response = await API.patch(`/api/visitors/${id}/checkout`);
-   return response.data;
-}
-
 // Login 
 export const loginUser = async (loginData) => {
    const response = await API.post('/api/auth/login', loginData);
@@ -105,6 +100,11 @@ export const getPasses = async () => {
 
 export const checkInVisitor = async (id) => {
    const response = await API.post(`/api/checklogs/${id}/checkin`)
+   return response.data;
+}
+
+export const checkOutVisitor = async (id) => {
+   const response = await API.patch(`/api/checklogs/${id}/checkout`);
    return response.data;
 }
 

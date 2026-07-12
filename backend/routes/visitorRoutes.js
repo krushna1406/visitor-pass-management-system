@@ -14,7 +14,6 @@ router.delete('/:id', requireAdmin, deleteVisitor);
 
 router.patch('/:id/status', requireEmployee, updateVisitorStatus);
 
-router.patch('/:id/checkout', requireSecurity, checkOutVisitor);
 router.get('/verify/:id', requireSecurity, verifyPass);
 
 router.get('/visitor/pass', requireVisitor, getVisitorPass);

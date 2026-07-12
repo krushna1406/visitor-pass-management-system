@@ -1,5 +1,6 @@
 const Visitor = require('../models/visitorModel')
 const User = require('../models/userModel')
+const Checklog = require('../models/checkLogs');
 
 const QRCode = require('qrcode');
 
@@ -175,46 +176,6 @@ exports.deleteVisitor = async (req, res) => {
    }
 }
 
-exports.checkOutVisitor = async (req, res) => {
-   const { id } = req.params;
-
-   try {
-      const visitor = await Visitor.findById(id);
-      if (!visitor) {
-         return res.status(404).json({
-            success: false,
-            message: 'Visitor not found'
-         })
-      }
-      if (!visitor.checkIn) {
-         return res.status(400).json({
-            success: false,
-            message: 'Cannot check-out without check-in first'
-         })
-      }
-      if (visitor.checkOut) {
-         return res.status(400).json({
-            success: false,
-            message: 'Already checked out!'
-         })
-      }
-      visitor.checkOut = new Date();
-      await visitor.save();
-
-      res.status(200).json({
-         success: true,
-         message: 'Visitor check out successful',
-         visitor
-      })
-
-   } catch (error) {
-      res.status(500).json({
-         success: false,
-         message: error.message
-      })
-   }
-}
-
 exports.getVisitorStats = async (req, res) => {
    try{
       const totalVisits = await Visitor.countDocuments({
@@ -285,9 +246,15 @@ exports.verifyPass = async (req, res) => {
          })
       }
 
+      const activeLog = await Checklog.findOne({
+         visitor: visitor._id,
+         checkOut: null
+      })
+
       res.status(200).json({
          success: true,
-         visitor
+         visitor,
+         activeLog
       })
    }catch(error) {
       res.status(500).json({

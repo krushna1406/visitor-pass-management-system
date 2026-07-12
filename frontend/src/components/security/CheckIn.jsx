@@ -25,6 +25,7 @@ const CheckIn = () => {
          const result = await checkInVisitor(visitor._id);
          if(result.success) {
             toast.success('Visitor Check in Successful');
+            setVisitor(null);
             setLoading(false);
             return;
          }

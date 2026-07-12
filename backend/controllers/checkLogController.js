@@ -48,3 +48,34 @@ exports.checkInVisitor = async (req, res) => {
       })
    }
 }
+
+exports.checkOutVisitor = async (req, res) => {
+   const {id} = req.params;
+
+   try{
+      const log = await CheckLog.findOne({
+         visitor: id,
+         checkOut: null
+      })
+
+      if(!log) {
+         return res.status(404).json({
+            success: false,
+            message: 'Visitor not checked in'
+         })
+      }
+
+      log.checkOut = new Date();
+      log.save();
+
+      res.status(200).json({
+         success: true,
+         message: 'Checkout Successful'
+      })
+   }catch(error) {
+      res.status(500).json({
+         success: false,
+         message: error.message
+      })
+   }
+}
