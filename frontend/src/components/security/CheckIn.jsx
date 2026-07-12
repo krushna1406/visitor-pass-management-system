@@ -36,7 +36,11 @@ const CheckIn = () => {
 
    return (
       <div>
-         <QRScanner onScanSuccess={handleScan} />
+         {!visitor &&
+            <div className='mt-30'>
+               <QRScanner onScanSuccess={handleScan} />
+            </div>
+         }
 
          {visitor && (
             <div className="max-w-md mx-auto mt-5 bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
@@ -86,10 +90,10 @@ const CheckIn = () => {
                   </div>
 
                   <div className={`rounded-lg py-3 text-lg text-center font-semibold
-                        ${visitor.status === "approved"
-                           ? "bg-green-100 text-green-600"
-                           : "bg-red-100 text-red-600"
-                        }`}>
+                     ${visitor.status === "approved"
+                        ? "bg-green-100 text-green-600"
+                        : "bg-red-100 text-red-600"
+                     }`}>
                      {visitor.status.toUpperCase()}
                   </div>
 
@@ -105,7 +109,7 @@ const CheckIn = () => {
             </div>
          )}
 
-         {error && 
+         {error &&
             <div className='text-center text-red-500 text-lg mt-2'>{error}</div>
          }
       </div>
