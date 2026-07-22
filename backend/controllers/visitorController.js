@@ -211,9 +211,12 @@ exports.getVisitorStats = async (req, res) => {
 
 exports.getVisitorPass = async (req, res) => {
    try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
       const passes = await Visitor.find({
          email: req.user.email,
-         passGenerated: true
+         passGenerated: true,
+         visitDate: {$gte: today}
       }).populate('employee', 'name email');
 
       if (!passes.length) {
