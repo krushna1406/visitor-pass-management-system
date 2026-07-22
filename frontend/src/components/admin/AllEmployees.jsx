@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getAllUsers } from '../../services/api'
 import User from './User';
 import { useUserContext } from '../../hooks/useUserContext';
+import { IoInformationCircleOutline } from 'react-icons/io5'
 
 const AllEmployees = () => {
 
@@ -56,10 +57,16 @@ const AllEmployees = () => {
         <p className='ml-5'>Email</p>
         <p className='ml-5'>Role</p>
       </div>
-      {users.map((user, index) =>
-        <User
-          key={user._id} user={user} index={index}
-        />
+      
+      {users.length === 0 ? (
+        <div className='text-gray-400 text-center my-8'>
+          <div className='flex justify-center'><IoInformationCircleOutline size={40} /></div>
+          <p>No records found</p>
+        </div>
+      ) : (
+        users.map((user, index) =>
+          <User key={user._id} user={user} index={index} />
+        )
       )}
     </div>
   )

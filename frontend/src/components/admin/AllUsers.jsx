@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { getAllUsers } from '../../services/api'
 import User from './User';
 import { useUserContext } from '../../hooks/useUserContext';
+import { IoInformationCircleOutline } from 'react-icons/io5'
 
 const AllUsers = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const {users, dispatch} = useUserContext()
+  const { users, dispatch } = useUserContext()
 
   useEffect(() => {
     const getUsers = async () => {
@@ -17,7 +18,7 @@ const AllUsers = () => {
       try {
         const result = await getAllUsers();
         if (result.success) {
-          const data = result.users.filter(user => 
+          const data = result.users.filter(user =>
             user.role === 'employee' || user.role === 'security'
           )
           dispatch({
@@ -25,9 +26,9 @@ const AllUsers = () => {
             payload: data
           })
         }
-      }catch(error) {
+      } catch (error) {
         setError(error.response?.data?.message || 'Internal server error')
-      }finally{
+      } finally {
         setLoading(false)
       }
     }
@@ -56,11 +57,19 @@ const AllUsers = () => {
         <p className='ml-5'>Phone</p>
         <p className='ml-5'>Role</p>
       </div>
-      {users.map((user, index) =>
-        <User
-          key={user._id} user={user} index={index}
-        />
-      )}
+      {users.length === 0 ? (
+        <div className='text-gray-400 text-center my-8'>
+          <div className='flex justify-center'><IoInformationCircleOutline size={40} /></div>
+          <p>No records found</p>
+        </div>
+      ) : (
+        users.map((user, index) =>
+          <User
+            key={user._id} user={user} index={index}
+          />
+        )
+      )
+      }
     </div>
   )
 }
