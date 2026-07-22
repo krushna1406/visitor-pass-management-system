@@ -123,6 +123,7 @@ const ScheduleVisit = () => {
                   <input 
                      type="datetime-local" 
                      onChange={(e) => setDate(e.target.value)}
+                     value={date}
                      className='w-full border border-gray-300 text-gray-500 outline-indigo-600 p-2 mt-3 mb-5 rounded-lg'
                   />
                </div>

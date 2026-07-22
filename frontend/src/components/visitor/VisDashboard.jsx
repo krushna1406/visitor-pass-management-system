@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getVisitorStats, getPasses } from '../../services/api';
 import DashboardCard from '../DashboardCard';
 import MyPasses from './MyPasses';
+import { IoInformationCircleOutline } from 'react-icons/io5'
 
 const VisDashboard = () => {
    const [stats, setStats] = useState({});
@@ -50,20 +51,32 @@ const VisDashboard = () => {
          </div>
 
          <div className='mx-6 mt-8'>
-            My Passes
-            <div className='flex flex-wrap'>
-               {loading &&
-                  <div className='text-lg ml-20 mt-6 text-gray-400 font-semibold'>Loading...</div>
-               }
+            <h2 className='text-xl font-semibold'>My Passes</h2>
 
-               {error &&
-                  <div className='text-lg ml-20 mt-6 text-red-500'>{error}</div>
-               }
-               {passes.map(pass =>
-                  <MyPasses key={pass._id} pass={pass} />
+            <div className='flex flex-wrap'>
+               {loading ? (
+                  <div className='text-lg ml-20 mt-6 text-gray-400 font-semibold'>
+                     Loading...
+                  </div>
+               ) : passes.length === 0 ? (
+                  <div className='flex gap-2 text-lg ml-20 mt-6 text-gray-400 font-semibold'>
+                     <div className='flex justify-center'><IoInformationCircleOutline size={28} /></div>
+                     <p>No passes yet</p>
+                  </div>
+               ) : error ? (
+                  <div className='text-lg ml-20 mt-6 text-red-500'>
+                     {error}
+                  </div>
+               ) : (
+                  passes.map((pass) => (
+                     <MyPasses key={pass._id} pass={pass} />
+                  ))
                )}
             </div>
          </div>
+         {/* {error && passes.length !== 0 &&
+            <div>{error}</div>
+         } */}
       </div>
    )
 }

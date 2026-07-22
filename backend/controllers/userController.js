@@ -1,10 +1,11 @@
 const User = require('../models/userModel')
 const Visitor = require('../models/visitorModel')
+const Checklog = require('../models/checkLogs');
 
 exports.getAllUsers = async (req, res) => {
-   try{
+   try {
       const users = await User.find({}).select('empId name email phone role');
-      if(!users.length) {
+      if (!users.length) {
          return res.status(404).json({
             success: false,
             message: 'No user data available'
@@ -14,7 +15,7 @@ exports.getAllUsers = async (req, res) => {
          success: true,
          users
       })
-   }catch(error) {
+   } catch (error) {
       res.status(400).json({
          success: false,
          message: error.message
@@ -23,29 +24,29 @@ exports.getAllUsers = async (req, res) => {
 }
 
 exports.adminDashboardStats = async (req, res) => {
-   try{
-      const totalEmployee = await User.countDocuments({role: 'employee'})
+   try {
+      const totalEmployee = await User.countDocuments({ role: 'employee' })
       const totalVisitors = await Visitor.countDocuments();
-      const pending = await Visitor.countDocuments({status: 'pending'})
+      const pending = await Visitor.countDocuments({ status: 'pending' })
 
       res.status(200).json({
          success: true,
-         stats:{ totalEmployee, totalVisitors, pending}
+         stats: { totalEmployee, totalVisitors, pending }
       })
-   }catch(error) {
+   } catch (error) {
       res.status(400).json({
          success: false,
          message: 'Error fetching data from server',
-         stats: {totalEmployee: null, totalVisitors: null, pending: null}
+         stats: { totalEmployee: null, totalVisitors: null, pending: null }
       })
    }
 }
 
 exports.deleteUser = async (req, res) => {
-   const {id} = req.params;
-   try{
+   const { id } = req.params;
+   try {
       const user = await User.findByIdAndDelete(id);
-      if(!user) {
+      if (!user) {
          return res.status(404).json({
             success: false,
             message: 'User data not found'
@@ -55,7 +56,7 @@ exports.deleteUser = async (req, res) => {
          success: true,
          message: 'User deleted'
       })
-   }catch(error) {
+   } catch (error) {
       res.status(400).json({
          success: false,
          message: error.message
@@ -65,11 +66,11 @@ exports.deleteUser = async (req, res) => {
 
 exports.employeeDashboardStats = async (req, res) => {
    const id = req.user._id;
-   
-   try{
-      const totalVisits = await Visitor.countDocuments({employee: id});
+
+   try {
+      const totalVisits = await Visitor.countDocuments({ employee: id });
       const upcomingVisitors = await Visitor.countDocuments({
-         employee: id, 
+         employee: id,
          status: 'approved'
       });
       const pending = await Visitor.countDocuments({
@@ -81,7 +82,7 @@ exports.employeeDashboardStats = async (req, res) => {
          success: true,
          stats: { totalVisits, upcomingVisitors, pending }
       })
-   }catch(error) {
+   } catch (error) {
       res.status(400).json({
          success: false,
          message: 'Error fetching employee stats',
@@ -91,15 +92,15 @@ exports.employeeDashboardStats = async (req, res) => {
 }
 
 exports.getEmployeeVisitors = async (req, res) => {
-   try{
+   try {
       const employeeId = req.user._id;
-      const visitors = await Visitor.find({employee: employeeId}).populate('employee', 'empId name email').sort({createdAt: -1});
+      const visitors = await Visitor.find({ employee: employeeId }).populate('employee', 'empId name email').sort({ createdAt: -1 });
 
       res.status(200).json({
          success: true,
          visitors
       })
-   }catch(error) {
+   } catch (error) {
       res.status(400).json({
          success: false,
          message: error.message
@@ -108,16 +109,41 @@ exports.getEmployeeVisitors = async (req, res) => {
 }
 
 exports.securityDashboardStats = async (req, res) => {
-   try{
-      const approved = await Visitor.countDocuments({status:'approved'});
-      const checkedIn = await Visitor.countDocuments({checkIn: {$ne: null}});
-      const checkedOut = await Visitor.countDocuments({checkOut: {$ne: null}});
-      
+   try {
+      const start = new Date();
+      start.setHours(0, 0, 0, 0);
+
+      const end = new Date();
+      end.setHours(23, 59, 59, 999);
+
+      const todaysVisitors = await Checklog.find({
+         checkIn: {
+            $gte: start,
+            $lte: end
+         }
+      }).populate({
+         path: 'visitor',
+         select: 'name email phone purpose visitDate status'
+      })
+
+      const todaysVisitorsCount = todaysVisitors.length;
+      const currentlyInside = await Checklog.countDocuments({
+         checkIn: { $ne: null },
+         checkOut: null
+      });
+      const checkedOutToday = await Checklog.countDocuments({
+         checkOut: {
+            $gte: start,
+            $lte: end
+         }
+      });
+
       res.status(200).json({
          success: true,
-         stats: {approved, checkedIn, checkedOut}
+         todaysVisitors,
+         stats: { todaysVisitorsCount, currentlyInside, checkedOutToday }
       })
-   }catch(error) {
+   } catch (error) {
       res.status(400).json({
          success: false,
          message: error.message

@@ -15,7 +15,7 @@ const MyPasses = ({pass}) => {
          <div className='text-start text-sm my-auto text-gray-600 space-y-1'>
             <h2><b>Name: </b>{pass.name}</h2>
             <p><b>Date: </b>{format(new Date(pass.visitDate), 'dd MMM yyyy')}</p>
-            <p><b>Host: </b> {pass.employee.name}</p>
+            <p><b>Host: </b> {pass.employee?.name}</p>
             {/* <p className='text-green-400'>Approved</p> */}
          </div>
       </div>
