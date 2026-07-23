@@ -58,7 +58,7 @@ const VisDashboard = () => {
                   <div className='text-lg ml-20 mt-6 text-gray-400 font-semibold'>
                      Loading...
                   </div>
-               ) : passes.length === 0 && !error ? (
+               ) : passes.length === 0 ? (
                   <div className='flex gap-2 text-lg ml-20 mt-6 text-gray-400 font-semibold'>
                      <div className='flex justify-center'><IoInformationCircleOutline size={28} /></div>
                      <p>No passes yet</p>
