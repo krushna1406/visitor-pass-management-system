@@ -1,18 +1,20 @@
 const Visitor = require('../models/visitorModel')
 const User = require('../models/userModel')
 const Checklog = require('../models/checkLogs');
+const sendEmail = require('../utils/sendEmail');
+const approvalEmail = require('../templates/approvalEmail');
 
 const QRCode = require('qrcode');
 
 exports.createVisitor = async (req, res) => {
    const data = req.body;
-   
+
    let employeeId;
    try {
       if (req.user.role === 'employee') {
          employeeId = req.user._id;
-      } 
-      else if(req.user.role === 'visitor') {
+      }
+      else if (req.user.role === 'visitor') {
          const employee = await User.findOne({
             empId: req.body.employee,
             role: 'employee'
@@ -26,7 +28,7 @@ exports.createVisitor = async (req, res) => {
          }
          employeeId = employee._id;
       }
-      const visitor = await Visitor.create({...data, employee: employeeId});
+      const visitor = await Visitor.create({ ...data, employee: employeeId });
       res.status(201).json({
          success: true,
          message: 'Visitor created successfully',
@@ -139,12 +141,21 @@ exports.updateVisitorStatus = async (req, res) => {
          passGenerated: status === 'approved'
       },
          { new: true }
-      );
+      ).populate('employee', 'name email');
 
       res.status(200).json({
          success: true,
          message: `Visit ${status}`    // Dynamically show the approved or rejected status
       })
+
+      if(updatedVisitor.status === 'approved') {
+         await sendEmail({
+            to: updatedVisitor.email,
+            subject: 'Visit Approval Confirmation',
+            html: approvalEmail(updatedVisitor)
+         })
+      }
+
    } catch (error) {
       res.status(500).json({
          success: false,
@@ -177,7 +188,7 @@ exports.deleteVisitor = async (req, res) => {
 }
 
 exports.getVisitorStats = async (req, res) => {
-   try{
+   try {
       const totalVisits = await Visitor.countDocuments({
          email: req.user.email
       })
@@ -199,9 +210,9 @@ exports.getVisitorStats = async (req, res) => {
 
       res.status(200).json({
          success: true,
-         stats: {totalVisits, pending, approved, rejected}
+         stats: { totalVisits, pending, approved, rejected }
       })
-   }catch(error) {
+   } catch (error) {
       res.status(500).json({
          success: false,
          message: error.message
@@ -216,7 +227,7 @@ exports.getVisitorPass = async (req, res) => {
       const passes = await Visitor.find({
          email: req.user.email,
          passGenerated: true,
-         visitDate: {$gte: today}
+         visitDate: { $gte: today }
       }).populate('employee', 'name email');
 
       if (!passes.length) {
@@ -239,10 +250,10 @@ exports.getVisitorPass = async (req, res) => {
 }
 
 exports.verifyPass = async (req, res) => {
-   try{
+   try {
       const visitor = await Visitor.findById(req.params.id).populate('employee', 'empId name email');
 
-      if(!visitor) {
+      if (!visitor) {
          return res.status(400).json({
             success: false,
             message: 'Invalid Pass'
@@ -259,7 +270,7 @@ exports.verifyPass = async (req, res) => {
          visitor,
          activeLog
       })
-   }catch(error) {
+   } catch (error) {
       res.status(500).json({
          success: false,
          message: error.message
