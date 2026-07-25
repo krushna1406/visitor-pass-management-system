@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getEmployeeVisitors } from '../../services/api';
 import Visitor from './Visitor';
 import toast from 'react-hot-toast';
+import { IoInformationCircleOutline } from 'react-icons/io5'
 
 const EmpVisitorList = () => {
 
@@ -49,8 +50,15 @@ const EmpVisitorList = () => {
         <p>Date</p>
         <p>Status</p>
       </div>
-      {visitors.map((visitor, index) =>
-        <Visitor key={visitor._id} visitor={visitor} index={index}/>
+      {visitors.length === 0 ? (
+        <div className='text-gray-400 text-center my-8'>
+          <div className='flex justify-center'><IoInformationCircleOutline size={40} /></div>
+          <p>No records found</p>
+        </div>
+      ) : (
+        visitors.map((visitor, index) =>
+          <Visitor key={visitor._id} visitor={visitor} index={index}/>
+        )
       )}
     </div>
   )
