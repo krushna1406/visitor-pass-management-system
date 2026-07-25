@@ -16,9 +16,9 @@ const Navbar = () => {
    const { user } = useAuthContext()
    return (
       <>
-         <div className='bg-indigo-600 flex justify-between px-20 py-4'>
+         <div className='fixed top-0 left-0 w-full bg-white/10 border-b-2 border-white/5 backdrop-blur-md flex justify-between px-20 py-4'>
             <Link to='/'
-               className='text-3xl font-semibold text-white mt-2'
+               className='text-3xl font-semibold text-slate-900 drop-shadow-md mt-2'
             >
                Visitor Pass Management System
             </Link>
