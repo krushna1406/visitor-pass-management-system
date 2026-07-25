@@ -1,6 +1,6 @@
 
 exports.requireEmployee = async (req, res, next) => {
-   if(req.user.role !== 'employee') {
+   if(req.user?.role !== 'employee') {
       return res.status(403).json({
          success: false,
          message: 'Access Forbidden'
@@ -10,7 +10,7 @@ exports.requireEmployee = async (req, res, next) => {
 }
 
 exports.requireAdmin = (req, res, next) => {
-   if(req.user.role !== 'admin') {
+   if(req.user?.role !== 'admin') {
       return res.status(403).json({
          success: false,
          message: 'Access Forbidden'
@@ -20,7 +20,7 @@ exports.requireAdmin = (req, res, next) => {
 }
 
 exports.requireSecurity = (req, res, next) => {
-   if(req.user.role !== 'security') {
+   if(req.user?.role !== 'security') {
       return res.status(403).json({
          success: false,
          message: 'Access Forbidden'
@@ -30,7 +30,7 @@ exports.requireSecurity = (req, res, next) => {
 }
 
 exports.requireVisitor = (req, res, next) => {
-   if(req.user.role !== 'visitor') {
+   if(req.user?.role !== 'visitor') {
       return res.status(403).json({
          success: false,
          message: 'Access Forbidden'

@@ -3,6 +3,7 @@ const User = require('../models/userModel')
 const Checklog = require('../models/checkLogs');
 const sendEmail = require('../utils/sendEmail');
 const approvalEmail = require('../templates/approvalEmail');
+const generatePass = require('../utils/generateVisitorPass');
 
 const QRCode = require('qrcode');
 
@@ -143,18 +144,34 @@ exports.updateVisitorStatus = async (req, res) => {
          { new: true }
       ).populate('employee', 'name email');
 
+      if (updatedVisitor.status === 'approved') {
+         const pdfPath = await generatePass(updatedVisitor);
+         console.log('Pass generated', pdfPath);
+
+         await sendEmail({
+            to: updatedVisitor.email,
+            subject: 'Visit Approval Confirmation',
+            html: approvalEmail(updatedVisitor),
+            attachments: [
+               {
+                  filename: 'visitor_pass.pdf',
+                  path: pdfPath
+               }
+            ]
+         })
+         const fs = require("fs/promises");
+         try {
+            await fs.unlink(pdfPath);
+            console.log("PDF deleted successfully.");
+         } catch (err) {
+            console.error("Delete failed:", err);
+         }
+      }
+
       res.status(200).json({
          success: true,
          message: `Visit ${status}`    // Dynamically show the approved or rejected status
       })
-
-      if(updatedVisitor.status === 'approved') {
-         await sendEmail({
-            to: updatedVisitor.email,
-            subject: 'Visit Approval Confirmation',
-            html: approvalEmail(updatedVisitor)
-         })
-      }
 
    } catch (error) {
       res.status(500).json({
