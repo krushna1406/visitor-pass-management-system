@@ -74,9 +74,6 @@ const VisDashboard = () => {
                )}
             </div>
          </div>
-         {/* {error && passes.length !== 0 &&
-            <div>{error}</div>
-         } */}
       </div>
    )
 }
