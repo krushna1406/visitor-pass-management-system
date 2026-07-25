@@ -3,6 +3,7 @@ const User = require('../models/userModel')
 const Checklog = require('../models/checkLogs');
 const sendEmail = require('../utils/sendEmail');
 const approvalEmail = require('../templates/approvalEmail');
+const rejectionEmail = require('../templates/rejectionEmail');
 const generatePass = require('../utils/generateVisitorPass');
 
 const QRCode = require('qrcode');
@@ -146,7 +147,6 @@ exports.updateVisitorStatus = async (req, res) => {
 
       if (updatedVisitor.status === 'approved') {
          const pdfPath = await generatePass(updatedVisitor);
-         console.log('Pass generated', pdfPath);
 
          await sendEmail({
             to: updatedVisitor.email,
@@ -166,6 +166,14 @@ exports.updateVisitorStatus = async (req, res) => {
          } catch (err) {
             console.error("Delete failed:", err);
          }
+      }
+
+      if(updatedVisitor.status === 'rejected') {
+         await sendEmail({
+            to: updatedVisitor.email,
+            subject: 'regarding Visit rejection',
+            html: rejectionEmail(updatedVisitor)
+         })
       }
 
       res.status(200).json({
