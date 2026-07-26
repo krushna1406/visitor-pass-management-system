@@ -31,7 +31,7 @@ const useVisitorSignup = () => {
             })
          }
       }catch(error) {
-         toast.error(error.message)
+         toast.error(error.response?.data?.message || 'Internal Server Issue');
       }finally{
          setLoading(false);
       }
