@@ -121,10 +121,7 @@ exports.securityDashboardStats = async (req, res) => {
             $gte: start,
             $lte: end
          }
-      }).populate({
-         path: 'visitor',
-         select: 'name email phone purpose visitDate status'
-      })
+      }).populate('visitor','name email purpose')
 
       const todaysVisitorsCount = todaysVisitors.length;
       const currentlyInside = await Checklog.countDocuments({
