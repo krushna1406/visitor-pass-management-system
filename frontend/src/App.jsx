@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import {AdminDashboard, EmployeeDashboard, SecurityDashboard, VisitorDashboard, Home, Login, VisitorSignup} from './pages/index'
 import { useAuthContext } from "./hooks/useAuthContext"
-import ProtectedRoute from "./route/protectedRoute"
+import ProtectedRoute from "./route/ProtectedRoute"
 import { Dashboard, CreateUser, AllEmployees, VisitorList, AllUsers } from './components/admin/Index'
 import {EmpDashboard, InviteVisitor, EmpVisitorList} from './components/employee/Index'
 import {SecDashboard, CheckIn, CheckOut} from './components/security/index'
