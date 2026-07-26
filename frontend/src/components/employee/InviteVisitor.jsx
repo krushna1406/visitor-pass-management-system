@@ -4,7 +4,7 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 import { ImSpinner8 } from 'react-icons/im'
 import toast from 'react-hot-toast'
 
-const ScheduleVisitor = () => {
+const InviteVisitor = () => {
 
    const [name, setName] = useState('');
    const [email, setEmail] = useState('');
@@ -113,7 +113,7 @@ const ScheduleVisitor = () => {
                </div>
                <div>
                   <input 
-                     type="date" 
+                     type="datetime-local" 
                      onChange={(e) => setDate(e.target.value)}
                      className='w-full border border-gray-300 text-gray-500 outline-indigo-600 p-2 mt-3 mb-5 rounded-lg'
                   />
@@ -132,4 +132,4 @@ const ScheduleVisitor = () => {
    )
 }
 
-export default ScheduleVisitor
+export default InviteVisitor

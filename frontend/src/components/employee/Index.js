@@ -1,5 +1,5 @@
 import EmpDashboard from "./EmpDashboard";
-import ScheduleVisitor from "./ScheduleVisitor";
+import InviteVisitor from "./InviteVisitor";
 import EmpVisitorList from "./EmpVisitorList";
 
-export {EmpDashboard, ScheduleVisitor, EmpVisitorList}
+export {EmpDashboard, InviteVisitor, EmpVisitorList}

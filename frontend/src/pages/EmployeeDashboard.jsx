@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Sidebar from '../components/employee/Sidebar'
 import useLogout from '../hooks/useLogout';
 import { Outlet, useNavigate } from 'react-router-dom';
-import ScheduleVisitor from '../components/employee/ScheduleVisitor';
 import VisitorList from '../components/employee/EmpVisitorList';
 import Dashboard from '../components/employee/EmpDashboard';
 import { useAuthContext } from '../hooks/useAuthContext';

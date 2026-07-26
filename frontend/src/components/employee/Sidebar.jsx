@@ -24,7 +24,7 @@ const Sidebar = () => {
                }
             `}
          >
-            Schedule Visitor
+            Invite Visitor
          </NavLink>
          <NavLink to='/employee/my-visitors'
             className={({isActive}) => `rounded-lg py-1 text-center transition-all duration-100
