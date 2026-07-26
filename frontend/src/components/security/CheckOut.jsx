@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import QRScanner from './QrScanner';
+import QRScanner from './QRScanner';
 import { checkOutVisitor, verifyPass } from '../../services/api';
 import { format } from 'date-fns'
 import { toast } from 'react-hot-toast'
