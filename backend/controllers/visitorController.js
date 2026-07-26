@@ -152,12 +152,12 @@ exports.updateVisitorStatus = async (req, res) => {
             to: updatedVisitor.email,
             subject: 'Visit Approval Confirmation',
             html: approvalEmail(updatedVisitor),
-            attachments: [
-               {
-                  filename: 'visitor_pass.pdf',
-                  path: pdfPath
-               }
-            ]
+            // attachments: [
+            //    {
+            //       filename: 'visitor_pass.pdf',
+            //       path: pdfPath
+            //    }
+            // ]
          })
          const fs = require("fs/promises");
          try {
