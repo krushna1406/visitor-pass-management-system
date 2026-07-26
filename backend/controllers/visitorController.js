@@ -146,29 +146,46 @@ exports.updateVisitorStatus = async (req, res) => {
       ).populate('employee', 'name email');
 
       if (updatedVisitor.status === 'approved') {
-         const pdfPath = await generatePass(updatedVisitor);
+         console.log("STEP 1: Entered approved block");
 
-         await sendEmail({
-            to: updatedVisitor.email,
-            subject: 'Visit Approval Confirmation',
-            html: approvalEmail(updatedVisitor),
-            // attachments: [
-            //    {
-            //       filename: 'visitor_pass.pdf',
-            //       path: pdfPath
-            //    }
-            // ]
-         })
+         const pdfPath = await generatePass(updatedVisitor);
+         console.log("STEP 2: PDF generated:", pdfPath);
+
+         console.log("STEP 3: About to call sendEmail()");
+         try {
+            const result = await sendEmail({
+               to: updatedVisitor.email,
+               subject: 'Visit Approval Confirmation',
+               html: approvalEmail(updatedVisitor),
+               // attachments: [
+               //    {
+               //       filename: 'visitor_pass.pdf',
+               //       path: pdfPath
+               //    }
+               // ]
+            })
+
+            console.log("STEP 4: sendEmail() completed");
+            console.log(result);
+
+         } catch (error) {
+            console.error("STEP 4 FAILED: sendEmail() threw an error");
+            console.error(error);
+         }
+
+         console.log("STEP 5: After sendEmail()");
+         
          const fs = require("fs/promises");
          try {
             await fs.unlink(pdfPath);
             console.log("PDF deleted successfully.");
+
          } catch (err) {
             console.error("Delete failed:", err);
          }
       }
 
-      if(updatedVisitor.status === 'rejected') {
+      if (updatedVisitor.status === 'rejected') {
          await sendEmail({
             to: updatedVisitor.email,
             subject: 'regarding Visit rejection',
