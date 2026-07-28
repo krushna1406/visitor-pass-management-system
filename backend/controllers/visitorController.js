@@ -166,7 +166,6 @@ exports.updateVisitorStatus = async (req, res) => {
             })
 
             console.log("STEP 4: sendEmail() completed");
-            console.log(result);
 
          } catch (error) {
             console.error("STEP 4 FAILED: sendEmail() threw an error");
