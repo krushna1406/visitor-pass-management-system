@@ -153,7 +153,7 @@ exports.updateVisitorStatus = async (req, res) => {
 
          console.log("STEP 3: About to call sendEmail()");
          try {
-            const result = await sendEmail({
+            await sendEmail({
                to: updatedVisitor.email,
                subject: 'Visit Approval Confirmation',
                html: approvalEmail(updatedVisitor),

@@ -37,12 +37,10 @@ const sendEmail = async ({ to, subject, html, attachments = [] }) => {
          html,
          attachments
       })
-
-      console.log(info)
+      
    }catch(error){
       console.error("sendMail error:", err);
    }
-   return info;
 }
 
 module.exports = sendEmail
