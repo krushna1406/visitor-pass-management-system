@@ -17,12 +17,14 @@ const sendEmail = async ({ to, subject, html, attachments = [] }) => {
          ],
          subject,
          htmlContent: html,
+      });
 
+      if(attachments.length > 0) {
          attachment: attachments.map(file => ({
             name: file.filename,
             content: fs.readFileSync(file.path).toString("base64")
          }))
-      });
+      }
 
       console.log("Email sent:", response);
    } catch (error) {
