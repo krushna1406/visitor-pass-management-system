@@ -1,46 +1,34 @@
-const nodemailer = require('nodemailer')
+const { BrevoClient } = require("@getbrevo/brevo");
+const fs = require('fs');
 
-const transporter = nodemailer.createTransport({
-   host: "smtp.gmail.com",
-   port: 587,
-   secure: false,
-   requireTLS: true,
-
-   connectionTimeout: 10000,
-   greetingTimeout: 10000,
-   socketTimeout: 10000,
-
-   logger: true,
-   debug: true,
-
-   auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-   }
+const client = new BrevoClient({
+   apiKey: process.env.BREVO_API_KEY,
 });
 
 const sendEmail = async ({ to, subject, html, attachments = [] }) => {
-
-   console.log("EMAIL_USER:", process.env.EMAIL_USER);
-   console.log("EMAIL_PASS exists:", !!process.env.EMAIL_PASS);
-
-   console.log('Verifying transporter...');
-   transporter.verify();
-
-   console.log('Transporter Verified');
-
    try {
-      const info = await transporter.sendMail({
-         from: process.env.EMAIL_USER,
-         to,
+      const response = await client.transactionalEmails.sendTransacEmail({
+         sender:{
+            name: 'VisitDesk',
+            email: process.env.EMAIL_USER
+         },
+         to: [
+            { email: to, }
+         ],
          subject,
-         html,
-         attachments
-      })
-      
-   }catch(error){
-      console.error("sendMail error:", err);
+         htmlContent: html,
+
+         attachment: attachments.map(file => ({
+            name: file.filename,
+            content: fs.readFileSync(file.path).toString("base64")
+         }))
+      });
+
+      console.log("Email sent:", response);
+   } catch (error) {
+      console.error(error);
+      throw error;
    }
 }
 
-module.exports = sendEmail
+module.exports = sendEmail;
