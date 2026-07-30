@@ -29,9 +29,32 @@ exports.adminDashboardStats = async (req, res) => {
       const totalVisitors = await Visitor.countDocuments();
       const pending = await Visitor.countDocuments({ status: 'pending' })
 
+      const start = new Date();
+      start.setHours(0, 0, 0, 0);
+
+      const end = new Date();
+      end.setHours(23, 59, 59, 999);
+
+      const todaysVisitors = await Visitor.countDocuments({
+         visitDate:{
+            $gte: start,
+            $lte: end
+         }
+      });
+      const currentlyInside = await Checklog.countDocuments({
+         checkIn: { $ne: null },
+         checkOut: null
+      });
+      const checkedOutToday = await Checklog.countDocuments({
+         checkOut: {
+            $gte: start,
+            $lte: end
+         }
+      });
+
       res.status(200).json({
          success: true,
-         stats: { totalEmployee, totalVisitors, pending }
+         stats: { totalEmployee, totalVisitors, pending, todaysVisitors, currentlyInside, checkedOutToday}
       })
    } catch (error) {
       res.status(400).json({
