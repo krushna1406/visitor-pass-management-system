@@ -30,7 +30,7 @@ const SecDashboard = () => {
             <DashboardCard name={'Checked Out Today'} value={stats.checkedOutToday} />
          </div>
          <div className='mx-8'>
-            <h1 className='mt-6 mb-4 text-indigo-600 font-semibold'>All Visitors</h1>
+            <h1 className='mt-6 mb-4 text-blue-600 font-semibold'>All Visitors</h1>
 
             {todaysVisitors.map((visitor, index) =>
                <TodaysVisitors key={visitor._id} visitor={visitor} index={index} />

@@ -46,9 +46,9 @@ const CheckIn = () => {
          {visitor && (
             <div className="max-w-md mx-auto mt-5 bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
 
-               <div className="bg-indigo-600 text-white p-5">
+               <div className="bg-blue-600 text-white p-5">
                   <h2 className="text-2xl font-bold">{visitor.name}</h2>
-                  <p className="text-indigo-100">
+                  <p className="text-blue-100">
                      Visitor Pass Verified ✓
                   </p>
                </div>
@@ -101,7 +101,7 @@ const CheckIn = () => {
                   <button
                      onClick={handleClick}
                      disabled={loading}
-                     className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold"
+                     className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
                   >
                      Check In
                   </button>

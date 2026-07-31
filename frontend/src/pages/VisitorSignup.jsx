@@ -36,12 +36,12 @@ const VisitorSignup = () => {
 
    return (
       <>
-         <div className='min-h-screen flex flex-col gap-4 items-center justify-center bg-linear-to-br from-sky-300 via-indigo-500 to-indigo-900'>
+         <div className='min-h-screen flex flex-col gap-4 items-center justify-center bg-linear-to-br from-sky-300 via-blue-500 to-blue-900'>
             <form
                onSubmit={handleSubmit}
                className='w-100 bg-white rounded-2xl shadow-md p-8 space-y-5'
             >
-               <h2 className='text-indigo-600 font-semibold text-2xl text-center'>Sign Up</h2>
+               <h2 className='text-blue-600 font-semibold text-2xl text-center'>Sign Up</h2>
 
 
                <label className='block mb-1 text-md font-medium text-gray-600'>
@@ -52,7 +52,7 @@ const VisitorSignup = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required={true}
-                  className='w-full border rounded border-gray-300 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-indigo-600'
+                  className='w-full border rounded border-gray-300 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-blue-600'
                /><br />
 
 
@@ -64,7 +64,7 @@ const VisitorSignup = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required={true}
-                  className='w-full border rounded border-gray-300 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-indigo-600'
+                  className='w-full border rounded border-gray-300 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-blue-600'
                /><br />
 
                <label className='block mb-1 text-md font-medium text-gray-600'>
@@ -75,7 +75,7 @@ const VisitorSignup = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required={true}
-                  className='w-full border rounded border-gray-300 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-indigo-600'
+                  className='w-full border rounded border-gray-300 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-blue-600'
                /><br />
 
 
@@ -87,7 +87,7 @@ const VisitorSignup = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required={true}
-                  className='w-full border rounded border-gray-300 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-indigo-600'
+                  className='w-full border rounded border-gray-300 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-blue-600'
                /><br />
 
                <button

@@ -9,7 +9,7 @@ const Visitor = ({visitor, index}) => {
       <p>{visitor.email}</p>
       <p>{visitor.phone}</p>
       <p>{format(new Date(visitor.visitDate), 'dd MMM yyyy')}</p>
-      <p className='bg-indigo-600 text-white text-center w-22 px-2 rounded-xl'>{visitor.status}</p>
+      <p className='bg-blue-600 text-white text-center w-22 px-2 rounded-xl'>{visitor.status}</p>
     </div>
   )
 }

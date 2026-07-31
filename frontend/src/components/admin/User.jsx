@@ -34,7 +34,7 @@ const User = ({ user }) => {
          <p>{user.name}</p>
          <p>{user.email}</p>
          <p>{user.phone}</p>
-         <p className='bg-indigo-600 w-22 text-white text-center rounded-xl my-1'>{user.role}</p>
+         <p className='bg-blue-600 w-22 text-white text-center rounded-xl my-1'>{user.role}</p>
          <p>
             <IoTrashOutline
                 color='red'

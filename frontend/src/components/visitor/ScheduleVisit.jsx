@@ -60,7 +60,7 @@ const ScheduleVisit = () => {
                onSubmit={handleSubmit}
                className='w-full max-w-md bg-white rounded-2xl shadow-md p-8 space-y-2'
             >
-               <h2 className='text-indigo-600 font-semibold text-2xl text-center'>Schedule Visitor</h2>
+               <h2 className='text-blue-600 font-semibold text-2xl text-center'>Schedule Visitor</h2>
 
                <div>
                   <label className='block mb-1 text-sm font-medium text-gray-600'>
@@ -71,7 +71,7 @@ const ScheduleVisit = () => {
                      value={name}
                      onChange={(e) => setName(e.target.value)}
                      required={true}
-                     className='w-full border rounded-md border-gray-300 text-gray-700 px-2 py-1 focus:outline-2 focus:outline-indigo-400'
+                     className='w-full border rounded-md border-gray-300 text-gray-700 px-2 py-1 focus:outline-2 focus:outline-blue-400'
                   />
                </div>
 
@@ -84,7 +84,7 @@ const ScheduleVisit = () => {
                      value={phone}
                      onChange={(e) => setPhone(e.target.value)}
                      required={true}
-                     className='w-full border rounded-md border-gray-300 text-gray-700 px-2 py-1 focus:outline-2 focus:outline-indigo-400'
+                     className='w-full border rounded-md border-gray-300 text-gray-700 px-2 py-1 focus:outline-2 focus:outline-blue-400'
                   />
                </div>
 
@@ -97,7 +97,7 @@ const ScheduleVisit = () => {
                      value={employee}
                      onChange={(e) => setEmployee(e.target.value)}
                      required={true}
-                     className='w-full border rounded-md border-gray-300 text-gray-700 px-2 py-1 focus:outline-2 focus:outline-indigo-400'
+                     className='w-full border rounded-md border-gray-300 text-gray-700 px-2 py-1 focus:outline-2 focus:outline-blue-400'
                   />
                </div>
 
@@ -109,7 +109,7 @@ const ScheduleVisit = () => {
                      value={purpose}
                      onChange={(e) => setPurpose(e.target.value)}
                      required={true}
-                     className='w-full py-2 px-3 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-600'
+                     className='w-full py-2 px-3 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600'
                   >
                      <option value=''>~Select Purpose~</option>
                      <option value='meeting'>Meeting</option>
@@ -124,14 +124,14 @@ const ScheduleVisit = () => {
                      type="datetime-local" 
                      onChange={(e) => setDate(e.target.value)}
                      value={date}
-                     className='w-full border border-gray-300 text-gray-500 outline-indigo-600 p-2 mt-3 mb-5 rounded-lg'
+                     className='w-full border border-gray-300 text-gray-500 outline-blue-600 p-2 mt-3 mb-5 rounded-lg'
                   />
                </div>
 
                <button
                   type='submit'
                   disabled={loading}
-                  className='w-full bg-indigo-600 p-2 rounded-xl text-white transition-colors duration-200'
+                  className='w-full bg-blue-600 p-2 rounded-xl text-white transition-colors duration-200'
                >
                   {loading ? <ImSpinner8 size={22} className='animate-spin mx-auto' /> : 'Schedule Visit'}
                </button>

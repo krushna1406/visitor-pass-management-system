@@ -18,21 +18,24 @@ const Navbar = () => {
       <>
          <div className='fixed top-0 left-0 w-full bg-white/10 border-b-2 border-white/5 backdrop-blur-md flex justify-between px-20 py-4'>
             <Link to='/'
-               className='text-3xl font-semibold text-slate-900 drop-shadow-md mt-2'
+               className='flex gap-5 text-3xl font-semibold text-slate-900 drop-shadow-md mt-2'
             >
-               Visitor Pass Management System
+               <img src="../public/favicon.png" alt="VisitDesk Logo"
+                  className='w-10 h-10 rounded-4xl'
+               />
+               VisitDesk
             </Link>
             <nav className='flex'>
                {!user &&
                   <div className='flex gap-4'>
                      <Link to='/login'
-                        className='bg-white px-5 py-3 rounded-lg font-semibold text-indigo-700'
+                        className='bg-white px-5 py-3 rounded-lg border-2 border-blue-500 font-semibold text-blue-700'
                      >
                         Login
                      </Link>
 
                      <Link to='/signup'
-                        className='bg-white rounded-lg px-2 py-3 text-indigo-700 font-semibold'
+                        className='bg-white rounded-lg px-2 py-3 border-2 border-blue-500 text-blue-700 font-semibold'
                      >
                         Visitor Signup
                      </Link>
@@ -41,7 +44,7 @@ const Navbar = () => {
                {user &&
                   <div onClick={handleLogout}>
                      <Link
-                        className='bg-indigo-200 border-indigo-800 text-indigo-800 rounded-md'
+                        className='bg-blue-200 border-blue-800 text-blue-800 rounded-md'
                      >
                         Logout
                      </Link>

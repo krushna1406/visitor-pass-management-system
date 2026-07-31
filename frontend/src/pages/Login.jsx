@@ -36,12 +36,12 @@ const Login = () => {
    }, [user, navigate])
 
    return (
-      <div className='min-h-screen flex flex-col gap-4 items-center bg-linear-to-br from-sky-300 via-indigo-500 to-indigo-900'>
+      <div className='min-h-screen flex flex-col gap-4 items-center bg-linear-to-br from-sky-300 via-blue-500 to-blue-900'>
          <form
             onSubmit={handleSubmit}
             className='w-[30%] bg-white p-10 rounded-lg mt-40'
          >
-            <h2 className='text-center mb-5 text-2xl text-indigo-600 font-semibold'>Login</h2>
+            <h2 className='text-center mb-5 text-2xl text-blue-600 font-semibold'>Login</h2>
 
             <label className='text-lg font-bold text-gray-600 block mb-1'>Email<sup className='p-1 text-xs font-light text-rose-500'>*</sup></label>
             <input
@@ -50,7 +50,7 @@ const Login = () => {
                placeholder='example@xyz.com'
                required
                onChange={(e) => setEmail(e.target.value)}
-               className='border border-gray-300 text-gray-600 outline-indigo-700 rounded-md px-2 py-2 w-full mb-3'
+               className='border border-gray-300 text-gray-600 outline-blue-700 rounded-md px-2 py-2 w-full mb-3'
             /><br />
             <label className='text-lg font-bold text-gray-600 block mb-1'>Password <sup className='text-xs font-light text-rose-500'>*</sup></label>
             <div className='relative'>
@@ -60,7 +60,7 @@ const Login = () => {
                   placeholder='************'
                   required
                   onChange={(e) => setPassword(e.target.value)}
-                  className='border border-gray-300 text-gray-600 outline-indigo-700 rounded-md px-2 py-2 w-full mb-3'
+                  className='border border-gray-300 text-gray-600 outline-blue-700 rounded-md px-2 py-2 w-full mb-3'
                />
                <button
                   type='button'
