@@ -34,7 +34,7 @@ const CreateUser = () => {
       <div className='flex justify-center items-center min-h-[80vh] px-4">'>
         <form 
           onSubmit={handleSubmit}
-          className='w-full max-w-md bg-white rounded-2xl shadow-md p-8 space-y-5'
+          className='w-full max-w-md bg-white rounded-2xl shadow-md p-8 space-y-5 mt-8'
         >
           <h2 className='text-blue-600 font-semibold text-2xl text-center'>Create User</h2>
 
