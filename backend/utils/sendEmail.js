@@ -7,7 +7,7 @@ const client = new BrevoClient({
 
 const sendEmail = async ({ to, subject, html, attachments = [] }) => {
    try {
-      const response = await client.transactionalEmails.sendTransacEmail({
+      const emailData = {
          sender:{
             name: 'VisitDesk',
             email: process.env.EMAIL_USER
@@ -16,15 +16,17 @@ const sendEmail = async ({ to, subject, html, attachments = [] }) => {
             { email: to, }
          ],
          subject,
-         htmlContent: html,
-      });
+         htmlContent: html
+      };
 
       if(attachments.length > 0) {
-         attachment: attachments.map(file => ({
+         emailData.attachment = attachments.map(file => ({
             name: file.filename,
             content: fs.readFileSync(file.path).toString("base64")
          }))
       }
+
+      const response = await client.transactionalEmails.sendTransacEmail(emailData);
 
       console.log("Email sent:", response);
    } catch (error) {
