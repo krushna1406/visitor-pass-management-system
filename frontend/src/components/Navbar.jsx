@@ -20,7 +20,7 @@ const Navbar = () => {
             <Link to='/'
                className='flex gap-5 text-3xl font-semibold text-slate-900 drop-shadow-md mt-2'
             >
-               <img src="../public/favicon.png" alt="VisitDesk Logo"
+               <img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/d6cddfc9-adb3-4da7-99c1-d9cba2f86562.png" alt="VisitDesk Logo"
                   className='w-10 h-10 rounded-4xl'
                />
                VisitDesk
