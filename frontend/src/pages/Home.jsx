@@ -62,7 +62,7 @@ const Home = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="bg-linear-to-r pt-30 from-indigo-600 to-blue-600 text-white">
+      <section className="bg-linear-to-r pt-30 from-sky-500 to-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-6 py-24 text-center">
 
           <h1 className="text-5xl font-bold leading-tight">
@@ -71,7 +71,7 @@ const Home = () => {
             Management System
           </h1>
 
-          <p className="mt-6 text-lg text-indigo-100 max-w-3xl mx-auto">
+          <p className="mt-6 text-lg text-blue-100 max-w-3xl mx-auto">
             A secure and paperless solution for managing visitor registrations,
             approvals, QR-based check-ins, and visitor records efficiently.
           </p>
@@ -79,14 +79,14 @@ const Home = () => {
           <div className="mt-10 flex flex-wrap justify-center gap-5">
             <Link
               to="/login"
-              className="px-7 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition"
+              className="px-7 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition"
             >
               Login
             </Link>
 
             <Link
               to="/signup"
-              className="px-7 py-3 border border-white rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition"
+              className="px-7 py-3 border border-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition"
             >
               Register as Visitor
             </Link>
@@ -118,8 +118,8 @@ const Home = () => {
                 key={index}
                 className="bg-white rounded-xl shadow-md hover:shadow-xl transition p-6"
               >
-                <div className="w-14 h-14 rounded-full bg-indigo-100 flex items-center justify-center">
-                  <Icon className="text-indigo-600" size={28} />
+                <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
+                  <Icon className="text-blue-600" size={28} />
                 </div>
 
                 <h3 className="text-xl font-semibold mt-5">
@@ -154,7 +154,7 @@ const Home = () => {
           <div className="grid md:grid-cols-4 gap-8 mt-16 text-center">
 
             <div>
-              <div className="w-16 h-16 rounded-full bg-indigo-600 text-white flex items-center justify-center text-2xl font-bold mx-auto">
+              <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mx-auto">
                 1
               </div>
               <h3 className="mt-5 font-semibold text-lg">
@@ -166,7 +166,7 @@ const Home = () => {
             </div>
 
             <div>
-              <div className="w-16 h-16 rounded-full bg-indigo-600 text-white flex items-center justify-center text-2xl font-bold mx-auto">
+              <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mx-auto">
                 2
               </div>
               <h3 className="mt-5 font-semibold text-lg">
@@ -178,7 +178,7 @@ const Home = () => {
             </div>
 
             <div>
-              <div className="w-16 h-16 rounded-full bg-indigo-600 text-white flex items-center justify-center text-2xl font-bold mx-auto">
+              <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mx-auto">
                 3
               </div>
               <h3 className="mt-5 font-semibold text-lg">
@@ -190,7 +190,7 @@ const Home = () => {
             </div>
 
             <div>
-              <div className="w-16 h-16 rounded-full bg-indigo-600 text-white flex items-center justify-center text-2xl font-bold mx-auto">
+              <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mx-auto">
                 4
               </div>
               <h3 className="mt-5 font-semibold text-lg">
@@ -256,7 +256,7 @@ const Home = () => {
               key={index}
               className="bg-white rounded-xl shadow-md p-6"
             >
-              <h3 className="text-xl font-bold text-indigo-600">
+              <h3 className="text-xl font-bold text-blue-600">
                 {role.title}
               </h3>
 
@@ -273,7 +273,7 @@ const Home = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-indigo-700 text-gray-300 py-8 text-center">
+      <footer className="bg-blue-700 text-gray-300 py-8 text-center">
 
         <h3 className="text-xl font-semibold text-white">
           Visitor Pass Management System
@@ -283,7 +283,7 @@ const Home = () => {
           Secure • Fast • Paperless
         </p>
 
-        <p className="mt-4 text-sm text-indigo-400">
+        <p className="mt-4 text-sm text-blue-400">
           © 2026 Visitor Pass Management System. All Rights Reserved.
         </p>
 

@@ -29,7 +29,7 @@ const PendingVisitCard = ({visitor}) => {
 
   return (
     <div className='w-62 m-5 bg-white px-6 py-5 rounded-xl shadow-lg shadow-gray-200'>
-      <h4 className='text-indigo-700 font-semibold text-lg mb-1'>{visitor.name}</h4>
+      <h4 className='text-blue-700 font-semibold text-lg mb-1'>{visitor.name}</h4>
       <p className='text-gray-600 text-sm mb-1 wrap-break-word'>{visitor.email}</p>
       <p className='text-gray-600 text-sm'>{visitor.phone}</p>
       <div className='flex gap-5 mt-3'>

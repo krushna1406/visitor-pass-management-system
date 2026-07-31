@@ -42,7 +42,7 @@ const EmpVisitorList = () => {
 
   return (
     <div className='m-4 bg-[#f9f9f9] pb-1 shadow-md rounded-md'>
-      <div className='grid grid-cols-[0.2fr_1.2fr_1.2fr_0.7fr_0.5fr_0.5fr] bg-indigo-500 text-white px-4 py-3 rounded-t-md'>
+      <div className='grid grid-cols-[0.2fr_1.2fr_1.2fr_0.7fr_0.5fr_0.5fr] bg-blue-500 text-white px-4 py-3 rounded-t-md'>
         <p>Sr.</p>
         <p>Name</p>
         <p>Email</p>
