@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
 import useSignup from '../hooks/useSignup'
-import { ImSpinner8 } from 'react-icons/im'
 import { useNavigate } from 'react-router-dom'
 import useVisitorSignup from '../hooks/useVisitorSignup'
+import { ImSpinner8 } from 'react-icons/im'
+import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5'
 
 const VisitorSignup = () => {
 
@@ -12,6 +13,8 @@ const VisitorSignup = () => {
    const [email, setEmail] = useState('');
    const [phone, setPhone] = useState('');
    const [password, setPassword] = useState('');
+
+   const [show, setShow] = useState(false);
 
    const navigate = useNavigate()
 
@@ -82,13 +85,23 @@ const VisitorSignup = () => {
                <label className='block mb-1 text-md font-medium text-gray-600'>
                   Password<sup className='text-red-500'>*</sup>
                </label>
-               <input
-                  type="text"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required={true}
-                  className='w-full border rounded border-gray-300 text-gray-700 px-3 py-1 focus:outline-2 focus:outline-blue-600'
-               /><br />
+               <div className='relative'>
+                  <input
+                     type={show ? "text" : 'password'}
+                     value={password}
+                     placeholder='************'
+                     required
+                     onChange={(e) => setPassword(e.target.value)}
+                     className='border border-gray-300 text-gray-600 outline-blue-700 rounded-md px-2 py-2 w-full mb-3'
+                  />
+                  <button
+                     type='button'
+                     onClick={() => setShow(!show)}
+                     className='absolute top-3 right-3 text-gray-500'
+                  >
+                     {!show ? <IoEyeOffOutline size={18} /> : <IoEyeOutline size={18} />}
+                  </button>
+               </div>
 
                <button
                   type='submit'

@@ -10,7 +10,7 @@ const useVisitorSignup = () => {
    const {dispatch} = useAuthContext()
 
    const signup = async (visitorData) => {
-      setLoading(false);
+      setLoading(true);
       setError(null)
       try{
          const result = await signupUser(visitorData);
