@@ -42,7 +42,7 @@ const VisitorSignup = () => {
          <div className='min-h-screen flex flex-col gap-4 items-center justify-center bg-linear-to-br from-sky-300 via-blue-500 to-blue-900'>
             <form
                onSubmit={handleSubmit}
-               className='w-100 bg-white rounded-2xl shadow-md p-8 space-y-5'
+               className='w-[90%] sm:w-[70%] md:w-100 bg-white rounded-2xl shadow-md p-5 md:p-8 space-y-5'
             >
                <h2 className='text-blue-600 font-semibold text-2xl text-center'>Sign Up</h2>
 

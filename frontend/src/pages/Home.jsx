@@ -62,10 +62,10 @@ const Home = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="bg-linear-to-r pt-30 from-sky-500 to-blue-600 text-white">
-        <div className="max-w-7xl mx-auto px-6 py-24 text-center">
+      <section className="bg-linear-to-r pt-24 md:pt-30 from-sky-500 to-blue-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-24 text-center">
 
-          <h1 className="text-5xl font-bold leading-tight">
+          <h1 className="text-3xl md:text-5xl font-bold leading-tight">
             Smart Visitor Pass
             <br />
             Management System
