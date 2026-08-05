@@ -2,14 +2,7 @@ import React from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Navbar from "../components/Navbar";
-import {
-  ShieldCheck,
-  QrCode,
-  Mail,
-  ClipboardCheck,
-  Users,
-  BarChart3,
-} from "lucide-react";
+import { ShieldCheck, QrCode, Mail, ClipboardCheck, Users, BarChart3 } from "lucide-react";
 
 const Home = () => {
   const { user } = useAuthContext();
@@ -18,50 +11,10 @@ const Home = () => {
   if (user?.role === "security") return <Navigate to="/security" />;
   if (user?.role === "employee") return <Navigate to="/employee" />;
 
-  const features = [
-    {
-      icon: ClipboardCheck,
-      title: "Visitor Registration",
-      description:
-        "Visitors can register online by providing their details and visit purpose.",
-    },
-    {
-      icon: Users,
-      title: "Employee Approval",
-      description:
-        "Employees can review and approve or reject visitor requests instantly.",
-    },
-    {
-      icon: Mail,
-      title: "Email Notifications",
-      description:
-        "Approved visitors receive an email confirmation with their visitor pass attached.",
-    },
-    {
-      icon: QrCode,
-      title: "QR Verification",
-      description:
-        "Security staff can scan QR codes for quick and secure check-in/check-out.",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Secure Access",
-      description:
-        "Role-based authentication ensures only authorized users access the system.",
-    },
-    {
-      icon: BarChart3,
-      title: "Dashboard & Reports",
-      description:
-        "Track visitors, approvals and daily check-ins through dedicated dashboards.",
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Hero Section */}
       <section className="bg-linear-to-r pt-24 md:pt-30 from-sky-500 to-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-24 text-center">
 
@@ -91,11 +44,9 @@ const Home = () => {
               Register as Visitor
             </Link>
           </div>
-
         </div>
       </section>
 
-      {/* Features */}
       <section className="max-w-7xl mx-auto px-6 py-20">
 
         <div className="text-center">
@@ -109,50 +60,102 @@ const Home = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-14">
+          <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition p-6">
+            <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
+              <ClipboardCheck className="text-blue-600" size={28} />
+            </div>
 
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
+            <h3 className="text-xl font-semibold mt-5">
+              Visitor Registration
+            </h3>
 
-            return (
-              <div
-                key={index}
-                className="bg-white rounded-xl shadow-md hover:shadow-xl transition p-6"
-              >
-                <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
-                  <Icon className="text-blue-600" size={28} />
-                </div>
+            <p className="text-gray-600 mt-3">
+              Visitors can register online by providing their details and visit purpose.
+            </p>
+          </div>
 
-                <h3 className="text-xl font-semibold mt-5">
-                  {feature.title}
-                </h3>
+          <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition p-6">
+            <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
+              <Users className="text-blue-600" size={28} />
+            </div>
 
-                <p className="text-gray-600 mt-3">
-                  {feature.description}
-                </p>
-              </div>
-            );
-          })}
+            <h3 className="text-xl font-semibold mt-5">
+              Employee Approval
+            </h3>
+
+            <p className="text-gray-600 mt-3">
+              Employees can review and approve or reject visitor requests instantly.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition p-6">
+            <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
+              <Mail className="text-blue-600" size={28} />
+            </div>
+
+            <h3 className="text-xl font-semibold mt-5">
+              Email Notifications
+            </h3>
+
+            <p className="text-gray-600 mt-3">
+              Approved visitors receive an email confirmation with their visitor pass attached.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition p-6">
+            <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
+              <QrCode className="text-blue-600" size={28} />
+            </div>
+
+            <h3 className="text-xl font-semibold mt-5">
+              QR Verification
+            </h3>
+
+            <p className="text-gray-600 mt-3">
+              Security staff can scan QR codes for quick and secure check-in/check-out.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition p-6">
+            <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
+              <ShieldCheck className="text-blue-600" size={28} />
+            </div>
+
+            <h3 className="text-xl font-semibold mt-5">
+              Secure Access
+            </h3>
+
+            <p className="text-gray-600 mt-3">
+              Role-based authentication ensures only authorized users access the system.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition p-6">
+            <div className="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center">
+              <BarChart3 className="text-blue-600" size={28} />
+            </div>
+
+            <h3 className="text-xl font-semibold mt-5">
+              Dashboard & Reports
+            </h3>
+
+            <p className="text-gray-600 mt-3">
+              Track visitors, approvals and daily check-ins through dedicated dashboards.
+            </p>
+          </div>
+
         </div>
 
       </section>
 
-      {/* How It Works */}
       <section className="bg-white py-20">
-
         <div className="max-w-6xl mx-auto px-6">
-
           <div className="text-center">
-            <h2 className="text-3xl font-bold">
-              How It Works
-            </h2>
-
-            <p className="mt-3 text-gray-600">
-              A simple four-step visitor management process.
-            </p>
+            <h2 className="text-3xl font-bold">How It Works</h2>
+            <p className="mt-3 text-gray-600">A simple four-step visitor management process.</p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-8 mt-16 text-center">
-
             <div>
               <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mx-auto">
                 1
@@ -196,99 +199,68 @@ const Home = () => {
               <h3 className="mt-5 font-semibold text-lg">
                 QR Check-In
               </h3>
-              <p className="mt-2 text-gray-600">
-                Security scans the QR code for entry and exit.
-              </p>
+              <p className="mt-2 text-gray-600">Security scans the QR code for entry and exit.</p>
             </div>
-
           </div>
-
         </div>
-
       </section>
 
-      {/* User Roles */}
       <section className="max-w-7xl mx-auto px-6 py-20">
-
         <div className="text-center">
-          <h2 className="text-3xl font-bold">
-            User Roles
-          </h2>
+          <h2 className="text-3xl font-bold">User Roles</h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
 
-          {[
-            {
-              title: "Visitor",
-              items: [
-                "Register for a visit",
-                "Track request status",
-                "Receive visitor pass",
-              ],
-            },
-            {
-              title: "Employee",
-              items: [
-                "Review visitor requests",
-                "Approve or reject visits",
-                "View upcoming visitors",
-              ],
-            },
-            {
-              title: "Security",
-              items: [
-                "Scan QR codes",
-                "Check visitors in/out",
-                "Monitor daily visitors",
-              ],
-            },
-            {
-              title: "Administrator",
-              items: [
-                "Manage users",
-                "View visitor records",
-                "Access dashboards",
-              ],
-            },
-          ].map((role, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl shadow-md p-6"
-            >
-              <h3 className="text-xl font-bold text-blue-600">
-                {role.title}
-              </h3>
+          <div className="bg-white rounded-xl shadow-md p-6">
+            <h3 className="text-xl font-bold text-blue-600">Visitor</h3>
 
-              <ul className="mt-5 space-y-3 text-gray-600 list-disc list-inside">
-                {role.items.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            <ul className="mt-5 space-y-3 text-gray-600 list-disc list-inside">
+              <li>Register for a visit</li>
+              <li>Track request status</li>
+              <li>Receive visitor pass</li>
+            </ul>
+          </div>
 
+          <div className="bg-white rounded-xl shadow-md p-6">
+            <h3 className="text-xl font-bold text-blue-600">Employee</h3>
+
+            <ul className="mt-5 space-y-3 text-gray-600 list-disc list-inside">
+              <li>Review visitor requests</li>
+              <li>Approve or reject visits</li>
+              <li>View upcoming visitors</li>
+            </ul>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-md p-6">
+            <h3 className="text-xl font-bold text-blue-600">Security</h3>
+
+            <ul className="mt-5 space-y-3 text-gray-600 list-disc list-inside">
+              <li>Scan QR codes</li>
+              <li>Check visitors in/out</li>
+              <li>Monitor daily visitors</li>
+            </ul>
+          </div>
+
+          <div className="bg-white rounded-xl shadow-md p-6">
+            <h3 className="text-xl font-bold text-blue-600">Administrator</h3>
+
+            <ul className="mt-5 space-y-3 text-gray-600 list-disc list-inside">
+              <li>Manage users</li>
+              <li>View visitor records</li>
+              <li>Access dashboards</li>
+            </ul>
+          </div>
         </div>
-
       </section>
 
-      {/* Footer */}
       <footer className="bg-blue-700 text-gray-300 py-8 text-center">
-
-        <h3 className="text-xl font-semibold text-white">
-          Visitor Pass Management System
-        </h3>
-
-        <p className="mt-2">
-          Secure • Fast • Paperless
-        </p>
-
+        <h3 className="text-xl font-semibold text-white">Visitor Pass Management System</h3>
+        <p className="mt-2">Secure - Fast - Paperless</p>
         <p className="mt-4 text-sm text-blue-400">
           © 2026 Visitor Pass Management System. All Rights Reserved.
         </p>
-
       </footer>
-
     </div>
   );
 };

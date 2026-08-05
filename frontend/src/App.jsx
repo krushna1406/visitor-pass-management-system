@@ -19,7 +19,6 @@ function App() {
           <Route path="/signup" element={<VisitorSignup/>}/>
           <Route path='/' element={<Home />} />
 
-          {/* Admin Routes */}
           <Route
             path="/admin"
             element={
@@ -36,7 +35,6 @@ function App() {
             <Route path="users" element={<AllUsers />} />
           </Route>
 
-          {/* Employee Routes  */}
           <Route 
             path='/employee'
             element={
@@ -51,7 +49,6 @@ function App() {
             <Route path="my-visitors" element={<EmpVisitorList/>}/>
           </Route>
 
-          {/* Security Routes */}
           <Route path='/security'
             element={
               <ProtectedRoute role={'security'}>
@@ -65,7 +62,6 @@ function App() {
             <Route path="check-out" element={<CheckOut/>}/>
           </Route>
 
-          {/* Visitor Routes */}
           <Route path='/visitor'
             element={
               <ProtectedRoute role={'visitor'}>
