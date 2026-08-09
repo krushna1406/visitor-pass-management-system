@@ -78,7 +78,7 @@ The application follows a **client-server architecture** with a clear separation
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Set up Guide
 
 ### Prerequisites
 

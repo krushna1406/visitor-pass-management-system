@@ -29,35 +29,22 @@ const Navbar = () => {
                VisitDesk
             </Link>
 
-            {/* Desktop nav */}
             <nav className='hidden md:flex'>
-               {!user &&
-                  <div className='flex gap-4'>
-                     <Link to='/login'
-                        className='bg-white px-5 py-3 rounded-lg border-2 border-blue-500 font-semibold text-blue-700'
-                     >
-                        Login
-                     </Link>
+               <div className='flex gap-4'>
+                  <Link to='/login'
+                     className='bg-white px-5 py-3 rounded-lg border-2 border-blue-500 font-semibold text-blue-700'
+                  >
+                     Login
+                  </Link>
 
-                     <Link to='/signup'
-                        className='bg-white rounded-lg px-2 py-3 border-2 border-blue-500 text-blue-700 font-semibold'
-                     >
-                        Visitor Signup
-                     </Link>
-                  </div>
-               }
-               {user &&
-                  <div onClick={handleLogout}>
-                     <Link
-                        className='bg-blue-200 border-blue-800 text-blue-800 rounded-md'
-                     >
-                        Logout
-                     </Link>
-                  </div>
-               }
+                  <Link to='/signup'
+                     className='bg-white rounded-lg px-2 py-3 border-2 border-blue-500 text-blue-700 font-semibold'
+                  >
+                     Visitor Signup
+                  </Link>
+               </div>
             </nav>
 
-            {/* Hamburger button — mobile only */}
             <button
                className='md:hidden text-slate-900 p-2 rounded-lg hover:bg-white/20 transition-colors'
                onClick={() => setSidebarOpen(true)}
@@ -67,7 +54,6 @@ const Navbar = () => {
             </button>
          </div>
 
-         {/* Mobile sidebar overlay */}
          {sidebarOpen && (
             <div
                className='fixed inset-0 bg-black/40 backdrop-blur-sm z-50 md:hidden'
@@ -75,13 +61,11 @@ const Navbar = () => {
             />
          )}
 
-         {/* Mobile sidebar */}
          <div
             className={`fixed top-0 right-0 h-full w-72 bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out md:hidden
                ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'}
             `}
          >
-            {/* Sidebar header */}
             <div className='flex items-center justify-between px-6 py-5 border-b border-gray-200'>
                <span className='text-xl font-bold text-slate-800'>Menu</span>
                <button
@@ -93,7 +77,6 @@ const Navbar = () => {
                </button>
             </div>
 
-            {/* Sidebar links */}
             <div className='flex flex-col gap-3 px-6 py-6'>
                {!user && (
                   <>
