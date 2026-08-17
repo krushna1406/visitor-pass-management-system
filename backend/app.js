@@ -17,6 +17,12 @@ app.get('/', (req, res) => {
    })
 })
 
+app.get('/health', (req, res) => {
+   res.status(200).json({
+      success: true, message: 'Ok', timestamp: new Date().toISOString()
+   })
+})
+
 app.use('/api/auth', authRoutes);
 app.use('/api/visitors', visitorRoutes);
 app.use('/api/users', userRoutes);
