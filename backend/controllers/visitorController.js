@@ -5,8 +5,8 @@ const sendEmail = require('../utils/sendEmail');
 const approvalEmail = require('../templates/approvalEmail');
 const rejectionEmail = require('../templates/rejectionEmail');
 const generatePass = require('../utils/generateVisitorPass');
-
 const QRCode = require('qrcode');
+const cloudinary = require('../config/cloudinary');
 
 exports.createVisitor = async (req, res) => {
    const data = req.body;
@@ -30,13 +30,31 @@ exports.createVisitor = async (req, res) => {
          }
          employeeId = employee._id;
       }
-      const visitor = await Visitor.create({ ...data, employee: employeeId });
+
+      let photoUrl = null;
+
+      if(req.file) {
+         const result = await new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream({
+               folder: 'visitor-pass-mgmt/visitors'
+            }, (error, result) => {
+               if(error) reject(error);
+               else resolve(result);
+            }
+            )
+            uploadStream.end(req.file.buffer);
+         })
+         photoUrl = result.secure_url;
+      }
+
+      const visitor = await Visitor.create({ ...data, employee: employeeId, photo: photoUrl });
       res.status(201).json({
          success: true,
          message: 'Visitor created successfully',
          visitor
       })
-   } catch (error) {
+   } catch(error) {
+      console.log('Inside visitor controller\n',error);
       res.status(400).json({
          success: false,
          message: error.message
