@@ -24,13 +24,13 @@ const Visitor = ({ visitor, index }) => {
   }
   return (
     <>
-      <div className='max-h-18 grid grid-cols-[0.3fr_1.1fr_1.5fr_1.2fr_0.4fr_1fr_0.2fr] gap-2 mx-2 bg-white my-2 py-3 px-4 rounded-md text-gray-600 shadow-sm shadow-gray-200 wrap-break-word'>
+      <div className='max-h-18 grid grid-cols-[0.3fr_1.1fr_1.5fr_1fr_0.1fr_1fr_0.2fr] gap-4 mx-2 bg-white my-2 py-3 px-4 rounded-md text-gray-600 shadow-sm shadow-gray-200 wrap-break-word'>
 
         {visitor.photo ? (
-          <img src={visitor.photo} className='rounded-full p-1 -translate-y-1'/>
+          <img src={visitor.photo} className='w-10 h-10 rounded-full -translate-y-1 border-2 border-blue-500'/>
         ) : (
           <img
-            src="/profile-placeholder.jpg" className='rounded-full p-1 -translate-y-1' 
+            src="/profile-placeholder.jpg" className='w-10 h-10 rounded-full -translate-y-1 border-2 border-blue-500' 
           />
         )}
         

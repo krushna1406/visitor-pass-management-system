@@ -51,7 +51,7 @@ const AllEmployees = () => {
 
   return (
     <div className='bg-[#f9f9f9] py-1 shadow-sm m-3 rounded-md'>
-      <div className='grid grid-cols-[0.3fr_1.2fr_1.7fr_0.8fr_1fr] gap-2 px-5 py-3 bg-blue-500 text-white rounded-t-md'>
+      <div className='grid grid-cols-[0.3fr_1.2fr_1.7fr_0.8fr_1fr] gap-2 px-5 py-3 bg-blue-500 text-white rounded-t-md font-bold'>
         <p className=''>EmpId</p>
         <p className='ml-5'>Name</p>
         <p className='ml-5'>Email</p>
