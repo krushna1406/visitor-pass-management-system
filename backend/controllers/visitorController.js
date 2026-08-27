@@ -7,6 +7,7 @@ const rejectionEmail = require('../templates/rejectionEmail');
 const generatePass = require('../utils/generateVisitorPass');
 const QRCode = require('qrcode');
 const cloudinary = require('../config/cloudinary');
+const {Parser} = require('json2csv');
 
 exports.createVisitor = async (req, res) => {
    const data = req.body;
@@ -330,6 +331,45 @@ exports.verifyPass = async (req, res) => {
          activeLog
       })
    } catch (error) {
+      res.status(500).json({
+         success: false,
+         message: error.message
+      })
+   }
+}
+
+exports.exportVisitorsCSV = async (req, res) => {
+   try{
+      const visitors = await Visitor.find({}).populate('employee', 'empId name email')
+      .lean();
+
+      const data = visitors.map(visitor => ({
+         Name: visitor.name,
+         Email: visitor.email,
+         Phone: visitor.phone,
+         Purpose: visitor.purpose,
+         Employee_Id: visitor.employee?.empId || '',
+         Employee_Name: visitor.employee?.name || '',
+         Employee_Email: visitor.employee?.email || '',
+         Visit_Date: visitor.visitDate,
+         Status: visitor.status,
+         Created_At: visitor.createdAt
+      }));
+
+      const fields = [
+         'Name', 'Email', 'Phone', 'Purpose', 'Employee_Id', 'Employee_Name', 'Employee_Email', 'Visit_Date', 'Status', 'Created_At'
+      ]
+
+      const parser = new Parser({fields});
+      const csv = parser.parse(data);
+
+      res.header('Content-Type', 'text/csv');
+      res.attachment('visitors.csv');
+      res.send(csv);
+
+   }catch(error) {
+      console.log('Csv export error:', error);
+
       res.status(500).json({
          success: false,
          message: error.message

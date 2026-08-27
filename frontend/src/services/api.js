@@ -10,7 +10,6 @@ API.interceptors.request.use((config) => {
    }
    return config;
 })
-//Due to this, there is no need to pass headers as parameter to every function
 
 export const createVisitor = async (data) => {
    const response = await API.post('/api/visitors', data);
@@ -42,7 +41,6 @@ export const updateVisitStatus = async (id, status) => {
    return response.data;
 }
 
-// Login 
 export const loginUser = async (loginData) => {
    const response = await API.post('/api/auth/login', loginData);
    return response.data;
@@ -105,6 +103,11 @@ export const checkInVisitor = async (id) => {
 
 export const checkOutVisitor = async (id) => {
    const response = await API.patch(`/api/checklogs/${id}/checkout`);
+   return response.data;
+}
+
+export const exportCSV = async () => {
+   const response = await API.get('/api/visitors/export/csv', {responseType: 'blob'});
    return response.data;
 }
 

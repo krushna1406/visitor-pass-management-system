@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getVisitors, getVisitor, createVisitor, updateVisitor, deleteVisitor, updateVisitorStatus, checkInVisitor, checkOutVisitor, getVisitorPass, getVisitorStats, verifyPass } = require('../controllers/visitorController')
+const { getVisitors, getVisitor, createVisitor, updateVisitor, deleteVisitor, updateVisitorStatus, getVisitorPass, getVisitorStats, verifyPass, exportVisitorsCSV } = require('../controllers/visitorController')
 const requireAuth = require('../middleware/requireAuth');
 const { requireAdmin, requireEmployee, requireSecurity, requireVisitor } = require('../middleware/requireRole');
 const upload = require('../middleware/upload');
@@ -7,6 +7,7 @@ const upload = require('../middleware/upload');
 router.use(requireAuth);
 
 router.get('/', getVisitors);
+router.get('/export/csv', exportVisitorsCSV);
 router.get('/:id', getVisitor);
 router.post('/', upload.single('photo'), createVisitor);
 

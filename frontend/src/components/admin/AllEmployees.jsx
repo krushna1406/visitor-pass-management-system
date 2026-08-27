@@ -59,16 +59,18 @@ const AllEmployees = () => {
         <p className='ml-5'>Role</p>
       </div>
       
-      {users.length === 0 ? (
-        <div className='text-gray-400 text-center my-8'>
-          <div className='flex justify-center'><IoInformationCircleOutline size={40} /></div>
-          <p>No records found</p>
-        </div>
-      ) : (
-        users.map((user, index) =>
-          <User key={user._id} user={user} index={index} />
-        )
-      )}
+      <div className='h-[calc(100vh-180px)] overflow-y-auto'>
+        {users.length === 0 ? (
+          <div className='text-gray-400 text-center my-8'>
+            <div className='flex justify-center'><IoInformationCircleOutline size={40} /></div>
+            <p>No records found</p>
+          </div>
+        ) : (
+          users.map((user, index) =>
+            <User key={user._id} user={user} index={index} />
+          )
+        )}
+      </div>
     </div>
   )
 }
