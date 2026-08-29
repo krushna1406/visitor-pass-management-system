@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Visitor from './Visitor'
-import { getAllVisitor } from '../../services/api';
+import { exportPDF, exportCSV, getAllVisitor } from '../../services/api';
 import { useVisitorContext } from '../../hooks/useVisitorContext';
 import { IoInformationCircleOutline } from 'react-icons/io5'
-import { exportCSV } from '../../services/api';
+import {LuDownload} from 'react-icons/lu'
 import toast from 'react-hot-toast';
 
 const VisitorList = () => {
@@ -50,7 +50,26 @@ const VisitorList = () => {
       link.remove();
       window.URL.revokeObjectURL(url);
     }catch(error){
-      toast.error('Failed to export csv file');
+      toast.error('Failed to download csv file');
+    }
+  }
+
+  const handlePDFExport = async () => {
+    try{
+      const data = await exportPDF();
+
+      const url = window.URL.createObjectURL(data);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'visitors_data.pdf';
+
+      document.body.appendChild(link);
+      link.click();
+
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    }catch(error){
+      toast.error('Failed to download pdf');
     }
   }
 
@@ -66,12 +85,20 @@ const VisitorList = () => {
     <>
       <div className='flex justify-between px-12 py-3'>
         <div className='h-8 border pt-1 px-5 mt-3 rounded-2xl'>Search Component here</div>
-        <button
-          onClick={handleCSVExport}
-          className='px-3 py-2 mt-2 rounded-md bg-yellow-400 hover:bg-yellow-500 transition-[0.09] active:bg-yellow-600 active:scale-98'
-        >
-          Export CSV
-        </button>
+        <div>
+          <button
+            onClick={handleCSVExport}
+            className='px-3 py-2 mt-2 mx-3 rounded-xl bg-yellow-400 hover:shadow-md transition-[0.09] active:bg-yellow-500 active:scale-98'
+          >
+            <LuDownload size={20} className='inline-block mr-2'/>.csv
+          </button>
+          <button
+            onClick={handlePDFExport}
+            className='px-3 py-2 mt-2 mx-3 rounded-xl bg-yellow-400 hover:shadow-md transition-[0.09] active:bg-yellow-500 active:scale-98'
+          >
+            <LuDownload size={20} className='inline-block mr-2'/> .pdf
+          </button>
+        </div>
       </div>
       <div className='bg-[#f9f9f9] py-1 mx-8 shadow-sm rounded-md'>
         <div className='grid grid-cols-[0.3fr_1.1fr_1.5fr_0.8fr_0.4fr_1fr] gap-2 px-5 py-3 bg-blue-500  text-white rounded-t-md font-bold'>

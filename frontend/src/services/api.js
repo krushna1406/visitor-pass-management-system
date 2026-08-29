@@ -111,4 +111,9 @@ export const exportCSV = async () => {
    return response.data;
 }
 
+export const exportPDF = async () => {
+   const response = await API.get('/api/visitors/export/pdf', {responseType: 'blob'});
+   return response.data;
+}
+
 export default API;

@@ -8,6 +8,7 @@ const generatePass = require('../utils/generateVisitorPass');
 const QRCode = require('qrcode');
 const cloudinary = require('../config/cloudinary');
 const {Parser} = require('json2csv');
+const document = require('pdfkit');
 
 exports.createVisitor = async (req, res) => {
    const data = req.body;
@@ -370,6 +371,74 @@ exports.exportVisitorsCSV = async (req, res) => {
    }catch(error) {
       console.log('Csv export error:', error);
 
+      res.status(500).json({
+         success: false,
+         message: error.message
+      })
+   }
+}
+
+exports.exportVisitorsPDF = async (req, res) => {
+   try{
+      const visitors = await Visitor.find({}).populate('employee', 'empId name email').lean();
+
+      const doc = new document({margin:40});
+
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename="visitors_data.pdf"');
+
+      doc.pipe(res);
+
+      doc.fontSize(20).text('Visitor Pass Management System', {
+         align: 'center'
+      });
+
+      doc.moveDown();
+      
+      doc.fontSize(16).text('Visitor Records', {
+         align: 'center'
+      });
+
+      doc.moveDown(2);
+
+      visitors.forEach((visitor, index) => {
+
+         doc.fontSize(12).text(`Visitor ${index + 1}`, {
+            underline: true
+         });
+
+         doc.moveDown(0.5);
+         doc.fontSize(10);
+
+         doc.text(`Name: ${visitor.name}`);
+         doc.text(`Email: ${visitor.email}`);
+         doc.text(`Phone: ${visitor.phone}`);
+         doc.text(`Purpose: ${visitor.purpose}`);
+         doc.text(
+            `Employee: ${visitor.employee?.name || 'N/A'}`
+         );
+         doc.text(
+            `Employee ID: ${visitor.employee?.empId || 'N/A'}`
+         );
+         doc.text(
+            `Visit Date: ${new Date(visitor.visitDate).toLocaleString()}`
+         );
+         doc.text(`Status: ${visitor.status}`);
+         doc.text(
+            `Pass Generated: ${visitor.passGenerated ? 'Yes' : 'No'}`
+         );
+
+         doc.moveDown();
+
+         doc.moveTo(40, doc.y)
+            .lineTo(555, doc.y)
+            .stroke();
+
+         doc.moveDown();
+      });
+      doc.end();
+      
+   }catch(error) {
       res.status(500).json({
          success: false,
          message: error.message
