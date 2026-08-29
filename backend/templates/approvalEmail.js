@@ -1,61 +1,51 @@
-
 const approvalEmail = (visitor) => {
+
    return `
-      <div style="max-width: 650px; margin: auto; font-family: Arial, Helvetica, sans-serif; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+      <div style="max-width: 600px; margin: auto; padding: 20px; border-radius: 5px; background-color: #f4f4f4b6; font-family: Arial, Helvetica, sans-serif; color: #484848;">
 
-         <div style="background-color: #16a34a; color: white; padding: 20px; text-align: center;">
-            <h2 style="margin: 0;">Visitor Request Approved</h2>
-         </div>
+         <h2 style="margin-bottom: 20px; color: #06b300;">
+            Visitor Request Approved
+         </h2>
+         <hr>
+         <p>Dear <strong>${visitor.name}</strong>,</p>
+         <p>Your visitor request has been approved. Your visitor pass is attached to this email as a PDF.</p>
+         <p style="margin-top: 20px;"><strong>Visit Details</strong></p>
+   
+         <table style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+            <tr>
+               <td style="padding: 8px 0; width: 140px;">Visitor Name:</td>
+               <td style="padding: 8px 0;">${visitor.name}</td>
+            </tr>
+   
+            <tr>
+               <td style="padding: 8px 0;">Host:</td>
+               <td style="padding: 8px 0;">${visitor.employee.name}</td>
+            </tr>
 
-         <div style="padding: 30px; color: #374151; line-height: 1.7;">
+            <tr>
+               <td style="padding: 8px 0;">Purpose:</td>
+               <td style="padding: 8px 0;">${visitor.purpose}</td>
+            </tr>
 
-            <p>Dear <strong>${visitor.name}</strong>,</p>
+            <tr>
+               <td style="padding: 8px 0;">Visit Date:</td>
+               <td style="padding: 8px 0;">
+                  ${new Date(visitor.visitDate).toDateString()}
+               </td>
+            </tr>
+         </table>
+         <hr>
 
-            <p>
-               We are pleased to inform you that your visitor request has been
-               <strong style="color: #16a34a;">approved</strong>.
-               Please find your Visitor Pass attached to this email in PDF format.
-            </p>
-
-            <div style="background: #f9fafb; border-left: 4px solid #16a34a; padding: 15px; margin: 25px 0;">
-
-               <p style="margin: 6px 0;"><strong>Visitor Name:</strong> ${visitor.name}</p>
-
-               <p style="margin: 6px 0;"><strong>Host:</strong> ${visitor.employee.name}</p>
-
-               <p style="margin: 6px 0;"><strong>Purpose:</strong> ${visitor.purpose}</p>
-
-               <p style="margin: 6px 0;"><strong>Visit Date:</strong> ${new Date(visitor.visitDate).toDateString()}</p>
-
-            </div>
-
-            <p>
-               Kindly carry the attached Visitor Pass (printed or on your mobile device)
-               and present it to the security personnel at the entrance during your visit.
-            </p>
-
-            <p>
-               We recommend arriving a few minutes before your scheduled visit time.
-               If you are unable to attend, please inform your host in advance.
-            </p>
-
-            <br>
-
-            <p>
-               We look forward to welcoming you.<br><br>
-
-               Kind Regards,<br>
-               <strong>Visitor Pass Management Team</strong>
-            </p>
-
-         </div>
-
-         <div style="background-color: #f3f4f6; text-align: center; padding: 15px; font-size: 13px; color: #6b7280;">
-            This is an automated email. Please do not reply to this message.
-         </div>
-
+         <p>Download the attached visit pass and carry it when you visit. you will not be allowed to enter without this pass.</p>
+         <p style="margin-top: 25px;">
+            Regards,<br>
+            <strong>Visitor Pass Management System</strong>
+         </p>
+         <hr>
+         <p style="margin-top: 30px; font-size: 12px; color: #777;">
+         This is an automated email. Please do not reply to this email.
+         </p>
       </div>
    `;
 };
-
 module.exports = approvalEmail;

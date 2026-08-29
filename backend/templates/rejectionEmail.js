@@ -1,54 +1,50 @@
 const rejectionEmail = (visitor) => {
+
    return `
-      <div style="max-width: 650px; margin: auto; font-family: Arial, Helvetica, sans-serif; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+      <div style="max-width: 600px; margin: auto; padding: 20px; border-radius: 5px; color: #777; background-color: #f5f5f5; font-family: Arial, Helvetica, sans-serif; color: #333;">
 
-         <div style="background-color: #dc2626; color: white; padding: 20px; text-align: center;">
-            <h2 style="margin: 0;">Visitor Request Update</h2>
-         </div>
+         <h2 style="margin-bottom: 20px; color: #ff9d00;">Visitor Request Update</h2>
+         <hr>
+         <p>Dear <strong>${visitor.name}</strong>,</p>
+         <p>Your visitor request has not been approved at this time.</p>
 
-         <div style="padding: 30px; color: #374151; line-height: 1.7;">
+         <p style="margin-top: 20px;"><strong>Visit Details</strong></p>
 
-            <p>Dear <strong>${visitor.name}</strong>,</p>
+         <table style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+            <tr>
+               <td style="padding: 8px 0; width: 160px;">Visitor Name</td>
+               <td style="padding: 8px 0;">${visitor.name}</td>
+            </tr>
 
-            <p>
-               Thank you for your interest in visiting our organization.
-               After reviewing your request, we regret to inform you that your visitor request has not been approved at this time due to some issues.
-            </p>
+            <tr>
+               <td style="padding: 8px 0;">Host</td>
+               <td style="padding: 8px 0;">${visitor.employee.name}</td>
+            </tr>
 
-            <div style="background: #f9fafb; border-left: 4px solid #dc2626; padding: 15px; margin: 25px 0;">
+            <tr>
+               <td style="padding: 8px 0;">Purpose</td>
+               <td style="padding: 8px 0;">${visitor.purpose}</td>
+            </tr>
 
-               <p style="margin: 6px 0;"><strong>Visitor Name:</strong> ${visitor.name}</p>
+            <tr>
+               <td style="padding: 8px 0;">Requested Visit Date</td>
+               <td style="padding: 8px 0;">
+                  ${new Date(visitor.visitDate).toDateString()}
+               </td>
+            </tr>
+         </table>
+         <hr>
+         <p>You may submit a new visitor request if another visit is required.</p>
 
-               <p style="margin: 6px 0;"><strong>Host:</strong> ${visitor.employee.name}</p>
+         <p style="margin-top: 25px;">
+            Regards,<br><br>
+            <strong>Visitor Pass Management System</strong>
+         </p>
+         <hr>
 
-               <p style="margin: 6px 0;"><strong>Purpose:</strong> ${visitor.purpose}</p>
-
-               <p style="margin: 6px 0;"><strong>Requested Visit Date:</strong> ${new Date(visitor.visitDate).toDateString()}</p>
-
-            </div>
-
-            <p>
-               This decision may be due to scheduling constraints or other internal considerations.
-               If you believe this request should be reconsidered, please contact your host for further assistance.
-            </p>
-
-            <p>
-               We appreciate your understanding and hope to welcome you on a future occasion.
-            </p>
-
-            <br>
-
-            <p>
-               Kind Regards,<br>
-               <strong>Visitor Pass Management Team</strong>
-            </p>
-
-         </div>
-
-         <div style="background-color: #f3f4f6; text-align: center; padding: 15px; font-size: 13px; color: #6b7280;">
-            This is an automated email. Please do not reply to this message.
-         </div>
-
+         <p style="margin-top: 30px; font-size: 12px; color: #777;">
+            This is an automated email. Please do not reply to this email.
+         </p>
       </div>
    `;
 };
