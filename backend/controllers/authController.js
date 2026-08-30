@@ -12,22 +12,22 @@ const createToken = (_id) => {
 
 exports.userSignupOtp = async (req, res) => {
    const { name, email, phone, password, role } = req.body;
-   if(!name || !email || !phone || !password || !role) {
-      throw Error('All fields are required')
-   }
-   
-   const exists = await User.findOne({email});
-   if(exists) {
-      throw Error('User already exists!')
-   }
-
-   if(!validator.isEmail(email)) {
-      throw Error('Email is not valid')
-   }
-   if(!validator.isStrongPassword(password)) {
-      throw Error('Password is weak! Try again !!')
-   }
    try{
+      if(!name || !email || !phone || !password || !role) {
+         throw Error('All fields are required')
+      }
+      
+      const exists = await User.findOne({email});
+      if(exists) {
+         throw Error('User already exists!')
+      }
+   
+      if(!validator.isEmail(email)) {
+         throw Error('Email is not valid')
+      }
+      if(!validator.isStrongPassword(password)) {
+         throw Error('Password is weak! Try again !!')
+      }
       const otp = Math.floor(100000+ Math.random() * 900000).toString();
       const hashedOtp = await bcrypt.hash(otp, 10);
 

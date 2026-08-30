@@ -5,13 +5,13 @@ const path = require('path')
 const generateVisitorPass = async (visitor) => {
 
    const fileName = `${visitor._id}.pdf`;
-   const dir = path.join(__dirname, '../temp/passes');   // create temp/passes path first
+   const dir = path.join(__dirname, '../temp/passes');
 
    if(!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, {recursive: true})   // checks and creates the temp/passes path recursively
+      fs.mkdirSync(dir, {recursive: true})
    }
 
-   const filePath = path.join(dir, fileName);   // Now create the file
+   const filePath = path.join(dir, fileName);
 
    const doc = new pdfDocument({
       size: 'A4',

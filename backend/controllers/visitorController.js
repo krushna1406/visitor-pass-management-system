@@ -151,12 +151,10 @@ exports.updateVisitorStatus = async (req, res) => {
       }
 
       if (status === 'approved') {
-
          qrCode = await QRCode.toDataURL(
             visitor._id.toString()
          )
       }
-
       const updatedVisitor = await Visitor.findByIdAndUpdate(id, {
          status,
          qrCode,
@@ -166,12 +164,7 @@ exports.updateVisitorStatus = async (req, res) => {
       ).populate('employee', 'name email');
 
       if (updatedVisitor.status === 'approved') {
-         console.log("STEP 1: Entered approved block");
-
          const pdfPath = await generatePass(updatedVisitor);
-         console.log("STEP 2: PDF generated:", pdfPath);
-
-         console.log("STEP 3: About to call sendEmail()");
          try {
             await sendEmail({
                to: updatedVisitor.email,
@@ -184,20 +177,13 @@ exports.updateVisitorStatus = async (req, res) => {
                   }
                ]
             })
-
-            console.log("STEP 4: sendEmail() completed");
-
          } catch (error) {
-            console.error("STEP 4 FAILED: sendEmail() threw an error");
             console.error(error);
          }
-
-         console.log("STEP 5: After sendEmail()");
          
          const fs = require("fs/promises");
          try {
             await fs.unlink(pdfPath);
-            console.log("PDF deleted successfully.");
 
          } catch (err) {
             console.error("Delete failed:", err);
@@ -214,7 +200,7 @@ exports.updateVisitorStatus = async (req, res) => {
 
       res.status(200).json({
          success: true,
-         message: `Visit ${status}`    // Dynamically show the approved or rejected status
+         message: `Visit ${status}`
       })
 
    } catch (error) {

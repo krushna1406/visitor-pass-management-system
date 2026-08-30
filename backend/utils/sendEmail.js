@@ -26,9 +26,8 @@ const sendEmail = async ({ to, subject, html, attachments = [] }) => {
          }))
       }
 
-      const response = await client.transactionalEmails.sendTransacEmail(emailData);
+      await client.transactionalEmails.sendTransacEmail(emailData);
 
-      console.log("Email sent:", response);
    } catch (error) {
       console.error(error);
       throw error;
