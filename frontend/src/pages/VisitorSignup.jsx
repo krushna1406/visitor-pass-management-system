@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuthContext } from '../hooks/useAuthContext'
-import useSignup from '../hooks/useSignup'
 import { useNavigate } from 'react-router-dom'
 import useVisitorSignup from '../hooks/useVisitorSignup'
 import { ImSpinner8 } from 'react-icons/im'
@@ -13,27 +11,27 @@ const VisitorSignup = () => {
    const [email, setEmail] = useState('');
    const [phone, setPhone] = useState('');
    const [password, setPassword] = useState('');
-
    const [show, setShow] = useState(false);
 
+   const [otp, setOtp] = useState('');
+   const [otpSent, setOtpSent] = useState(false);
    const navigate = useNavigate()
-
-   const { dispatch } = useAuthContext()
-   const { signup, loading, error } = useVisitorSignup()
+   const { verifyEmail, signup, loading, error } = useVisitorSignup()
 
    const handleSubmit = async (e) => {
       e.preventDefault();
 
-      const role = 'visitor';
-      const userData = { name, email, phone, password, role };
+      if(!otpSent) {
+         const role = 'visitor';
+         const userData = { name, email, phone, password, role };
 
-      await signup(userData);
-      if (!error) {
-         setName('');
-         setEmail('')
-         setPhone('');
-         setPassword('')
-         navigate('/visitor')
+         const success = await verifyEmail(userData);
+         if(success) {
+            setOtpSent(true);
+         }
+      } else{
+         await signup(email, otp);
+         navigate('/visitor');
       }
    }
 
@@ -85,7 +83,7 @@ const VisitorSignup = () => {
                <label className='block mb-1 text-md font-medium text-gray-600'>
                   Password<sup className='text-red-500'>*</sup>
                </label>
-               <div className='relative'>
+               <div className='relative mb-0'>
                   <input
                      type={show ? "text" : 'password'}
                      value={password}
@@ -103,13 +101,37 @@ const VisitorSignup = () => {
                   </button>
                </div>
 
-               <button
-                  type='submit'
-                  disabled={loading}
-                  className='w-full bg-amber-500 p-2 mt-2 rounded-md text-white font-semibold'
-               >
-                  {loading ? <ImSpinner8 size={22} className='animate-spin mx-auto' /> : 'Sign Up'}
-               </button>
+               {otpSent ? (
+                  <>
+                     <label className='text-md text-green-500'>
+                        OTP sent to email successfully
+                     </label>
+                     <input type="text"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                        placeholder='Enter 6-digit OTP'
+                        maxLength={6}
+                        required
+                        className='border border-gray-300 text-gray-600 outline-blue-700 rounded-md px-2 py-2 w-full my-3'
+                     />
+                     <button
+                        type='submit'
+                        disabled={loading}
+                        className='w-full bg-amber-500 p-2 mt-2 rounded-md text-white font-semibold'
+                     >
+                        {loading ? <ImSpinner8 size={22} className='animate-spin mx-auto' /> : 'Sign Up'}
+                     </button>
+                  </>
+               ) : (
+                  <button
+                     type='submit'
+                     disabled={loading}
+                     className='w-full bg-amber-500 p-2 mt-2 rounded-md text-white font-semibold'
+                  >
+                     {loading ? <ImSpinner8 size={22} className='animate-spin mx-auto' /> : 'Send OTP'}
+                  </button>
+               )
+               }
 
                <p>
                   Already have an Account ?

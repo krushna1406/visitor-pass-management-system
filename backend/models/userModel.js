@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
 const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
@@ -35,31 +34,11 @@ const userSchema = new mongoose.Schema({
    }
 }, {timestamps: true})
 
-userSchema.statics.signup = async function (empId, name, email, phone, password, role) {
-   if(!name || !email || !phone || !password || !role) {
-      throw Error('All fields are required')
-   }
-
-   const exists = await this.findOne({email});
-   if(exists) {
-      throw Error('User already exists!')
-   }
-   
-   if(!validator.isEmail(email)) {
-      throw Error('Email is not valid')
-   }
-   if(!validator.isStrongPassword(password)) {
-      throw Error('Password is weak! Try again !!')
-   }
-
+userSchema.statics.signup = async function (userData) {
    const salt = await bcrypt.genSalt(10);
-   const hashed = await bcrypt.hash(password, salt);
+   const hashed = await bcrypt.hash(userData.password, salt);
 
-   const userData = {name, email, phone, password: hashed, role};
-   if(empId) {
-      userData.empId = empId;
-   }
-   const user = await this.create(userData);
+   const user = await this.create({...userData, password: hashed});
    return user;
 }
 

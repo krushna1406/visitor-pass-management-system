@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAuthContext } from './useAuthContext';
-import { signupUser } from '../services/api';
+import { signupUser, verifyEmailOTP } from '../services/api';
 import toast from 'react-hot-toast';
 
 const useVisitorSignup = () => {
@@ -9,14 +9,31 @@ const useVisitorSignup = () => {
 
    const {dispatch} = useAuthContext()
 
-   const signup = async (visitorData) => {
+   const verifyEmail = async (visitorData) => {
+      setLoading(true);
+      setError(null);
+      try{
+         const result = await verifyEmailOTP(visitorData);
+         if(result.success) {
+            toast.success('OTP sent to the email');
+            return true;
+         }
+         return false;
+      }catch(error) {
+         const message = error.response?.data?.message || 'Internal server error';
+         setError(message);
+         return false;
+      }finally {
+         setLoading(false);
+      }
+   }
+
+   const signup = async (email, otp) => {
       setLoading(true);
       setError(null)
       try{
-         const result = await signupUser(visitorData);
-         console.log(result)
+         const result = await signupUser({email, otp});
          if(result.success) {
-            toast.success('Signup Successful !')
 
             localStorage.setItem('user', JSON.stringify({
                id: result._id,
@@ -31,12 +48,13 @@ const useVisitorSignup = () => {
             })
          }
       }catch(error) {
-         toast.error(error.response?.data?.message || 'Internal Server Issue');
+         const message = error.response?.data?.message || 'Internal Server Issue'
+         setError(message);
       }finally{
          setLoading(false);
       }
    }
-   return {signup, loading, error};
+   return {verifyEmail, signup, loading, error};
 }
 
 export default useVisitorSignup
