@@ -14,9 +14,16 @@ exports.checkInVisitor = async (req, res) => {
 
       const exists = await CheckLog.findOne({
          visitor: id,
-         checkOut: null
       })
+
       if(exists) {
+         return res.status(400).json({
+            success: false,
+            message: 'Invalid Visit'
+         });
+      }
+
+      if(!exists.checkOut) {
          return res.status(400).json({
             success: false,
             message: 'Already Checked-in'

@@ -8,10 +8,9 @@ const CheckIn = () => {
 
    const [visitor, setVisitor] = useState(null);
    const [loading, setLoading] = useState(false);
-   const [error, setError] = useState(null);
 
    const handleScan = async (visitorId) => {
-
+      
       const result = await verifyPass(visitorId);
       if (result.success) {
          setVisitor(result.visitor);
@@ -20,7 +19,6 @@ const CheckIn = () => {
 
    const handleClick = async () => {
       setLoading(true);
-      setError(null);
       try{
          const result = await checkInVisitor(visitor._id);
          if(result.success) {
@@ -30,7 +28,7 @@ const CheckIn = () => {
             return;
          }
       }catch(error) {
-         setError(error.response?.data?.message);
+         toast.error(error.response?.data?.message);
          setLoading(false);
       }
    }
@@ -109,10 +107,6 @@ const CheckIn = () => {
                </div>
             </div>
          )}
-
-         {error &&
-            <div className='text-center text-red-500 text-lg mt-2'>{error}</div>
-         }
       </div>
    )
 }

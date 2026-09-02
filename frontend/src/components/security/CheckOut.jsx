@@ -4,7 +4,7 @@ import { checkOutVisitor, verifyPass } from '../../services/api';
 import { format } from 'date-fns'
 import { toast } from 'react-hot-toast'
 
-const CheckIn = () => {
+const CheckOut = () => {
 
   const [visitor, setVisitor] = useState(null);
   const [activeLog, setActiveLog] = useState(null);
@@ -14,7 +14,6 @@ const CheckIn = () => {
   const handleScan = async (visitorId) => {
 
     const result = await verifyPass(visitorId);
-    // console.log(result);
     if (result.success) {
       setVisitor(result.visitor);
       setActiveLog(result.activeLog);
@@ -24,17 +23,23 @@ const CheckIn = () => {
   const handleClick = async () => {
     setLoading(true);
     setError(null);
+
+    if(!activeLog) {
+      toast.error('Visitor must check in first');
+      return;
+    }
     try {
       const result = await checkOutVisitor(visitor._id);
       if (result.success) {
         toast.success(result.message);
-        setVisitor(null);
+        setVisitor(null); 
         setActiveLog(null);
-        setLoading(false);
         return;
       }
     } catch (error) {
       setError(error.response?.data?.message);
+    }
+    finally{
       setLoading(false);
     }
   }
@@ -80,11 +85,14 @@ const CheckIn = () => {
 
               <div>
                 <p className="text-sm text-gray-500">Checked in Time</p>
-                <p className="font-medium">
-                  {format(new Date(activeLog.checkIn), "hh:mm a")}
-                </p>
+                {activeLog ? (
+                  <p className="font-medium">
+                    {format(new Date(activeLog.checkIn), "hh:mm a")}
+                  </p>
+                ) 
+                : ( <p className='ml-5 text-gray-500'>_</p> )
+                }
               </div>
-
             </div>
 
             <div>
@@ -113,4 +121,4 @@ const CheckIn = () => {
   )
 }
 
-export default CheckIn
+export default CheckOut
