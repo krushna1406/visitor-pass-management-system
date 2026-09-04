@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Visitor from './Visitor'
 import { exportPDF, exportCSV, getAllVisitor } from '../../services/api';
 import { useVisitorContext } from '../../hooks/useVisitorContext';
@@ -25,10 +25,10 @@ const VisitorList = () => {
             type: 'SET_VISITORS',
             payload: result.visitors
           })
-          setLoading(false)
         }
       } catch (error) {
         setError(error.response?.data?.message || 'Internal server error')
+      } finally {
         setLoading(false)
       }
     }
@@ -73,9 +73,9 @@ const VisitorList = () => {
     }
   }
 
-  {loading && <div className='text-center mt-10 text-gray-400 text-xl'>Loading....</div>}
+  if(loading) {<div className='text-center mt-10 text-gray-400 text-xl'>Loading....</div>}
   
-  {error && 
+  if(error) {
     <div className='text-center mt-10 text-xl text-red-500'>
       {error}
     </div>
@@ -101,7 +101,7 @@ const VisitorList = () => {
         </div>
       </div>
       <div className='bg-[#f9f9f9] py-1 mx-8 shadow-sm rounded-md'>
-        <div className='grid grid-cols-[0.3fr_1.1fr_1.5fr_0.8fr_0.4fr_1fr] gap-2 px-5 py-3 bg-blue-500  text-white rounded-t-md font-bold'>
+        <div className='grid grid-cols-[0.3fr_1.1fr_1.5fr_0.7fr_0.4fr_1.1fr] gap-2 px-5 py-3 bg-blue-500  text-white rounded-t-md font-bold'>
           <p>Profile</p>
           <p>Name</p>
           <p>Email</p>
@@ -111,12 +111,14 @@ const VisitorList = () => {
         </div>
 
         <div className='max-h-[calc(100vh-220px)] overflow-y-auto'>
-          {visitors.length === 0 ? (
+          {loading? (
+            <p className='text-center my-10 text-gray-400 text-xl'>Loading...</p>
+          ) : visitors.length === 0 ? (
             <div className='text-gray-400 text-center my-8'>
               <div className='flex justify-center'><IoInformationCircleOutline size={40}/></div>
               <p>No records found</p>
             </div>
-          ) : (
+          ) :  (
             visitors.map((visitor, index) =>
               <Visitor
                 key={visitor._id} visitor={visitor} index={index}

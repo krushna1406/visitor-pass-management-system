@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Sidebar from '../components/admin/Sidebar'
 import useLogout from '../hooks/useLogout'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
+import { LogOut } from 'lucide-react'
 
 const AdminDashboard = () => {
    const [showProfile, setShowProfile] = useState(false);
@@ -10,6 +11,16 @@ const AdminDashboard = () => {
    const {user} = useAuthContext()
    const {logout} = useLogout()
    const navigate = useNavigate();
+
+   useEffect(() => {
+      const handleClickOutsidde = (e) => {
+         setShowProfile(false); 
+      }
+      document.addEventListener('click', handleClickOutsidde);
+      return () => {
+         document.removeEventListener('mousedown', handleClickOutsidde);
+      }
+   }, [])
 
    const handleLogout = () => {
       logout()
@@ -26,30 +37,30 @@ const AdminDashboard = () => {
             <header className='h-15 bg-white border-b border-gray-200 flex items-center justify-between px-8 shadow'>
                <h1 className='text-2xl font-semibold text-gray-600'>Admin Dashboard</h1>
 
-               {/* Profile Dropdown */}
                <div
-                  onClick={() => setShowProfile(prev => !prev)}
+                  onClick={(e) => {
+                     e.stopPropagation();
+                     setShowProfile(prev => !prev)
+                  }}
                   className='relative'
                >
                   <p className='w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold cursor-pointer'>{user.email.charAt(0).toUpperCase()}</p>
 
                   {showProfile &&
                      <div
-                        className='absolute right-0 top-12 w-64 bg-white rounded-xl shadow-lg border border-gray-200 p-4 z-50'
+                        className='absolute right-0 top-12 w-60 bg-white rounded-xl shadow-lg border border-gray-200 p-4 z-50'
                      >
-                        <p className="font-semibold text-gray-700">{user.email}</p>
-
-                        <p className="text-sm text-gray-500 capitalize">
+                        <p className="text-lg text-blue-500 capitalize">
                            {user.role}
                         </p>
-
-                        <hr className="my-3 text-gray-300" />
+                        <p className="text-sm text-gray-900 overflow-hidden break-all mt-1">{user.email}</p>
+                        <hr className="my-3 text-blue-300" />
 
                         <button
                            onClick={handleLogout}
-                           className="w-full bg-red-400 hover:bg-red-500 text-white rounded-lg py-2"
+                           className="w-full flex gap-2 pl-8 hover:bg-red-50 text-red-500 rounded-sm py-2"
                         >
-                           Logout
+                           <LogOut size={18} className='translate-y-0.5' />Logout
                         </button>
                      </div>
                   }
